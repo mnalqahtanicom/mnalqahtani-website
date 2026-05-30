@@ -1,0 +1,140 @@
+{
+  "site": {
+    "name": "Mohammed Al-Qahtani",
+    "tagline": "Strategy & Transformation",
+    "monogram": "MQ"
+  },
+  "nav": {
+    "about": "About",
+    "expertise": "Expertise",
+    "insights": "Insights",
+    "speaking": "Speaking",
+    "media": "Media",
+    "contact": "Contact",
+    "switchTo": "عربي"
+  },
+  "home": {
+    "meta": {
+      "title": "Mohammed Al-Qahtani — Strategy into Results",
+      "description": "Executive strategy and transformation advisor helping boards and leaders turn bold strategy into measurable, governed performance."
+    },
+    "hero": {
+      "eyebrow": "Executive Strategy Advisor",
+      "headline": "Strategy into results.",
+      "subline": "I help boards and executives bridge the gap between bold strategy and measurable performance — across transformation, governance, and leadership.",
+      "ctaPrimary": "Work with me",
+      "ctaSecondary": "Read insights",
+      "portraitAlt": "Portrait of Mohammed Al-Qahtani"
+    },
+    "credibility": {
+      "years": "Years of experience",
+      "education": "Strategy & Leadership · Michigan State",
+      "domains": "Domains of expertise"
+    },
+    "expertise": {
+      "tag": "Expertise",
+      "title": "Six disciplines, one outcome: execution.",
+      "subtitle": "Integrated capabilities that move organizations from ambition to achievement.",
+      "explore": "Explore"
+    },
+    "approach": {
+      "tag": "The Approach",
+      "title": "Strategy to Results™ Framework",
+      "subtitle": "A proven path from strategic intent to sustained performance."
+    },
+    "insights": {
+      "tag": "Insights",
+      "title": "Thinking on strategy & transformation.",
+      "viewAll": "View all insights",
+      "featured": [
+        { "topic": "Strategy Execution", "title": "Why 70% of transformations fail in the execution layer", "excerpt": "The gap isn't strategy — it's the bridge to delivery." },
+        { "topic": "Governance", "title": "Governance that accelerates, not slows", "excerpt": "Designing oversight that enables bold decisions." },
+        { "topic": "Leadership", "title": "The leader's role in making change stick", "excerpt": "Culture is the operating system of execution." }
+      ]
+    },
+    "quote": {
+      "text": "A strategy is only as good as the organization's ability to execute it. My work begins where most strategies stall.",
+      "by": "Mohammed Al-Qahtani"
+    },
+    "cta": {
+      "title": "Let's discuss your transformation.",
+      "subtitle": "Advisory engagements, board governance, keynotes, and executive workshops.",
+      "button": "Start a conversation"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About — Mohammed Al-Qahtani",
+      "description": "21+ years closing the gap between strategy and results across transformation, governance, performance, and leadership."
+    },
+    "hero": {
+      "eyebrow": "About",
+      "headline": "21 years closing the gap between strategy and results.",
+      "subline": "Mohammed Nasser Al-Qahtani is an executive strategy and transformation advisor who helps institutions turn ambition into measurable, governed performance."
+    },
+    "bio": {
+      "tag": "Biography",
+      "title": "A career built on execution.",
+      "p1": "Over more than 21 years, Mohammed has worked at the intersection of strategy and delivery — the place where most organizations struggle most. He has guided boards, executives, and government entities from bold vision through to governed, sustained performance.",
+      "p2": "His work spans strategy design and execution, organizational transformation, change management, performance management, governance, and leadership development — treated not as separate services but as one integrated system for institutional success.",
+      "p3": "Fluent across Western strategic methodology and the institutional realities of the GCC, Mohammed brings a rare combination: the rigor of a strategist and the pragmatism of an operator who has delivered."
+    },
+    "philosophy": {
+      "tag": "Philosophy",
+      "title": "What I believe.",
+      "quote": "A strategy is only as good as an organization's ability to execute it. My work begins where most strategies stall — turning intent into governed, measurable results that endure."
+    },
+    "credentials": {
+      "tag": "Credentials",
+      "title": "Education & foundation.",
+      "educationKicker": "Education",
+      "educationTitle": "M.Sc. in Management, Strategy & Leadership",
+      "educationBody": "A graduate foundation in strategic management and leadership.",
+      "educationMeta": "Michigan State University",
+      "experienceKicker": "Experience",
+      "experienceTitle": "21+ years across strategy & transformation",
+      "experienceBody": "Advisory, governance, and leadership roles guiding institutions to measurable performance.",
+      "experienceMeta": "Boards · Executives · Government entities"
+    },
+    "timeline": {
+      "tag": "Journey",
+      "title": "Career milestones.",
+      "items": [
+        { "year": "Early career", "title": "Foundations in strategy & performance", "body": "Building expertise in strategic planning and performance systems." },
+        { "year": "Mid career", "title": "Leading transformation & change", "body": "Directing large-scale organizational change and governance." },
+        { "year": "Education", "title": "M.Sc. — Michigan State University", "body": "Management, Strategy & Leadership." },
+        { "year": "Today", "title": "Executive advisor & thought leader", "body": "Advising leaders and institutions; speaking and writing on strategy execution." }
+      ]
+    },
+    "principles": {
+      "tag": "How I work",
+      "title": "Principles that guide every engagement.",
+      "items": [
+        { "title": "Clarity before complexity", "body": "Cut through noise to a direction everyone can act on." },
+        { "title": "Execution is the strategy", "body": "Plans only matter when they're delivered and measured." },
+        { "title": "Build to endure", "body": "Embed governance and capability so results outlast the project." }
+      ]
+    },
+    "downloadBio": "Download executive bio (PDF)"
+  },
+  "expertiseItems": {
+    "strategy-execution": { "title": "Strategy & Execution", "summary": "Clear direction translated into delivered outcomes." },
+    "organizational-transformation": { "title": "Organizational Transformation", "summary": "Reshaping institutions to perform at a new level." },
+    "change-management": { "title": "Change Management", "summary": "Bringing people with you through change that lasts." },
+    "performance-management": { "title": "Performance Management", "summary": "Systems that measure, learn, and improve." },
+    "governance": { "title": "Governance", "summary": "Frameworks that build trust and endure." },
+    "leadership": { "title": "Leadership", "summary": "Developing leaders who carry the mission forward." }
+  },
+  "approachSteps": [
+    { "title": "Diagnose", "body": "Understand the real challenge beneath the symptoms." },
+    { "title": "Design", "body": "Craft a clear, ownable strategy and roadmap." },
+    { "title": "Execute", "body": "Drive delivery, govern progress, manage change." },
+    { "title": "Sustain", "body": "Embed performance so results endure." }
+  ],
+  "footer": {
+    "blurb": "Strategy, transformation, performance & leadership.",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  }
+}
