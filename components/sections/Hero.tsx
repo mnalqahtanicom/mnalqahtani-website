@@ -25,7 +25,7 @@ export default function Hero() {
               <Button href="/#cta" variant="gold">
                 {t('ctaPrimary')}
               </Button>
-              <Button href="/#insights" variant="ghost">
+              <Button href="/insights" variant="ghost">
                 {t('ctaSecondary')}
               </Button>
             </div>

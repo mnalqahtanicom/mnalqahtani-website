@@ -135,6 +135,20 @@
     { "title": "Execute", "body": "Drive delivery, govern progress, manage change." },
     { "title": "Sustain", "body": "Embed performance so results endure." }
   ],
+  "insightsPage": {
+    "metaTitle": "Insights",
+    "metaDescription": "Articles on strategy, transformation, governance, performance, and leadership.",
+    "title": "Insights",
+    "subtitle": "Thinking on strategy, transformation, and leadership.",
+    "searchPlaceholder": "Search articles…",
+    "allCategories": "All",
+    "noResults": "No articles match your search.",
+    "featured": "Featured",
+    "readMore": "Read article",
+    "backToInsights": "All insights",
+    "relatedTitle": "Related insights",
+    "tagsLabel": "Tags"
+  },
   "footer": {
     "blurb": "Strategy, transformation, performance & leadership.",
     "rights": "All rights reserved.",
