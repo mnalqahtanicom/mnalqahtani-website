@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --line: rgba(11, 31, 58, 0.1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+    line-height: 1.6;
+  }
+
+  /* Arabic typography: switch font stacks and loosen line-height */
+  html[dir='rtl'] body {
+    @apply font-sans-ar;
+    line-height: 1.85;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-medium;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  html[dir='rtl'] h1,
+  html[dir='rtl'] h2,
+  html[dir='rtl'] h3 {
+    @apply font-serif-ar;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+}
+
+@layer components {
+  /* Hairline border using the brand line color */
+  .border-line {
+    border-color: var(--line);
+  }
+
+  /* Subtle geometric line motif used on dark navy surfaces */
+  .motif {
+    background-image:
+      linear-gradient(
+        135deg,
+        transparent 49.6%,
+        rgba(200, 162, 75, 0.06) 49.6%,
+        rgba(200, 162, 75, 0.06) 50.4%,
+        transparent 50.4%
+      ),
+      radial-gradient(
+        circle at 85% 20%,
+        rgba(200, 162, 75, 0.1),
+        transparent 40%
+      );
+    background-size:
+      38px 38px,
+      100% 100%;
+  }
+}
