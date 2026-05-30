@@ -6,6 +6,7 @@ import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Timeline from '@/components/sections/Timeline';
 import Principles from '@/components/sections/Principles';
+import Portrait from '@/components/ui/Portrait';
 import { routing } from '@/i18n/routing';
 
 export function generateStaticParams() {
@@ -47,7 +48,9 @@ function AboutHero() {
               {t('subline')}
             </p>
           </div>
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[300px] overflow-hidden rounded-2xl border border-gold/35 bg-gradient-to-b from-[#1a3454] to-navy shadow-portrait" />
+          <div className="mx-auto w-full max-w-[300px]">
+            <Portrait alt={t('portraitAlt')} />
+          </div>
         </div>
       </Container>
     </section>

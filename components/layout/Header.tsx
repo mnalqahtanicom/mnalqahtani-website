@@ -22,8 +22,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-line bg-ivory/80 backdrop-blur-md">
       <Container>
         <div className="flex h-[76px] items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 text-navy">
-            <span className="grid h-10 w-10 place-items-center rounded-[9px] border border-gold bg-navy font-serif text-[17px] font-semibold text-gold">
+          <Link href="/" className="flex items-center gap-3.5 text-navy">
+            {/* Gold seal monogram (Latin "MQ" in both locales) */}
+            <span className="grid h-[46px] w-[46px] place-items-center rounded-full bg-navy font-serif text-[17px] font-semibold tracking-wide text-gold shadow-[0_0_0_1px_#C8A24B,inset_0_0_0_3px_#0B1F3A,0_0_0_4px_rgba(200,162,75,0.45)]">
               {tSite('monogram')}
             </span>
             <span className="leading-tight">
