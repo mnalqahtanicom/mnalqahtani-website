@@ -214,6 +214,15 @@
   .foot-links a:hover{ color: var(--gold); }
   .foot-bottom{ padding-top: 22px; font-size:13px; color: rgba(247,245,240,.45); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
 
+  .headline-variant {
+    display:none; margin: 0 0 26px; background: transparent; cursor:pointer;
+    border: 1px solid rgba(200,162,75,.45); color: var(--gold);
+    font-family: var(--sans); font-size: 13px; font-weight:600;
+    padding: 8px 16px; border-radius: 999px; transition: all .2s;
+  }
+  html[dir="rtl"] .headline-variant { display:inline-flex; }
+  .headline-variant:hover { background: rgba(200,162,75,.12); }
+
   .annot { /* tiny floating note explaining this is a mockup */
     position: fixed; bottom: 16px; inset-inline-start: 16px; z-index:200;
     background: var(--gold); color: var(--navy); font-size: 12px; font-weight:600;
@@ -254,8 +263,11 @@
       <span class="eyebrow"><span class="en-only">Executive Strategy Advisor</span><span class="ar-only">مستشار استراتيجي تنفيذي</span></span>
       <h1>
         <span class="en-only">Strategy into <span class="accent">results.</span></span>
-        <span class="ar-only">من الاستراتيجية إلى <span class="accent">الأثر.</span></span>
+        <span class="ar-only" id="arHeadline">من الاستراتيجية إلى <span class="accent">الأثر.</span></span>
       </h1>
+      <button class="ar-only headline-variant" onclick="swapHeadline()">
+        جرّب الصياغة البديلة ↔
+      </button>
       <p class="lede">
         <span class="en-only">I help boards and executives bridge the gap between bold strategy and measurable performance — across transformation, governance, and leadership.</span>
         <span class="ar-only">أساعد المجالس والقيادات التنفيذية على ردم الفجوة بين الاستراتيجية الطموحة والأداء القابل للقياس — عبر التحول والحوكمة والقيادة.</span>
@@ -306,7 +318,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-tag"><span class="en-only">The Approach</span><span class="ar-only">المنهجية</span></span>
-      <h2><span class="en-only">The Execution Bridge™</span><span class="ar-only">جسر التنفيذ™</span></h2>
+      <h2><span class="en-only">Strategy to Results™ Framework</span><span class="ar-only">إطار الاستراتيجية إلى النتائج™</span></h2>
       <p><span class="en-only">A proven path from strategic intent to sustained performance.</span><span class="ar-only">مسار مثبت من النيّة الاستراتيجية إلى أداء مستدام.</span></p>
     </div>
     <div class="steps">
@@ -384,6 +396,17 @@
     html.setAttribute('dir', isAr ? 'ltr' : 'rtl');
     html.setAttribute('lang', isAr ? 'en' : 'ar');
     window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // A/B test the two Arabic hero headlines live
+  var arVariant = 0;
+  var arHeadlines = [
+    'من الاستراتيجية إلى <span class="accent">الأثر.</span>',                       // approved
+    'من الاستراتيجية إلى <span class="accent">نتائج قابلة للقياس.</span>'           // alternative
+  ];
+  function swapHeadline(){
+    arVariant = arVariant ? 0 : 1;
+    document.getElementById('arHeadline').innerHTML = arHeadlines[arVariant];
   }
 </script>
 </body>
