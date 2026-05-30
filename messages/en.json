@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "Mohammed Al-Qahtani",
-    "tagline": "Strategy & Transformation",
+    "tagline": "Strategy · Performance · Transformation",
     "monogram": "MQ"
   },
   "nav": {
@@ -27,9 +27,12 @@
       "portraitAlt": "Portrait of Mohammed Al-Qahtani"
     },
     "credibility": {
-      "years": "Years of experience",
-      "education": "Strategy & Leadership · Michigan State",
-      "domains": "Domains of expertise"
+      "items": [
+        { "value": "21+ Years", "label": "Executive experience" },
+        { "value": "Strategy & Transformation", "label": "Area of expertise" },
+        { "value": "Michigan State University", "label": "M.Sc. Strategy & Leadership" },
+        { "value": "Prosci Certified", "label": "Change management" }
+      ]
     },
     "expertise": {
       "tag": "Expertise",
@@ -70,7 +73,8 @@
     "hero": {
       "eyebrow": "About",
       "headline": "21 years closing the gap between strategy and results.",
-      "subline": "Mohammed Nasser Al-Qahtani is an executive strategy and transformation advisor who helps institutions turn ambition into measurable, governed performance."
+      "subline": "Mohammed Nasser Al-Qahtani is an executive strategy and transformation advisor who helps institutions turn ambition into measurable, governed performance.",
+      "portraitAlt": "Portrait of Mohammed Nasser Al-Qahtani"
     },
     "bio": {
       "tag": "Biography",

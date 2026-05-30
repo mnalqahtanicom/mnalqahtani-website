@@ -5,6 +5,13 @@ export const siteConfig = {
   email: 'contact@mnalqahtani.com',
 } as const;
 
+/**
+ * Executive portrait source. Leave `null` to show the premium placeholder.
+ * Set to a path (e.g. '/portrait.jpg') or wire to the CMS in Phase 2 to
+ * display the real photo with zero further code changes.
+ */
+export const portraitSrc: string | null = null;
+
 // Ordered list of expertise disciplines (slugs map to message keys)
 export const expertiseSlugs = [
   'strategy-execution',

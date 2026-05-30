@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!-- mnalqahtani.com — BRANDING & LAYOUT PROPOSALS (visual concepts, not production code) -->
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Branding & Layout Proposals — Mohammed Al-Qahtani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0B1F3A; --slate:#33415C; --gold:#C8A24B; --gold-soft:#d8bd7e;
+    --ivory:#F7F5F0; --white:#fff; --ink:#11161D; --muted:#6B7280; --line:rgba(11,31,58,.10);
+    --serif:'Fraunces',serif; --sans:'IBM Plex Sans',sans-serif;
+    --serif-ar:'Noto Kufi Arabic',sans-serif; --sans-ar:'IBM Plex Sans Arabic',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--sans);background:var(--ivory);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;}
+  .page-head{background:var(--navy);color:var(--ivory);padding:48px 0;text-align:center;}
+  .page-head h1{color:#fff;font-size:34px;margin-bottom:8px;}
+  .page-head p{color:rgba(247,245,240,.7);font-size:15px;}
+  .section{padding:54px 0;border-bottom:1px solid var(--line);}
+  .sec-label{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;}
+  .section h2{font-size:26px;color:var(--navy);margin:8px 0 6px;}
+  .section .note{color:var(--muted);font-size:14px;max-width:60ch;margin-bottom:28px;}
+
+  /* header bar demos */
+  .bar{background:rgba(247,245,240,.9);border:1px solid var(--line);border-radius:14px;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;margin-bottom:14px;}
+  .bar.rtl{direction:rtl;}
+  .logo{display:flex;align-items:center;gap:13px;}
+  .wm{line-height:1.15;}
+  .wm .nm{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--navy);}
+  .bar.rtl .wm .nm{font-family:var(--serif-ar);font-size:17px;}
+  .wm .tg{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;font-family:var(--sans);}
+  .bar.rtl .wm .tg{font-family:var(--sans-ar);letter-spacing:0;text-transform:none;font-size:11.5px;}
+  .navlinks{display:flex;gap:20px;color:var(--slate);font-size:14px;}
+  .bar.rtl .navlinks{font-family:var(--sans-ar);}
+  .variant-name{font-family:var(--sans);font-weight:600;color:var(--navy);font-size:15px;margin:26px 0 12px;display:flex;align-items:center;gap:10px;}
+  .variant-name .pill{background:var(--gold);color:var(--navy);font-size:11px;padding:3px 10px;border-radius:999px;font-weight:700;}
+  .variant-desc{font-size:13.5px;color:var(--muted);margin-bottom:14px;max-width:64ch;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .lbl{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+
+  /* ---- Monogram styles (A, B, C) ---- */
+  /* A: rounded square */
+  .mA{width:44px;height:44px;border-radius:10px;background:var(--navy);border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:.02em;}
+  /* B: gold seal / circular double-ring */
+  .mB{width:46px;height:46px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:17px;position:relative;box-shadow:0 0 0 1px var(--gold),inset 0 0 0 3px var(--navy),0 0 0 4px rgba(200,162,75,.45);}
+  /* C: minimal wordmark-led mark */
+  .mC{display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .mC .lt{font-family:var(--serif);font-weight:600;font-size:24px;color:var(--navy);letter-spacing:.04em;line-height:1;}
+  .mC .rule{width:30px;height:2px;background:var(--gold);}
+
+  /* monogram on navy swatch */
+  .swatches{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;}
+  .swatch{background:var(--navy);border-radius:12px;padding:22px;display:grid;place-items:center;width:120px;}
+  .swatch .cap{margin-top:10px;color:rgba(247,245,240,.5);font-size:11px;text-align:center;}
+  .mC.onnavy .lt{color:#fff;}
+
+  /* ---- Credibility strip ---- */
+  .cred{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media(max-width:760px){.cred{grid-template-columns:repeat(2,1fr);}}
+  .credcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 20px;text-align:center;position:relative;overflow:hidden;}
+  .credcard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
+  .credcard .ic{width:38px;height:38px;margin:0 auto 12px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-size:16px;}
+  .credcard b{display:block;font-family:var(--serif);color:var(--navy);font-size:19px;margin-bottom:3px;}
+  .credcard span{font-size:12.5px;color:var(--muted);}
+
+  /* ---- Portrait section ---- */
+  .portrait-demo{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px;}
+  @media(max-width:760px){.portrait-demo{grid-template-columns:1fr;}}
+  .pframe{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:linear-gradient(160deg,#1a3454,#0B1F3A 70%);border:1px solid rgba(200,162,75,.35);box-shadow:0 30px 60px -22px rgba(0,0,0,.45);display:grid;place-items:center;}
+  .pframe .ph{color:rgba(247,245,240,.45);text-align:center;font-size:13px;padding:0 20px;}
+  .pframe .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold);}
+  .pframe .c1{top:14px;left:14px;border-right:0;border-bottom:0;}
+  .pframe .c2{bottom:14px;right:14px;border-left:0;border-top:0;}
+  .pbody .sec-label{margin-bottom:8px;display:block;}
+  .pbody h3{font-size:24px;color:var(--navy);margin-bottom:12px;}
+  .pbody p{color:var(--slate);font-size:15px;margin-bottom:10px;}
+  .upload-note{margin-top:14px;background:rgba(200,162,75,.1);border:1px dashed var(--gold);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--slate);}
+
+  .foot{padding:30px 0;text-align:center;color:var(--muted);font-size:13px;}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <div class="wrap">
+    <h1>Branding & Layout Proposals</h1>
+    <p>Visual concepts for your review — nothing is implemented yet.</p>
+  </div>
+</div>
+
+<!-- ============ 1. LOGO ALTERNATIVES ============ -->
+<div class="section">
+  <div class="wrap">
+    <span class="sec-label">1 · Branding</span>
+    <h2>Three premium logo directions</h2>
+    <p class="note">All keep the <strong>MQ monogram</strong> (Latin) in both language versions. Arabic wordmark is now the full name <strong>محمد ناصر القحطاني</strong> with the tagline <strong>الاستراتيجية والأداء والتحول</strong>. English shown with an aligned tagline for parity.</p>
+
+    <!-- Variant A -->
+    <div class="variant-name">Alternative A — Monogram Lockup <span class="pill">Refined current</span></div>
+    <div class="variant-desc">A refined version of today's mark: navy rounded square, fine gold border, serif “MQ”. Classic, safe, unmistakably executive.</div>
+    <div class="grid2">
+      <div><div class="lbl">English (LTR)</div>
+        <div class="bar">
+          <div class="logo"><div class="mA">MQ</div><div class="wm"><div class="nm">Mohammed Al-Qahtani</div><div class="tg">Strategy · Performance · Transformation</div></div></div>
+          <div class="navlinks"><span>About</span><span>Expertise</span><span>Insights</span></div>
+        </div>
+      </div>
+      <div><div class="lbl">Arabic (RTL)</div>
+        <div class="bar rtl">
+          <div class="logo"><div class="mA">MQ</div><div class="wm"><div class="nm">محمد ناصر القحطاني</div><div class="tg">الاستراتيجية والأداء والتحول</div></div></div>
+          <div class="navlinks"><span>نبذة</span><span>الخبرة</span><span>الرؤى</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant B -->
+    <div class="variant-name">Alternative B — Gold Seal Monogram <span class="pill">Most prestigious</span></div>
+    <div class="variant-desc">A circular “seal” with a double gold ring — evokes institutions, boards, and authority. The most premium / formal of the three.</div>
+    <div class="grid2">
+      <div><div class="lbl">English (LTR)</div>
+        <div class="bar">
+          <div class="logo"><div class="mB">MQ</div><div class="wm"><div class="nm">Mohammed Al-Qahtani</div><div class="tg">Strategy · Performance · Transformation</div></div></div>
+          <div class="navlinks"><span>About</span><span>Expertise</span><span>Insights</span></div>
+        </div>
+      </div>
+      <div><div class="lbl">Arabic (RTL)</div>
+        <div class="bar rtl">
+          <div class="logo"><div class="mB">MQ</div><div class="wm"><div class="nm">محمد ناصر القحطاني</div><div class="tg">الاستراتيجية والأداء والتحول</div></div></div>
+          <div class="navlinks"><span>نبذة</span><span>الخبرة</span><span>الرؤى</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant C -->
+    <div class="variant-name">Alternative C — Minimal Wordmark-led <span class="pill">Modern luxury</span></div>
+    <div class="variant-desc">No box. A clean serif “MQ” over a fine gold rule, letting the name lead. Editorial, contemporary, understated — think luxury fashion houses.</div>
+    <div class="grid2">
+      <div><div class="lbl">English (LTR)</div>
+        <div class="bar">
+          <div class="logo"><div class="mC"><div class="lt">MQ</div><div class="rule"></div></div><div class="wm"><div class="nm">Mohammed Al-Qahtani</div><div class="tg">Strategy · Performance · Transformation</div></div></div>
+          <div class="navlinks"><span>About</span><span>Expertise</span><span>Insights</span></div>
+        </div>
+      </div>
+      <div><div class="lbl">Arabic (RTL)</div>
+        <div class="bar rtl">
+          <div class="logo"><div class="mC"><div class="lt">MQ</div><div class="rule"></div></div><div class="wm"><div class="nm">محمد ناصر القحطاني</div><div class="tg">الاستراتيجية والأداء والتحول</div></div></div>
+          <div class="navlinks"><span>نبذة</span><span>الخبرة</span><span>الرؤى</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatches">
+      <div class="swatch"><div class="mA">MQ</div><div class="cap">A on navy</div></div>
+      <div class="swatch"><div class="mB">MQ</div><div class="cap">B on navy</div></div>
+      <div class="swatch"><div class="mC onnavy"><div class="lt">MQ</div><div class="rule"></div></div><div class="cap">C on navy</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2. PORTRAIT ============ -->
+<div class="section">
+  <div class="wrap">
+    <span class="sec-label">2 · Professional Portrait</span>
+    <h2>Executive portrait section</h2>
+    <p class="note">A premium framed portrait with gold corner accents. Built to accept your real photo later — you'll just upload it (via the CMS or a single file) and it appears automatically.</p>
+    <div class="portrait-demo">
+      <div class="pframe">
+        <span class="corner c1"></span><span class="corner c2"></span>
+        <div class="ph">Your professional<br/>executive portrait<br/><span style="opacity:.6">(premium placeholder)</span></div>
+      </div>
+      <div class="pbody">
+        <span class="sec-label">About</span>
+        <h3>Mohammed Nasser Al-Qahtani</h3>
+        <p>Executive advisor in strategy, performance, and transformation — with 21+ years turning ambition into measurable results.</p>
+        <p>The portrait sits in a refined navy frame with subtle gold corners, matching the brand.</p>
+        <div class="upload-note">📤 <strong>Upload-ready:</strong> drop in <code>portrait.jpg</code> (or upload via the CMS) — no code needed. A tasteful placeholder shows until then.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 3. CREDIBILITY STRIP ============ -->
+<div class="section">
+  <div class="wrap">
+    <span class="sec-label">3 · Homepage</span>
+    <h2>Executive credibility indicators (below hero)</h2>
+    <p class="note">Four trust signals as premium cards, directly beneath the hero — replacing the current simple strip.</p>
+    <div class="cred">
+      <div class="credcard"><div class="ic">★</div><b>21+ Years</b><span>Executive experience</span></div>
+      <div class="credcard"><div class="ic">◆</div><b>Strategy & Transformation</b><span>Area of expertise</span></div>
+      <div class="credcard"><div class="ic">🎓</div><b>Michigan State University</b><span>M.Sc. Strategy & Leadership</span></div>
+      <div class="credcard"><div class="ic">✓</div><b>Prosci Certified</b><span>Change management</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">mnalqahtani.com — branding & layout proposals · for review only</div>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
+import Portrait from '@/components/ui/Portrait';
 
 export default function Hero() {
   const t = useTranslations('home.hero');
@@ -30,14 +31,8 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-2xl border border-gold/35 bg-gradient-to-b from-[#1a3454] to-navy shadow-portrait">
-            <div className="grid h-full place-items-center px-5 text-center text-[13px] text-ivory/35">
-              {t('portraitAlt')}
-            </div>
-            <div
-              className="absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-navy/90 to-transparent"
-              aria-hidden
-            />
+          <div className="mx-auto w-full max-w-[340px]">
+            <Portrait alt={t('portraitAlt')} />
           </div>
         </div>
       </Container>
