@@ -11,8 +11,8 @@
   border-inline-start:1px solid var(--line);
 }
 .brand { display:flex; align-items:center; gap:12px; padding:6px 10px 22px; }
-.brand .name { font-weight:900; font-size:19px; color:var(--blue); letter-spacing:-.02em; }
-.brand .name small { display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.18em; }
+.brand-logo { height:54px; width:auto; }
+.brand-tag { font-size:10px; font-weight:700; letter-spacing:.26em; color:var(--muted); align-self:flex-end; padding-bottom:8px; }
 
 .nav { display:flex; flex-direction:column; gap:3px; }
 .nav .section { font-size:11px; font-weight:700; letter-spacing:.16em; color:var(--muted); padding:14px 14px 6px; }
@@ -95,7 +95,7 @@
 .hero .eyebrow { color:var(--green-2); }
 .hero h1 { font-size:var(--fs-hero); font-weight:900; letter-spacing:-.025em; margin:10px 0 6px; }
 .hero .lead { color:rgba(250,247,241,.85); font-size:18px; max-width:46ch; }
-.hero .hero-art { position:absolute; inset-inline-start:34px; inset-block-start:50%; transform:translateY(-50%); opacity:.9; }
+.hero .hero-logo { position:absolute; inset-inline-start:40px; inset-block-start:36px; height:84px; width:auto; opacity:.95; }
 .hero .cta-row { display:flex; gap:12px; margin-top:24px; flex-wrap:wrap; }
 .hero .ring { position:absolute; border-radius:50%; border:1px solid rgba(255,255,255,.10); }
 .hero .ring.r1 { width:420px; height:420px; inset-inline-start:-120px; inset-block-start:-160px; }

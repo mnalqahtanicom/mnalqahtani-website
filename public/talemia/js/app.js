@@ -45,7 +45,7 @@
     return `
     <section class="hero reveal">
       <span class="ring r1"></span><span class="ring r2"></span>
-      <div class="eq lg animate hero-art" style="position:absolute;inset-inline-start:44px;inset-block-start:46px;height:64px"><i></i><i></i><i></i><i></i><i></i></div>
+      <img class="hero-logo float" src="assets/talemia-logo-white.png" alt="التعليمية">
       <div class="eyebrow">صبغتُنا · أنا تعليمي</div>
       <h1>صباح الخير، ${TP.me.first}.</h1>
       <p class="lead">عملك اليوم يصنع أثراً في منظومة التعليم. هذه رحلتك — من أهدافك الشخصية إلى أولويات تَعليميَّة ٢٠٢٦.</p>
@@ -228,7 +228,7 @@
       </div>
       <div class="xp-scroll">
         <div class="xp-stage">
-          <div class="xp-eq xp-r" style="--d:.1s"><i></i><i></i><i></i><i></i><i></i></div>
+          <img class="xp-logo xp-r" style="--d:.1s" src="assets/talemia-logo-white.png" alt="التعليمية">
           <div class="xp-kicker xp-r" style="--d:.3s">برنامج التقدير السنوي · ٢٠٢٦</div>
           <div class="xp-tribute xp-r" style="--d:.6s">تكريــمــاً لـ</div>
           <h1 class="xp-name xp-r" style="--d:.9s">${me.name}</h1>
@@ -289,8 +289,8 @@
     document.getElementById('app').innerHTML=`
       <div class="shell">
         <aside class="rail">
-          <div class="brand"><div class="eq"><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="name">التعليميَّة<small>EXPERIENCE</small></div></div>
+          <div class="brand"><img class="brand-logo" src="assets/talemia-logo.png" alt="التعليمية Talemia">
+            <span class="brand-tag">EXPERIENCE</span></div>
           <nav class="nav">
             <div class="section">المنصّة</div>
             ${nav.map(n=>`<a class="${S.route===n[0]?'active':''}" data-go="${n[0]}">${I(n[2])}<span>${n[1]}</span></a>`).join('')}
