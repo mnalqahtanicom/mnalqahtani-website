@@ -10,7 +10,8 @@
   const beh = id => TP.behaviors.find(b=>b.id===id)||{};
   const pri = id => TP.priorities.find(p=>p.id===id)||{};
 
-  const S = { role:'employee', route:'home', cmTab:'overview', draft:{title:'',priorities:[],behaviors:[]} };
+  const S = { role:'employee', route:'home', cmTab:'overview',
+    cmPeriod:'month', cmScope:'all', draft:{title:'',priorities:[],behaviors:[]} };
 
   /* ---------------- nav config ---------------- */
   const NAV = {
@@ -261,13 +262,29 @@
   const CM_TABS = [
     ['overview','نظرة عامة','grid'],
     ['participation','المشاركة','voice'],
-    ['managers','مساءلة المدراء','team'],
+    ['managers','دعم المدراء','team'],
     ['recognition','التقدير والتفاعل','heart'],
     ['alignment','المواءمة الاستراتيجية','thread'],
     ['behaviors','صبغتنا الجينية','spark'],
     ['readiness','الجاهزية والخرائط','growth'],
     ['followup','المتابعة الداعمة','compass'],
   ];
+
+  const PERIODS=[['week','أسبوع'],['month','شهر'],['quarter','ربع'],['year','سنة']];
+  function cmScopeOptions(){
+    const opts=['<option value="all">كل القطاعات والإدارات</option>'];
+    opts.push('<optgroup label="القطاعات">'+TP.cm.sectorOps.map(s=>`<option value="sec:${s.ar}" ${S.cmScope==='sec:'+s.ar?'selected':''}>${s.ar}</option>`).join('')+'</optgroup>');
+    opts.push('<optgroup label="الإدارات">'+TP.cm.deptOps.map(d=>`<option value="dep:${d.ar}" ${S.cmScope==='dep:'+d.ar?'selected':''}>${d.ar}</option>`).join('')+'</optgroup>');
+    opts.push('<optgroup label="المدراء">'+TP.cm.managerOps.map(m=>`<option value="mgr:${m.ar}" ${S.cmScope==='mgr:'+m.ar?'selected':''}>${m.ar}</option>`).join('')+'</optgroup>');
+    return opts.join('');
+  }
+  function cmFilters(){
+    return `<div class="cmfilters reveal d2">
+      <div class="seg-period">${PERIODS.map(p=>`<button class="${S.cmPeriod===p[0]?'on':''}" data-cmperiod="${p[0]}">${p[1]}</button>`).join('')}</div>
+      <div class="cmscope">${I('grid','ic-sm')}<select id="cmScopeSel">${cmScopeOptions()}</select></div>
+      ${S.cmScope!=='all'?`<span class="tag info">${I('compass','ic-sm')} مُصفّى: ${S.cmScope.split(':')[1]}</span>`:''}
+    </div>`;
+  }
 
   function cmdash(){
     const c=TP.cm; const tab=S.cmTab||'overview';
@@ -284,24 +301,48 @@
       <h1>لوحة قيادة التغيير</h1>
       <p class="lead">متابعةٌ داعمة للتبنّي والمشاركة والجاهزية التنظيمية — لتمكين الفرق ودعمها، لا لمقارنتها أو محاسبتها.</p>
     </section>
+    ${cmFilters()}
     <div class="cmtabs reveal d2">${CM_TABS.map(t=>`<button class="cmtab ${tab===t[0]?'on':''}" data-cmtab="${t[0]}">${I(t[2],'ic-sm')} ${t[1]}</button>`).join('')}</div>
     <div class="reveal d2" style="margin-top:18px">${body}</div>
     <div class="notice privacy reveal" style="margin-top:18px">${I('shield','ic-sm')} لوحة داعمة وتمكينية — لإدارة التغيير والموارد البشرية ومكتب الاستراتيجية. تجميعية (n ≥ ٥)، غير تنافسية، ولا تُستخدم للمحاسبة أو ترتيب الأفراد.</div>`;
   }
 
-  /* 1 · Overview */
-  function cmOverview(){ const c=TP.cm;
-    return `<div class="grid g4">
-      ${cmStat('معدّل المشاركة', c.participationRate+'%','مشاركة المنظومة','team')}
-      ${cmStat('معدّل التبنّي', c.adoptionRate+'%','نحو التجذّر','growth')}
-      ${cmStat('تقدير هذا الشهر', c.recognitionThisMonth, c.recognitionTrend+' عن السابق','heart')}
-      ${cmStat('اعتماد الأهداف', Math.round(c.goalsApproved/(c.goalsApproved+c.goalsAwaiting)*100)+'%','من الأهداف المرسلة','target')}
+  /* 1 · Executive Summary + trends + improvement opportunities */
+  function cmOverview(){ const c=TP.cm; const L=c.trendLabels;
+    const exec=(lbl,val,ic)=>`<div class="exec-cell"><span class="exec-ic">${I(ic,'ic-sm')}</span><div><div class="exec-v tnum">${val}</div><div class="exec-l">${lbl}</div></div></div>`;
+    const lineChart=(arr,label,col)=>{ const mx=Math.max(...arr),mn=Math.min(...arr)-2,W=300,H=90;
+      const pts=arr.map((v,i)=>`${(i/(arr.length-1))*W},${H-((v-mn)/Math.max(1,mx-mn))*(H-10)-5}`).join(' ');
+      const area=`0,${H} `+pts+` ${W},${H}`;
+      return `<div class="card"><div class="h">${I('growth','ic-lg')}<h3>${label}</h3><span class="tag ok" style="margin-inline-start:auto">${I('growth','ic-sm')} +${arr.at(-1)-arr[0]} نقطة</span></div>
+        <svg viewBox="0 0 ${W} ${H+22}" style="width:100%;height:130px">
+          <defs><linearGradient id="ar${col}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".28"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
+          <polygon points="${area}" fill="url(#ar${col})"/>
+          <polyline points="${pts}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          ${arr.map((v,i)=>`<circle cx="${(i/(arr.length-1))*W}" cy="${H-((v-mn)/Math.max(1,mx-mn))*(H-10)-5}" r="3.5" fill="#fff" stroke="${col}" stroke-width="2"/>`).join('')}
+          ${L.map((l,i)=>`<text x="${(i/(arr.length-1))*W}" y="${H+16}" text-anchor="middle" font-size="10" fill="#7B8A91" font-family="Tajawal">${l}</text>`).join('')}
+        </svg></div>`; };
+    return `
+    <div class="card exec-summary"><div class="h">${I('compass','ic-lg')}<h3>الملخّص التنفيذي</h3>
+      <span class="tag mute" style="margin-inline-start:auto">${PERIODS.find(p=>p[0]===S.cmPeriod)[1]} · ${S.cmScope==='all'?'كامل المنظومة':S.cmScope.split(':')[1]}</span></div>
+      <div class="exec-grid">
+        ${exec('المشاركة', c.participationRate+'%','team')}
+        ${exec('اعتماد الأهداف', Math.round(c.goalsApproved/(c.goalsApproved+c.goalsAwaiting)*100)+'%','target')}
+        ${exec('إكمال ١:١', Math.round(c.oneOnOneDone/c.managersTotal*100)+'%','chat')}
+        ${exec('نشاط التقدير', c.recognitionThisMonth,'heart')}
+        ${exec('الجاهزية', c.adoptionRate+'%','growth')}
+      </div>
     </div>
     <div class="grid g2" style="margin-top:20px">
-      <div class="card"><div class="h">${I('growth','ic-lg')}<h3>اتجاه المشاركة</h3><span style="margin-inline-start:auto">${sparkline(c.participationTrend,140,40)}</span></div>
-        <p class="soft" style="font-size:13.5px">ارتفاع مطّرد في مشاركة المنظومة عبر الأشهر الستّة الماضية — مؤشّر جاهزيةٍ إيجابي.</p></div>
-      <div class="card"><div class="h">${I('heart','ic-lg')}<h3>اتجاه التقدير</h3><span style="margin-inline-start:auto">${sparkline(c.recTrend,140,40)}</span></div>
-        <p class="soft" style="font-size:13.5px">نمو ثقافة التقدير المرتبط بالسلوكيات — التعزيز الإيجابي يتجذّر.</p></div>
+      ${lineChart(c.participationTrend,'اتجاه المشاركة عبر الوقت','#2EA1A1')}
+      ${lineChart(c.adoptionTrend,'اتجاه التبنّي عبر الوقت','#6CBE99')}
+    </div>
+    <div class="card" style="margin-top:20px"><div class="h">${I('sparkle','ic-lg')}<h3>أبرز فرص التحسين</h3>
+      <span class="tag mute" style="margin-inline-start:auto">مبنيّة على بيانات اللوحة · داعمة وتطويرية</span></div>
+      <div class="opps">${c.opportunities.map(o=>`<div class="opp">
+        <span class="opp-ic">${I(o.ic)}</span>
+        <div class="grow"><div class="opp-t">${o.ar} <span class="tag ${o.impact==='مرتفع'?'ok':'info'}" style="font-size:11px">أثر ${o.impact}</span></div>
+          <div class="soft" style="font-size:13px">${o.why}</div>
+          <div class="opp-action">${I('arrow','ic-sm')} ${o.action}</div></div></div>`).join('')}</div>
     </div>`;
   }
 
@@ -398,21 +439,21 @@
   function cmFollowup(){ const c=TP.cm;
     const lowEng=c.sectorOps.filter(s=>s.engagement<55);
     return `<div class="grid g2">
-      <div class="card"><div class="h">${I('voice','ic-lg')}<h3>قطاعات بحاجة لدعم المشاركة</h3></div>
+      <div class="card"><div class="h">${I('voice','ic-lg')}<h3>قطاعات تستفيد من دعمٍ إضافي للمشاركة</h3></div>
         ${c.followUp.noFeedback.map(f=>`<div class="lrow"><div class="grow"><div class="title">${f.sector}</div>
           <div class="soft" style="font-size:13px">${f.pending} من ${f.total} بانتظار المشاركة</div></div>
           <button class="btn ghost sm" data-toast="تم إرسال دعوة ودّية للمشاركة إلى ${f.sector}">${I('voice')} دعوة لطيفة</button></div>`).join('')}</div>
-      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>مدراء بحاجة لمتابعة داعمة</h3></div>
+      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>مدراء يستفيدون من متابعةٍ داعمة</h3></div>
         ${c.followUp.pendingOneOnOne.map(m=>`<div class="lrow"><div class="grow"><div class="title">${m.name}</div>
           <div class="soft" style="font-size:13px">أكمل ${m.done} من ${m.team} محادثة</div></div>
           <button class="btn ghost sm" data-toast="تم إرسال تذكير داعم إلى ${m.name}">${I('arrow')} تذكير داعم</button></div>`).join('')}</div>
     </div>
-    <div class="card" style="margin-top:20px"><div class="h">${I('team','ic-lg')}<h3>فرق بحاجة لاهتمامٍ بالتفاعل</h3>
+    <div class="card" style="margin-top:20px"><div class="h">${I('team','ic-lg')}<h3>فرق تستفيد من اهتمامٍ إضافي بالتفاعل</h3>
       <span class="tag mute" style="margin-inline-start:auto">للدعم لا للمحاسبة</span></div>
       ${lowEng.length?lowEng.map(s=>`<div class="lrow"><span class="sdot" style="background:${s.c}"></span><div class="grow"><div class="title">${s.ar}</div>
         <div class="soft" style="font-size:13px">مؤشّر التفاعل ${s.engagement}% · التبنّي ${s.adoption}%</div></div>
         <button class="btn ghost sm" data-toast="تم اقتراح جلسة دعمٍ وإصغاء لقطاع ${s.ar}">${I('heart')} جلسة دعم</button></div>`).join('')
-        :'<p class="soft">لا توجد فرق دون المستوى حالياً — استمرّ بالدعم الإيجابي.</p>'}</div>`;
+        :'<p class="soft">جميع الفرق ضمن مسارٍ إيجابي حالياً — واصلوا الدعم والاحتفاء.</p>'}</div>`;
   }
 
   /* ============================================================
@@ -596,12 +637,14 @@
       </div>
       <nav class="tabbar">${tabs.map(t=>`<a class="${S.route===t[0]?'active':''}" data-go="${t[0]}">${I(t[2])}<span>${t[1]}</span></a>`).join('')}</nav>`;
     const sel=$('#roleSel'); if(sel) sel.onchange=e=>{ S.role=e.target.value; S.route=(S.role==='change'?'cmdash':'home'); render(); };
+    const scp=$('#cmScopeSel'); if(scp) scp.onchange=e=>{ S.cmScope=e.target.value; render(); };
     window.scrollTo(0,0);
   }
   function go(r){ if(r==='experience'){ openExperience(); return; } S.route=r; render(); }
 
   document.addEventListener('click', e=>{
-    const t=e.target.closest('[data-go],[data-x],[data-toast],[data-cmtab]'); if(!t) return;
+    const t=e.target.closest('[data-go],[data-x],[data-toast],[data-cmtab],[data-cmperiod]'); if(!t) return;
+    if(t.dataset.cmperiod!==undefined){ S.cmPeriod=t.dataset.cmperiod; render(); return; }
     if(t.dataset.cmtab!==undefined){ S.cmTab=t.dataset.cmtab; render(); return; }
     if(t.dataset.go!==undefined) return go(t.dataset.go);
     if(t.dataset.x==='open') return openExperience();

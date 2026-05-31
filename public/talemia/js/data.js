@@ -89,6 +89,14 @@ window.TP = {
     // recognition flow
     recSent: 213, recReceived: 198, recTrend:[120,138,164,181,199,213],
     engagementTrend:[12,12,13,14,15,15], participationTrend:[55,60,64,68,70,72],
+    adoptionTrend:[31,38,44,49,54,58], trendLabels:['يناير','فبراير','مارس','أبريل','مايو','يونيو'],
+    // improvement opportunities (supportive, data-driven)
+    opportunities:[
+      { ar:'دعم مشاركة قطاع التطوير المهني', why:'المشاركة ٥٨٪ والتغذية الراجعة ٤٩٪', action:'جلسة إصغاء + تبسيط دعوات النبض', impact:'مرتفع', ic:'voice' },
+      { ar:'تمكين المدراء في محادثات ١:١', why:'١٤ مديراً بحاجة لإكمال المحادثات', action:'ورشة دعم + قوالب جاهزة للمحادثة', impact:'مرتفع', ic:'chat' },
+      { ar:'تعزيز سلوك «التطوير» و«السرعة»', why:'الأقل حضوراً في صبغتنا (٤٤٪ و٤٧٪)', action:'إبراز قصص نجاح + تقدير مرتبط بالسلوكين', impact:'متوسط', ic:'growth' },
+      { ar:'رفع تبنّي قطاع التربية الخاصة', why:'التبنّي ٤٨٪ والجاهزية ٥٤٪', action:'مرافقة تغيير ميدانية + أبطال تغيير محليّون', impact:'متوسط', ic:'compass' },
+    ],
     // sector operational rollup (participation/feedback/goals/1:1/adoption/readiness/engagement)
     sectorOps:[
       {ar:'المحتوى والمناهج', c:'#2C5F90', participation:74, feedback:78, goals:82, oneonone:80, adoption:62, readiness:70, engagement:58, recognition:52},
