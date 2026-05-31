@@ -64,6 +64,7 @@ function Biography() {
         <SectionHeading tag={t('tag')} title={t('title')} className="mb-6" />
         <div className="space-y-5 text-lg text-slate">
           <p className="text-navy">{t('p1')}</p>
+          <p>{t('p2')}</p>
           <p>{t('p3')}</p>
         </div>
       </Container>

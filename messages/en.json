@@ -16,16 +16,16 @@
   },
   "home": {
     "meta": {
-      "title": "Mohammed Al-Qahtani — Strategy into Results",
-      "description": "Executive strategy and transformation advisor helping boards and leaders turn bold strategy into measurable, governed performance."
+      "title": "Mohammed Nasser Al-Qahtani — Knowledge from practice",
+      "description": "A knowledge platform on strategy, execution, and transformation — practical frameworks, tools, and lessons from more than 21 years inside real organizations."
     },
     "hero": {
-      "eyebrow": "Executive Strategy Advisor",
-      "headline": "Strategy into results.",
-      "subline": "I help boards and executives bridge the gap between bold strategy and measurable performance — across transformation, governance, and leadership.",
-      "ctaPrimary": "Work with me",
-      "ctaSecondary": "Read insights",
-      "portraitAlt": "Portrait of Mohammed Al-Qahtani"
+      "eyebrow": "Strategy • Performance • Transformation",
+      "headline": "Knowledge from practice.",
+      "subline": "Strategy, execution, transformation, and performance management — practical lessons, frameworks, tools, and insights from real-world experience.",
+      "ctaPrimary": "Explore the Knowledge Hub",
+      "ctaSecondary": "The Strategy to Results™ Framework",
+      "portraitAlt": "Mohammed Nasser Al-Qahtani"
     },
     "credibility": {
       "items": [
@@ -47,9 +47,9 @@
       "subtitle": "A proven path from strategic intent to sustained performance."
     },
     "insights": {
-      "tag": "Insights",
-      "title": "Thinking on strategy & transformation.",
-      "viewAll": "View all insights",
+      "tag": "Knowledge Hub",
+      "title": "Practical knowledge, lessons, and frameworks.",
+      "viewAll": "Explore the Knowledge Hub",
       "featured": [
         { "topic": "Strategy Execution", "title": "Why 70% of transformations fail in the execution layer", "excerpt": "The gap isn't strategy — it's the bridge to delivery." },
         { "topic": "Governance", "title": "Governance that accelerates, not slows", "excerpt": "Designing oversight that enables bold decisions." },
@@ -57,32 +57,32 @@
       ]
     },
     "quote": {
-      "text": "A strategy is only as good as the organization's ability to execute it. My work begins where most strategies stall.",
-      "by": "Mohammed Al-Qahtani"
+      "text": "A strategy only matters if the organization can actually carry it out. Most of what I write about lives in that gap — between intent and results.",
+      "by": "Mohammed Nasser Al-Qahtani"
     },
     "cta": {
-      "title": "Let's discuss your transformation.",
-      "subtitle": "Advisory engagements, board governance, keynotes, and executive workshops.",
-      "button": "Start a conversation"
+      "title": "Comparing notes.",
+      "subtitle": "Working on a strategy, performance, or transformation challenge? I'm always glad to exchange ideas.",
+      "button": "Get in touch"
     }
   },
   "about": {
     "meta": {
-      "title": "About — Mohammed Al-Qahtani",
-      "description": "21+ years closing the gap between strategy and results across transformation, governance, performance, and leadership."
+      "title": "About — Mohammed Nasser Al-Qahtani",
+      "description": "Strategy, Performance, and Transformation professional with more than 21 years across strategy execution, transformation, performance management, governance, and change management."
     },
     "hero": {
       "eyebrow": "About",
-      "headline": "21 years closing the gap between strategy and results.",
-      "subline": "Mohammed Nasser Al-Qahtani is an executive strategy and transformation advisor who helps institutions turn ambition into measurable, governed performance.",
-      "portraitAlt": "Portrait of Mohammed Nasser Al-Qahtani"
+      "headline": "A practitioner, sharing what I've learned.",
+      "subline": "Strategy, Performance, and Transformation professional with more than 21 years of experience across strategy execution, organizational transformation, performance management, governance, and change management.",
+      "portraitAlt": "Mohammed Nasser Al-Qahtani"
     },
     "bio": {
-      "tag": "Biography",
-      "title": "A career built on execution.",
-      "p1": "Over more than 21 years, Mohammed has worked at the intersection of strategy and delivery — the place where most organizations struggle most. He has guided boards, executives, and government entities from bold vision through to governed, sustained performance.",
-      "p2": "His work spans strategy design and execution, organizational transformation, change management, performance management, governance, and leadership development — treated not as separate services but as one integrated system for institutional success.",
-      "p3": "Fluent across Western strategic methodology and the institutional realities of the GCC, Mohammed brings a rare combination: the rigor of a strategist and the pragmatism of an operator who has delivered."
+      "tag": "About",
+      "title": "My background.",
+      "p1": "I'm Mohammed Nasser Al-Qahtani. For more than 21 years I've worked on strategy, execution, and organizational transformation — the practical, often unglamorous work of helping institutions move from plans to results.",
+      "p2": "My focus areas are strategy and strategy execution, organizational transformation, change management, performance management, governance, and leadership. I care less about frameworks for their own sake, and more about what holds up under real conditions.",
+      "p3": "Along the way I completed an M.Sc. in Management, Strategy & Leadership at Michigan State University, executive programs at Harvard Business School, and certifications in change management (Prosci) and performance (KPI Institute) — and I've worked alongside firms like Bain & Company, PwC, and Deloitte. This site is where I share what I've learned: a knowledge platform, not a résumé."
     },
     "philosophy": {
       "tag": "Philosophy",
@@ -137,9 +137,9 @@
     { "title": "Sustain", "body": "Embed performance so results endure." }
   ],
   "credentials": {
-    "tag": "Executive Credentials",
-    "title": "Credentials & expertise.",
-    "subtitle": "Two decades of practice, anchored by world-class executive education.",
+    "tag": "Background",
+    "title": "Where this comes from.",
+    "subtitle": "Strategy, Performance, and Transformation professional with more than 21 years of experience across strategy execution, organizational transformation, performance management, governance, and change management.",
     "groups": [
       { "label": "Experience", "items": ["21+ Years Professional Experience"] },
       { "label": "Education", "items": ["M.Sc. in Management, Strategy & Leadership — Michigan State University"] },
@@ -152,11 +152,11 @@
   "strategyToResults": {
     "tag": "Strategy to Results™ Framework",
     "title": "From strategy to measurable results.",
-    "subtitle": "A signature framework that connects six stages into one continuous system — where most organizations lose momentum, this is where it is sustained.",
+    "subtitle": "Six stages, one connected system — built from practice, not theory. It maps where strategy usually loses momentum, and how to carry it through to results.",
     "metaTitle": "Strategy to Results™ Framework",
-    "metaDescription": "The signature framework connecting strategy, execution, change, adoption, performance, and results into one continuous system.",
+    "metaDescription": "A practical framework connecting strategy, execution, change, adoption, performance, and results — built from real-world experience.",
     "learnMore": "Explore the framework",
-    "intro": "Most strategies do not fail at the design stage — they fail in the space between intent and impact. The Strategy to Results™ Framework closes that gap by treating six stages as one connected system, not separate hand-offs.",
+    "intro": "Most strategies don't fail at the design stage — they fail in the space between intent and impact. This framework comes from years of working in that gap: six stages treated as one connected system, not separate hand-offs.",
     "stages": [
       { "name": "Strategy", "body": "A clear, ownable direction the whole organization can act on." },
       { "name": "Execution", "body": "Turning intent into disciplined, governed delivery." },
@@ -199,7 +199,7 @@
     "tagsLabel": "Tags"
   },
   "footer": {
-    "blurb": "Strategy, transformation, performance & leadership.",
+    "blurb": "A knowledge platform on strategy, execution, performance, and transformation.",
     "rights": "All rights reserved.",
     "privacy": "Privacy",
     "terms": "Terms"

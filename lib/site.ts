@@ -23,7 +23,7 @@ export const maintenanceMode = process.env.MAINTENANCE_MODE === 'on';
  * Set to a path (e.g. '/portrait.jpg') or wire to the CMS in Phase 2 to
  * display the real photo with zero further code changes.
  */
-export const portraitSrc: string | null = null;
+export const portraitSrc: string | null = '/portrait.jpg';
 
 // Ordered list of expertise disciplines (slugs map to message keys)
 export const expertiseSlugs = [
