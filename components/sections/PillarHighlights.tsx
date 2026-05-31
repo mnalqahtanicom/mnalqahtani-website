@@ -61,7 +61,7 @@ export default async function PillarHighlights({
             </span>
           </Link>
         </div>
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="reveal grid gap-6 lg:grid-cols-3">
           {items.map((item) => (
             <KnowledgeCard key={item.slug} item={item} />
           ))}

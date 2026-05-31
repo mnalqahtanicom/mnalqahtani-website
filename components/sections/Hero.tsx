@@ -19,17 +19,17 @@ export default async function Hero() {
       <Container className="relative">
         <div className="grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[1.15fr_0.85fr] lg:py-28">
           <div>
-            <span className="mb-5 inline-flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.22em] text-gold rtl:tracking-normal rtl:normal-case">
+            <span className="enter mb-5 inline-flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.22em] text-gold rtl:tracking-normal rtl:normal-case">
               <span className="inline-block h-px w-8 bg-gold" aria-hidden />
               {eyebrow}
             </span>
-            <h1 className="mb-5 text-[clamp(2.5rem,6vw,4.25rem)] text-white">
+            <h1 className="enter d1 mb-5 text-[clamp(2.5rem,6vw,4.25rem)] text-white">
               {headline}
             </h1>
-            <p className="mb-8 max-w-[44ch] text-lg font-light text-ivory/80 sm:text-xl">
+            <p className="enter d2 mb-8 max-w-[44ch] text-lg font-light text-ivory/80 sm:text-xl">
               {subline}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="enter d3 flex flex-wrap gap-4">
               <Button href="/knowledge" variant="gold">
                 {t('ctaPrimary')}
               </Button>

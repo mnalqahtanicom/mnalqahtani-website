@@ -5,6 +5,60 @@
 @layer base {
   :root {
     --line: rgba(11, 31, 58, 0.1);
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  /* ---- Lightweight motion system ----
+     Hidden states apply ONLY when JS has added `.reveal-ready` to <html>,
+     so no-JS visitors and crawlers always see fully-rendered content. */
+  html.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.6s var(--ease),
+      transform 0.6s var(--ease);
+    will-change: opacity, transform;
+  }
+  html.reveal-ready .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.reveal-ready .enter {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: enter 0.7s var(--ease) forwards;
+  }
+  html.reveal-ready .enter.d1 {
+    animation-delay: 0.08s;
+  }
+  html.reveal-ready .enter.d2 {
+    animation-delay: 0.18s;
+  }
+  html.reveal-ready .enter.d3 {
+    animation-delay: 0.28s;
+  }
+  @keyframes enter {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Smooth cross-document transitions on supporting browsers (progressive) */
+  @view-transition {
+    navigation: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.reveal-ready .reveal,
+    html.reveal-ready .reveal.in,
+    html.reveal-ready .enter {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
   }
 
   html {

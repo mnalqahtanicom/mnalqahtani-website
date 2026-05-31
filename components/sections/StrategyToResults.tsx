@@ -20,7 +20,7 @@ export default function StrategyToResults() {
           className="mb-12"
         />
 
-        <ol className="grid gap-px overflow-hidden rounded-2xl border border-ivory/15 bg-ivory/10 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="reveal grid gap-px overflow-hidden rounded-2xl border border-ivory/15 bg-ivory/10 sm:grid-cols-2 lg:grid-cols-3">
           {stages.map((stage, i) => (
             <li key={stage.name} className="bg-navy p-6">
               <div className="mb-3 flex items-center gap-3">

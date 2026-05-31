@@ -10,6 +10,7 @@ import type { Locale } from '@/lib/knowledge/types';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MaintenancePage from '@/components/MaintenancePage';
+import ScrollReveal from '@/components/motion/ScrollReveal';
 import '../globals.css';
 
 // Revalidate every 60s so CMS changes (content, settings, maintenance mode)
@@ -83,6 +84,7 @@ export default async function LocaleLayout({
             />
           ) : (
             <div className="flex min-h-screen flex-col">
+              <ScrollReveal />
               <Header />
               <main className="flex-1">{children}</main>
               <Footer />

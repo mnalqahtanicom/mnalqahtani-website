@@ -14,7 +14,7 @@ export default function SectionHeading({
   className?: string;
 }) {
   return (
-    <div className={cn('max-w-2xl', className)}>
+    <div className={cn('reveal max-w-2xl', className)}>
       <span className="text-sm font-semibold uppercase tracking-[0.2em] text-gold ltr:tracking-[0.2em] rtl:tracking-normal rtl:normal-case">
         {tag}
       </span>

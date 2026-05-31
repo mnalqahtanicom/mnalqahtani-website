@@ -42,10 +42,10 @@ export default async function StoriesPage({
     <>
       <section className="motif bg-navy py-16 text-ivory sm:py-20">
         <Container>
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-gold rtl:tracking-normal rtl:normal-case">
+          <span className="enter text-sm font-semibold uppercase tracking-[0.2em] text-gold rtl:tracking-normal rtl:normal-case">
             {t('title')}
           </span>
-          <h1 className="mt-3 max-w-3xl text-[clamp(2rem,4.5vw,3.25rem)] text-white">
+          <h1 className="enter d1 mt-3 max-w-3xl text-[clamp(2rem,4.5vw,3.25rem)] text-white">
             {t('subtitle')}
           </h1>
         </Container>

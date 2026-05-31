@@ -45,13 +45,13 @@ export default async function ContactPage({
     <>
       <section className="motif bg-navy py-16 text-ivory sm:py-20">
         <Container>
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-gold rtl:tracking-normal rtl:normal-case">
+          <span className="enter text-sm font-semibold uppercase tracking-[0.2em] text-gold rtl:tracking-normal rtl:normal-case">
             {t('tag')}
           </span>
-          <h1 className="mt-3 text-[clamp(2rem,4.5vw,3.25rem)] text-white">
+          <h1 className="enter d1 mt-3 text-[clamp(2rem,4.5vw,3.25rem)] text-white">
             {t('title')}
           </h1>
-          <p className="mt-4 max-w-xl text-lg font-light text-ivory/80">
+          <p className="enter d2 mt-4 max-w-xl text-lg font-light text-ivory/80">
             {t('subtitle')}
           </p>
         </Container>
