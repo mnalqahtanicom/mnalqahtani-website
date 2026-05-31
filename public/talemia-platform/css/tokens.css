@@ -1,0 +1,78 @@
+/* ============================================================
+   TALEMIA EMPLOYEE EXPERIENCE PLATFORM — DESIGN TOKENS
+   Values aligned to Talemia Brand Identity + the signature
+   experience pilot (exact extracted values).
+   ============================================================ */
+:root {
+  /* --- Brand core --- */
+  --brand-blue:        #22577B; /* DarkBlue — primary anchor */
+  --brand-blue-deep:   #194057;
+  --brand-blue-darker: #102D3F;
+  --brand-navy:        #1B3A5C;
+  --brand-aqua:        #6CBE99; /* MediumAquamarine — primary accent / growth */
+  --brand-sea:         #90C685; /* DarkSeaGreen */
+  --brand-teal:        #2EA1A1; /* LightSeaGreen / info */
+  --brand-mint:        #C1DFC4; /* pale */
+  --brand-gray:        #575756; /* DimGray — secondary text */
+
+  /* --- Neutrals --- */
+  --white:   #FFFFFF;
+  --pearl:   #FAFAF7; /* app background */
+  --paper:   #F4F7F4;
+  --n100:    #F1F4F5;
+  --n200:    #E4E8EA;
+  --n300:    #CAD2D6;
+  --n400:    #9AA5AB;
+  --n500:    #6B767C;
+  --n600:    #3D464B;
+  --n700:    #222A2E;
+
+  /* --- Sector colours (from 2026 org structure) --- */
+  --sector-business:  #2C5F90; /* business lines */
+  --sector-corporate: #1B3A5C; /* finance, strategy&BD, PMO, GRC */
+  --sector-shared:    #E0A07E; /* procurement, HC, legal (peach) */
+  --sector-dso:       #5FA570; /* decision support office */
+
+  /* --- Experience Mode (deep navy + brand green = signature luxury) --- */
+  --exp-base:     #0E2533;
+  --exp-base-2:   #16384F;
+  --exp-soft:     #2D6989;
+  --exp-accent:   #6CBE99;
+  --exp-accent-2: #90C685;
+  --exp-teal:     #2EA1A1;
+  --exp-pearl:    #FAFAF7;
+  --exp-glow:     rgba(108, 190, 153, 0.40);
+
+  /* --- Semantic states --- */
+  --success: #6CBE99;
+  --info:    #2EA1A1;
+  --flag:    #E0A93B; /* flag-for-review (non-blocking) */
+  --warn:    #D98032;
+  --error:   #C0473A;
+  --privacy: #6B767C;
+
+  /* --- Typography --- */
+  --font-ar: 'Tajawal', 'Segoe UI', system-ui, sans-serif;
+  --fs-display: 40px; --fs-h1: 32px; --fs-h2: 24px; --fs-h3: 20px;
+  --fs-bodyL: 18px; --fs-body: 16px; --fs-sm: 14px; --fs-cap: 12px;
+  --lh-tight: 1.35; --lh: 1.7;
+
+  /* --- Spacing --- */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px;
+
+  /* --- Radius --- */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-pill: 999px;
+
+  /* --- Elevation --- */
+  --sh-1: 0 1px 3px rgba(20,30,40,.08);
+  --sh-2: 0 4px 16px rgba(20,30,40,.07);
+  --sh-3: 0 12px 32px rgba(20,30,40,.10);
+  --sh-glow: 0 0 28px var(--exp-glow);
+
+  /* --- Layout --- */
+  --maxw: 1280px;
+  --rail: 248px;
+  --header-h: 64px;
+  --bottomnav-h: 64px;
+}
