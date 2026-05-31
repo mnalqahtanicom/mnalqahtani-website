@@ -91,14 +91,14 @@ window.TP = {
     engagementTrend:[12,12,13,14,15,15], participationTrend:[55,60,64,68,70,72],
     // sector operational rollup (participation/feedback/goals/1:1/adoption/readiness/engagement)
     sectorOps:[
-      {ar:'المحتوى والمناهج', c:'#2C5F90', participation:74, feedback:78, goals:82, oneonone:80, adoption:62, readiness:70, engagement:58},
-      {ar:'التربية الخاصة', c:'#2C5F90', participation:61, feedback:57, goals:64, oneonone:57, adoption:48, readiness:54, engagement:51},
-      {ar:'العمليات التعليمية', c:'#2C5F90', participation:70, feedback:71, goals:70, oneonone:66, adoption:55, readiness:63, engagement:55},
-      {ar:'التطوير المهني', c:'#2C5F90', participation:58, feedback:49, goals:61, oneonone:50, adoption:44, readiness:49, engagement:49},
-      {ar:'حلول رأس المال البشري', c:'#2C5F90', participation:79, feedback:80, goals:75, oneonone:78, adoption:62, readiness:72, engagement:62},
-      {ar:'الاستراتيجية وتطوير الأعمال', c:'#1B3A5C', participation:84, feedback:82, goals:81, oneonone:83, adoption:66, readiness:80, engagement:66},
-      {ar:'الموارد البشرية', c:'#E0A07E', participation:76, feedback:74, goals:68, oneonone:72, adoption:60, readiness:68, engagement:60},
-      {ar:'الحوكمة والمخاطر', c:'#1B3A5C', participation:69, feedback:66, goals:66, oneonone:64, adoption:57, readiness:61, engagement:57},
+      {ar:'المحتوى والمناهج', c:'#2C5F90', participation:74, feedback:78, goals:82, oneonone:80, adoption:62, readiness:70, engagement:58, recognition:52},
+      {ar:'التربية الخاصة', c:'#2C5F90', participation:61, feedback:57, goals:64, oneonone:57, adoption:48, readiness:54, engagement:51, recognition:34},
+      {ar:'العمليات التعليمية', c:'#2C5F90', participation:70, feedback:71, goals:70, oneonone:66, adoption:55, readiness:63, engagement:55, recognition:41},
+      {ar:'التطوير المهني', c:'#2C5F90', participation:58, feedback:49, goals:61, oneonone:50, adoption:44, readiness:49, engagement:49, recognition:29},
+      {ar:'حلول رأس المال البشري', c:'#2C5F90', participation:79, feedback:80, goals:75, oneonone:78, adoption:62, readiness:72, engagement:62, recognition:58},
+      {ar:'الاستراتيجية وتطوير الأعمال', c:'#1B3A5C', participation:84, feedback:82, goals:81, oneonone:83, adoption:66, readiness:80, engagement:66, recognition:61},
+      {ar:'الموارد البشرية', c:'#E0A07E', participation:76, feedback:74, goals:68, oneonone:72, adoption:60, readiness:68, engagement:60, recognition:44},
+      {ar:'الحوكمة والمخاطر', c:'#1B3A5C', participation:69, feedback:66, goals:66, oneonone:64, adoption:57, readiness:61, engagement:57, recognition:31},
     ],
     // department rollup (sample) for heatmaps
     deptOps:[

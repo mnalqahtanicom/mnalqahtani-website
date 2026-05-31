@@ -347,7 +347,11 @@
     <div class="grid g2" style="margin-top:20px">
       <div class="card"><div class="h">${I('heart','ic-lg')}<h3>نمو التقدير</h3></div><div class="chart">${c.recTrend.map(v=>`<div class="bar" style="height:${v/Math.max(...c.recTrend)*100}%" data-v="${v}"></div>`).join('')}</div></div>
       <div class="card"><div class="h">${I('growth','ic-lg')}<h3>نمو المشاركة</h3></div><div class="chart">${c.participationTrend.map(v=>`<div class="bar" style="height:${v}%" data-v="${v}%"></div>`).join('')}</div></div>
-    </div>`;
+    </div>
+    <div class="card" style="margin-top:20px"><div class="h">${I('grid','ic-lg')}<h3>التقدير حسب القطاع</h3>
+      <span class="tag mute" style="margin-inline-start:auto">نشاط تقدير تجميعي · للاحتفاء لا للمقارنة</span></div>
+      ${heatTable(c.sectorOps.map(s=>({ar:s.ar,dot:s.c,recognition:s.recognition,engagement:s.engagement})),
+        [{k:'recognition',l:'نشاط التقدير'},{k:'engagement',l:'التفاعل'}],'القطاع')}</div>`;
   }
 
   /* 5 · Strategic Alignment */
