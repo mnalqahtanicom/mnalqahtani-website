@@ -31,3 +31,40 @@ export function PersonJsonLd({ locale }: { locale: string }) {
     />
   );
 }
+
+export function ArticleJsonLd({
+  locale,
+  slug,
+  title,
+  description,
+  datePublished,
+  image,
+}: {
+  locale: string;
+  slug: string;
+  title: string;
+  description: string;
+  datePublished: string;
+  image?: string | null;
+}) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished,
+    inLanguage: locale,
+    image: image ? [image] : undefined,
+    mainEntityOfPage: `${siteConfig.url}/${locale}/insights/${slug}`,
+    author: { '@type': 'Person', name: 'Mohammed Nasser Al-Qahtani' },
+    publisher: { '@type': 'Person', name: 'Mohammed Nasser Al-Qahtani' },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}

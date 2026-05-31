@@ -6,7 +6,7 @@ import { siteConfig } from '@/lib/site';
 const footerLinks = [
   { key: 'about', href: '/about' },
   { key: 'expertise', href: '/#expertise' },
-  { key: 'insights', href: '/#insights' },
+  { key: 'insights', href: '/insights' },
   { key: 'speaking', href: '/#cta' },
   { key: 'contact', href: '/#cta' },
 ] as const;

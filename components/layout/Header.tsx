@@ -9,7 +9,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 const navItems = [
   { key: 'about', href: '/about' },
   { key: 'expertise', href: '/#expertise' },
-  { key: 'insights', href: '/#insights' },
+  { key: 'insights', href: '/insights' },
   { key: 'speaking', href: '/#cta' },
 ] as const;
 
