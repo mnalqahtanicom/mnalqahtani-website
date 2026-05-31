@@ -6,7 +6,8 @@
  *   NEXT_PUBLIC_SANITY_PROJECT_ID
  *   NEXT_PUBLIC_SANITY_DATASET (defaults to "production")
  */
-export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? '';
+export const projectId =
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? '7g0z8oo6';
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? 'production';
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? '2024-10-01';

@@ -90,17 +90,25 @@ function mapRaw(raw: RawItem): KnowledgeItem {
 
 async function sanityList(locale: Locale): Promise<KnowledgeItem[]> {
   if (!sanityClient) return [];
-  const raw = await sanityClient.fetch<RawItem[]>(
-    `*[_type == "knowledge" && defined(slug.current)] | order(publishedAt desc) ${projection}`,
-    { locale },
-  );
-  return raw.map(mapRaw);
+  try {
+    const raw = await sanityClient.fetch<RawItem[]>(
+      `*[_type == "knowledge" && defined(slug.current)] | order(publishedAt desc) ${projection}`,
+      { locale },
+    );
+    return raw.map(mapRaw);
+  } catch {
+    return [];
+  }
 }
 
 // --- public API ------------------------------------------------------------
 
+// Uses live CMS content when present; falls back to in-repo seed content while
+// the CMS is empty (or briefly unreachable) so the site is never blank.
 export async function getAllKnowledge(locale: Locale): Promise<KnowledgeItem[]> {
-  return sanityClient ? sanityList(locale) : seedList(locale);
+  if (!sanityClient) return seedList(locale);
+  const items = await sanityList(locale);
+  return items.length ? items : seedList(locale);
 }
 
 export async function getByPillar(
@@ -130,24 +138,36 @@ export async function getKnowledgeBySlug(
   return all.find((i) => i.slug === slug) ?? null;
 }
 
+const seedRefs = () =>
+  seedKnowledge.map((i) => ({ slug: i.slug, pillar: pillarOf(i.format) }));
+
 export async function getAllKnowledgeRefs(): Promise<
   { slug: string; pillar: Pillar }[]
 > {
-  if (!sanityClient) {
-    return seedKnowledge.map((i) => ({ slug: i.slug, pillar: pillarOf(i.format) }));
+  if (!sanityClient) return seedRefs();
+  try {
+    const rows = await sanityClient.fetch<
+      { slug: string; format: KnowledgeItem['format'] }[]
+    >(`*[_type == "knowledge" && defined(slug.current)]{"slug": slug.current, format}`);
+    return rows.length
+      ? rows.map((r) => ({ slug: r.slug, pillar: pillarOf(r.format) }))
+      : seedRefs();
+  } catch {
+    return seedRefs();
   }
-  const rows = await sanityClient.fetch<{ slug: string; format: KnowledgeItem['format'] }[]>(
-    `*[_type == "knowledge" && defined(slug.current)]{"slug": slug.current, format}`,
-  );
-  return rows.map((r) => ({ slug: r.slug, pillar: pillarOf(r.format) }));
 }
 
 export async function getCategories(locale: Locale): Promise<Category[]> {
-  if (!sanityClient) {
-    return seedCategories.map((c) => ({ slug: c.slug, title: c.title[locale] }));
+  const seed = () =>
+    seedCategories.map((c) => ({ slug: c.slug, title: c.title[locale] }));
+  if (!sanityClient) return seed();
+  try {
+    const cats = await sanityClient.fetch<Category[]>(
+      `*[_type == "category"] | order(title.en asc){"slug": slug.current, "title": title[$locale]}`,
+      { locale },
+    );
+    return cats.length ? cats : seed();
+  } catch {
+    return seed();
   }
-  return sanityClient.fetch<Category[]>(
-    `*[_type == "category"] | order(title.en asc){"slug": slug.current, "title": title[$locale]}`,
-    { locale },
-  );
 }

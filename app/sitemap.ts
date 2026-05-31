@@ -4,6 +4,8 @@ import { siteConfig } from '@/lib/site';
 import { getAllKnowledgeRefs } from '@/lib/knowledge';
 import { getStorySlugs } from '@/lib/stories';
 
+export const revalidate = 3600;
+
 const staticPaths = [
   '',
   '/strategy-to-results',

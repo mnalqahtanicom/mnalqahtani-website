@@ -90,7 +90,12 @@ export const getSettings = cache(
     const base = defaults();
     if (!sanityClient) return base;
 
-    const raw = await sanityClient.fetch<RawSettings | null>(query, { locale });
+    let raw: RawSettings | null = null;
+    try {
+      raw = await sanityClient.fetch<RawSettings | null>(query, { locale });
+    } catch {
+      return base;
+    }
     if (!raw) return base;
 
     const social: { label: string; href: string }[] = [];

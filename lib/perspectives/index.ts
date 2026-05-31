@@ -29,14 +29,18 @@ interface Raw extends Omit<Perspective, 'photoUrl'> {
 
 export async function getPerspectives(locale: Locale): Promise<Perspective[]> {
   if (!sanityClient) return [];
-  const raw = await sanityClient.fetch<Raw[]>(
-    `*[_type == "leadershipPerspective"] | order(order asc) ${projection}`,
-    { locale },
-  );
-  return raw.map(({ photo, ...rest }) => ({
-    ...rest,
-    photoUrl: photo ? urlForImage(photo) : null,
-  }));
+  try {
+    const raw = await sanityClient.fetch<Raw[]>(
+      `*[_type == "leadershipPerspective"] | order(order asc) ${projection}`,
+      { locale },
+    );
+    return raw.map(({ photo, ...rest }) => ({
+      ...rest,
+      photoUrl: photo ? urlForImage(photo) : null,
+    }));
+  } catch {
+    return [];
+  }
 }
 
 export async function getFeaturedPerspectives(
