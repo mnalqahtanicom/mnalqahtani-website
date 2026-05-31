@@ -4,7 +4,13 @@ import { siteConfig } from '@/lib/site';
 import { getAllInsightSlugs } from '@/lib/insights';
 
 // Static routes that exist today (expanded as pages ship in later phases)
-const staticPaths = ['', '/about', '/insights'];
+const staticPaths = [
+  '',
+  '/strategy-to-results',
+  '/insights',
+  '/about',
+  '/contact',
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = await getAllInsightSlugs();

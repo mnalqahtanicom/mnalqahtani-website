@@ -4,9 +4,10 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { fontVariables } from '@/lib/fonts';
-import { siteConfig } from '@/lib/site';
+import { maintenanceMode, siteConfig } from '@/lib/site';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import MaintenancePage from '@/components/MaintenancePage';
 import '../globals.css';
 
 export function generateStaticParams() {
@@ -66,11 +67,15 @@ export default async function LocaleLayout({
     <html lang={locale} dir={dir} className={fontVariables}>
       <body>
         <NextIntlClientProvider>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          {maintenanceMode ? (
+            <MaintenancePage />
+          ) : (
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          )}
         </NextIntlClientProvider>
       </body>
     </html>

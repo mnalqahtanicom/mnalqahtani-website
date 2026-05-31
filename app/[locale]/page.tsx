@@ -1,9 +1,8 @@
 import { setRequestLocale } from 'next-intl/server';
 import Hero from '@/components/sections/Hero';
-import CredibilityStrip from '@/components/sections/CredibilityStrip';
-import ExpertiseGrid from '@/components/sections/ExpertiseGrid';
-import ApproachSteps from '@/components/sections/ApproachSteps';
+import StrategyToResults from '@/components/sections/StrategyToResults';
 import InsightsGrid from '@/components/sections/InsightsGrid';
+import ExecutiveCredentials from '@/components/sections/ExecutiveCredentials';
 import QuoteBlock from '@/components/sections/QuoteBlock';
 import CtaBand from '@/components/sections/CtaBand';
 import { PersonJsonLd } from '@/components/seo/JsonLd';
@@ -20,10 +19,9 @@ export default async function HomePage({
     <>
       <PersonJsonLd locale={locale} />
       <Hero />
-      <CredibilityStrip />
-      <ExpertiseGrid />
-      <ApproachSteps />
+      <StrategyToResults />
       <InsightsGrid />
+      <ExecutiveCredentials />
       <QuoteBlock />
       <CtaBand />
     </>

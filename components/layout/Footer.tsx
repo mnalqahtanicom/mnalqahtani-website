@@ -1,14 +1,13 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import Container from '@/components/ui/Container';
-import { siteConfig } from '@/lib/site';
+import { activeSocialLinks } from '@/lib/site';
 
 const footerLinks = [
-  { key: 'about', href: '/about' },
-  { key: 'expertise', href: '/#expertise' },
   { key: 'insights', href: '/insights' },
-  { key: 'speaking', href: '/#cta' },
-  { key: 'contact', href: '/#cta' },
+  { key: 'framework', href: '/strategy-to-results' },
+  { key: 'about', href: '/about' },
+  { key: 'contact', href: '/contact' },
 ] as const;
 
 export default function Footer() {
@@ -37,14 +36,17 @@ export default function Footer() {
                 {t(item.key)}
               </Link>
             ))}
-            <a
-              href={siteConfig.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm transition-colors hover:text-gold"
-            >
-              LinkedIn
-            </a>
+            {activeSocialLinks.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm transition-colors hover:text-gold"
+              >
+                {s.label}
+              </a>
+            ))}
           </nav>
         </div>
         <div className="flex flex-wrap justify-between gap-2.5 pt-5 text-[13px] text-ivory/45">
