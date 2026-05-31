@@ -12,7 +12,7 @@ const nextConfig = {
   async redirects() {
     // Old insights routes now live under the Knowledge Hub
     return [
-      // Convenience: bare prototype path -> its index.html
+      // Convenience: bare prototype paths -> their index.html
       {
         source: '/talemia-platform',
         destination: '/talemia-platform/index.html',
@@ -21,6 +21,17 @@ const nextConfig = {
       {
         source: '/talemia-platform/',
         destination: '/talemia-platform/index.html',
+        permanent: false,
+      },
+      // Redesign (new quality bar)
+      {
+        source: '/talemia',
+        destination: '/talemia/index.html',
+        permanent: false,
+      },
+      {
+        source: '/talemia/',
+        destination: '/talemia/index.html',
         permanent: false,
       },
       {
