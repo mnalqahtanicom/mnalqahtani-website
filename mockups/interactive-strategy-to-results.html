@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!--
+  mnalqahtani.com — INTERACTIVE EXPERIENCE PROTOTYPE (concept, not production code)
+  Demonstrates: the light/executive motion language (scroll-reveal + hero entrance)
+  and the signature INTERACTIVE "Strategy to Results™" framework experience.
+  Toggle عربي / EN (top-right). Respects prefers-reduced-motion.
+-->
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Strategy to Results™ — Interactive Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0B1F3A; --slate:#33415C; --gold:#C8A24B; --gold-soft:#d8bd7e;
+    --ivory:#F7F5F0; --white:#fff; --ink:#11161D; --muted:#6B7280; --line:rgba(11,31,58,.10);
+    --serif:'Fraunces',serif; --sans:'IBM Plex Sans',sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  html[dir="rtl"]{ --serif:'Noto Kufi Arabic',sans-serif; --sans:'IBM Plex Sans Arabic',sans-serif; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--ivory);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  html[dir="rtl"] body{line-height:1.85}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;letter-spacing:-.01em}
+  html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-family:var(--serif);letter-spacing:0;line-height:1.4}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+  .en-only{display:inline} .ar-only{display:none}
+  html[dir="rtl"] .en-only{display:none} html[dir="rtl"] .ar-only{display:inline}
+
+  /* ---- header ---- */
+  header{position:sticky;top:0;z-index:50;background:rgba(247,245,240,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .seal{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:15px;box-shadow:0 0 0 1px var(--gold),inset 0 0 0 3px var(--navy),0 0 0 4px rgba(200,162,75,.45)}
+  .brand b{font-family:var(--serif);font-size:17px;color:var(--navy);font-weight:600}
+  .toggle{border:1px solid var(--line);background:#fff;color:var(--navy);font-family:var(--sans);font-weight:600;font-size:13px;padding:8px 14px;border-radius:999px;cursor:pointer;transition:all .2s}
+  .toggle:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* ---- hero ---- */
+  .hero{background:var(--navy);color:var(--ivory);position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(135deg,transparent 49.6%,rgba(200,162,75,.06) 49.6%,rgba(200,162,75,.06) 50.4%,transparent 50.4%),radial-gradient(circle at 85% 15%,rgba(200,162,75,.10),transparent 42%);background-size:38px 38px,100% 100%}
+  .hero-inner{position:relative;padding:90px 0 80px}
+  .eyebrow{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+  html[dir="rtl"] .eyebrow{letter-spacing:0;text-transform:none;font-size:14px}
+  .hero h1{color:#fff;font-size:clamp(34px,5.5vw,60px);margin:16px 0 18px;max-width:18ch}
+  .hero p{color:rgba(247,245,240,.8);font-size:clamp(16px,2vw,20px);max-width:52ch;font-weight:300}
+
+  /* ---- entrance + reveal (light motion) ---- */
+  .enter{opacity:0;transform:translateY(18px);animation:rise .7s var(--ease) forwards}
+  .enter.d1{animation-delay:.08s}.enter.d2{animation-delay:.18s}.enter.d3{animation-delay:.28s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---- section shell ---- */
+  section.block{padding:84px 0}
+  .tag{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+  html[dir="rtl"] .tag{letter-spacing:0;text-transform:none;font-size:14px}
+  .block h2{font-size:clamp(26px,3.6vw,40px);color:var(--navy);margin:10px 0 14px}
+  .lead{color:var(--slate);font-size:18px;max-width:60ch}
+
+  /* ============ INTERACTIVE STRATEGY TO RESULTS ============ */
+  .s2r{background:var(--navy);color:var(--ivory)}
+  .s2r h2{color:#fff}
+  .s2r .lead{color:rgba(247,245,240,.72)}
+
+  /* stepper */
+  .stepper{position:relative;display:flex;justify-content:space-between;gap:8px;margin:44px 0 0}
+  .track{position:absolute;top:23px;left:0;right:0;height:2px;background:rgba(247,245,240,.16)}
+  html[dir="rtl"] .track{left:0;right:0}
+  .track-fill{position:absolute;top:23px;inset-inline-start:0;height:2px;background:var(--gold);width:0;transition:width .5s var(--ease)}
+  .node{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;background:none;border:0;cursor:pointer;color:inherit;font-family:var(--sans)}
+  .dot{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--navy);border:2px solid rgba(247,245,240,.3);color:rgba(247,245,240,.6);font-family:var(--serif);font-weight:600;font-size:17px;transition:all .35s var(--ease)}
+  .node .nm{font-size:13px;color:rgba(247,245,240,.6);font-weight:500;transition:color .3s;text-align:center}
+  .node[aria-selected="true"] .dot{border-color:var(--gold);background:var(--gold);color:var(--navy);transform:scale(1.08)}
+  .node[aria-selected="true"] .nm{color:#fff}
+  .node:hover .dot{border-color:var(--gold-soft)}
+  .node:focus-visible .dot{outline:2px solid var(--gold);outline-offset:3px}
+
+  /* detail panel */
+  .panel{margin-top:48px;background:rgba(255,255,255,.04);border:1px solid rgba(247,245,240,.14);border-radius:18px;padding:36px;min-height:240px}
+  .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+  @media(max-width:720px){.panel-grid{grid-template-columns:1fr;gap:24px}}
+  .panel .step-no{font-family:var(--serif);color:var(--gold);font-size:14px;font-weight:600}
+  .panel h3{color:#fff;font-size:28px;margin:6px 0 14px}
+  .panel .desc{color:rgba(247,245,240,.82);font-size:17px}
+  .panel .qh{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+  html[dir="rtl"] .panel .qh{letter-spacing:0;text-transform:none;font-size:14px}
+  .panel ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .panel li{display:flex;gap:10px;color:rgba(247,245,240,.85);font-size:15px}
+  .panel li::before{content:"";flex:none;margin-top:9px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+  .out{margin-top:18px;display:inline-flex;align-items:center;gap:8px;border:1px dashed rgba(200,162,75,.5);color:var(--gold);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600}
+  /* cross-fade */
+  .fade{animation:fade .45s var(--ease)}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .hint{margin-top:18px;font-size:13px;color:rgba(247,245,240,.5)}
+
+  /* ---- reveal demo cards ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+  @media(max-width:760px){.cards{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px}
+  .card .n{font-family:var(--serif);color:var(--gold);font-weight:600}
+  .card h3{font-size:20px;color:var(--navy);margin:8px 0}
+  .card p{color:var(--muted);font-size:14.5px}
+
+  .note{position:fixed;bottom:16px;inset-inline-start:16px;z-index:60;background:var(--gold);color:var(--navy);font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px;box-shadow:0 8px 20px -8px rgba(0,0,0,.4)}
+  .foot{padding:40px 0;text-align:center;color:var(--muted);font-size:13px}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    .enter,.reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="seal">MQ</span>
+      <b><span class="en-only">Mohammed Nasser Al-Qahtani</span><span class="ar-only">محمد ناصر القحطاني</span></b>
+    </div>
+    <button class="toggle" onclick="toggleLang()"><span class="en-only">عربي</span><span class="ar-only">EN</span></button>
+  </div>
+</header>
+
+<!-- HERO (entrance motion) -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow enter"><span class="en-only">Interactive prototype · light motion</span><span class="ar-only">نموذج تفاعلي · حركة خفيفة</span></div>
+    <h1 class="enter d1"><span class="en-only">Strategy to Results™</span><span class="ar-only">الاستراتيجية إلى النتائج™</span></h1>
+    <p class="enter d2"><span class="en-only">A signature, interactive way to explore the six stages — calm motion, executive feel, fully accessible.</span><span class="ar-only">طريقة تفاعلية مميّزة لاستكشاف المراحل الست — حركة هادئة، إحساس تنفيذي، ومتاحة بالكامل.</span></p>
+  </div>
+</section>
+
+<!-- INTERACTIVE FRAMEWORK -->
+<section class="block s2r">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag"><span class="en-only">The Framework</span><span class="ar-only">الإطار</span></span>
+      <h2><span class="en-only">Explore the six stages.</span><span class="ar-only">استكشف المراحل الست.</span></h2>
+      <p class="lead"><span class="en-only">Tap a stage — or use arrow keys — to see its purpose, the key questions, and what it produces.</span><span class="ar-only">اضغط على مرحلة — أو استخدم مفاتيح الأسهم — لرؤية هدفها وأسئلتها المحورية ومُخرجاتها.</span></p>
+    </div>
+
+    <div class="stepper reveal" id="stepper" role="tablist" aria-label="Strategy to Results stages">
+      <div class="track"></div><div class="track-fill" id="trackFill"></div>
+      <!-- nodes injected by JS -->
+    </div>
+
+    <div class="panel reveal" id="panel" aria-live="polite">
+      <div class="panel-grid">
+        <div>
+          <div class="step-no" id="pNo"></div>
+          <h3 id="pName"></h3>
+          <p class="desc" id="pDesc"></p>
+          <span class="out" id="pOut"></span>
+        </div>
+        <div>
+          <div class="qh"><span class="en-only">Key questions</span><span class="ar-only">أسئلة محورية</span></div>
+          <ul id="pQ"></ul>
+        </div>
+      </div>
+      <div class="hint"><span class="en-only">↑ This is the interactive experience proposed for the Strategy to Results™ page.</span><span class="ar-only">↑ هذه هي التجربة التفاعلية المقترحة لصفحة الاستراتيجية إلى النتائج™.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVEAL DEMO (general motion language) -->
+<section class="block">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag"><span class="en-only">Motion language</span><span class="ar-only">لغة الحركة</span></span>
+      <h2><span class="en-only">Content that arrives, calmly.</span><span class="ar-only">محتوى يظهر بهدوء.</span></h2>
+      <p class="lead"><span class="en-only">As you scroll, sections rise gently into place — never flashy, always composed.</span><span class="ar-only">أثناء التمرير، تظهر الأقسام بلطف — دون مبالغة، وبتناسق دائم.</span></p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="n">01</div><h3><span class="en-only">Scroll reveal</span><span class="ar-only">ظهور عند التمرير</span></h3><p><span class="en-only">A subtle fade-and-rise as each block enters view.</span><span class="ar-only">تلاشٍ وصعود خفيف عند دخول كل كتلة.</span></p></div>
+      <div class="card reveal"><div class="n">02</div><h3><span class="en-only">Smart transitions</span><span class="ar-only">انتقالات ذكية</span></h3><p><span class="en-only">Seamless page-to-page motion via View Transitions.</span><span class="ar-only">انتقال سلس بين الصفحات عبر View Transitions.</span></p></div>
+      <div class="card reveal"><div class="n">03</div><h3><span class="en-only">Accessible by default</span><span class="ar-only">متاح افتراضيًا</span></h3><p><span class="en-only">Respects reduced-motion; works without JavaScript.</span><span class="ar-only">يحترم تقليل الحركة، ويعمل دون جافاسكربت.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<div class="foot">mnalqahtani.com — interactive experience prototype · concept only</div>
+<div class="note"><span class="en-only">Prototype — click عربي to switch · try arrow keys on the stages</span><span class="ar-only">نموذج — اضغط EN للتبديل · جرّب مفاتيح الأسهم على المراحل</span></div>
+
+<script>
+  const STAGES = {
+    en: [
+      { name:'Strategy',    desc:'A clear, ownable direction the whole organization can act on.', q:['What is the real challenge?','Where will we focus — and not?','What does winning look like?'], out:'Output: a clear strategic direction' },
+      { name:'Execution',   desc:'Turning intent into disciplined, governed delivery.', q:['Who owns each priority?','How is progress governed?','Where are the bottlenecks?'], out:'Output: a delivery & governance rhythm' },
+      { name:'Change',      desc:'Leading people through the change the strategy demands.', q:['Who is affected, and how?','Is sponsorship visible?','What will people resist?'], out:'Output: an engaged organization' },
+      { name:'Adoption',    desc:'Embedding new ways of working so they actually hold.', q:['Are the new behaviors in use?','What reinforces them?','What pulls people back?'], out:'Output: new ways of working that stick' },
+      { name:'Performance', desc:'Measuring what matters and improving continuously.', q:['Which few measures matter?','What decision does each inform?','Are we learning fast enough?'], out:'Output: a performance feedback loop' },
+      { name:'Results',     desc:'Sustained, measurable impact that endures beyond the project.', q:['Did outcomes move, not just outputs?','Will results hold next year?','What did we learn?'], out:'Output: durable, measurable impact' },
+    ],
+    ar: [
+      { name:'الاستراتيجية', desc:'وجهة واضحة يمكن للمؤسسة كلها التحرّك وفقها.', q:['ما التحدّي الحقيقي؟','أين نركّز — وأين لا؟','كيف يبدو النجاح؟'], out:'المُخرَج: وجهة استراتيجية واضحة' },
+      { name:'التنفيذ',     desc:'تحويل النيّة إلى تنفيذ منضبط ومحوكم.', q:['من يملك كل أولوية؟','كيف يُحوكَم التقدّم؟','أين الاختناقات؟'], out:'المُخرَج: إيقاع تنفيذ وحوكمة' },
+      { name:'التغيير',     desc:'قيادة الناس عبر التغيير الذي تتطلّبه الاستراتيجية.', q:['من يتأثّر وكيف؟','هل الرعاية ظاهرة؟','ما الذي سيُقاوَم؟'], out:'المُخرَج: مؤسسة متفاعلة' },
+      { name:'التبنّي',     desc:'ترسيخ طرق العمل الجديدة لتدوم فعلًا.', q:['هل السلوكيات الجديدة قيد الاستخدام؟','ما الذي يعزّزها؟','ما الذي يعيد الناس للخلف؟'], out:'المُخرَج: طرق عمل تدوم' },
+      { name:'الأداء',      desc:'قياس ما يهم والتحسين المستمر.', q:['أي مقاييس قليلة تهم؟','أي قرار يخدمه كل مقياس؟','هل نتعلّم بسرعة كافية؟'], out:'المُخرَج: حلقة تغذية راجعة للأداء' },
+      { name:'النتائج',     desc:'أثر مستدام وقابل للقياس يدوم بعد المشروع.', q:['هل تحرّكت النتائج لا المخرجات فقط؟','هل ستدوم النتائج العام المقبل؟','ماذا تعلّمنا؟'], out:'المُخرَج: أثر دائم وقابل للقياس' },
+    ]
+  };
+
+  let lang = 'en';
+  let active = 0;
+
+  function lc(){ return document.documentElement.getAttribute('dir')==='rtl' ? 'ar' : 'en'; }
+
+  function buildStepper(){
+    const stepper = document.getElementById('stepper');
+    // remove old nodes (keep track + fill)
+    stepper.querySelectorAll('.node').forEach(n=>n.remove());
+    STAGES[lc()].forEach((s,i)=>{
+      const b=document.createElement('button');
+      b.className='node'; b.setAttribute('role','tab');
+      b.setAttribute('aria-selected', i===active ? 'true':'false');
+      b.innerHTML='<span class="dot">'+(i+1)+'</span><span class="nm">'+s.name+'</span>';
+      b.onclick=()=>select(i);
+      stepper.appendChild(b);
+    });
+    updateFill();
+  }
+  function updateFill(){
+    const pct = STAGES[lc()].length<=1?0:(active/(STAGES[lc()].length-1))*100;
+    document.getElementById('trackFill').style.width=pct+'%';
+  }
+  function renderPanel(){
+    const s=STAGES[lc()][active];
+    document.getElementById('pNo').textContent=(lc()==='ar'?'المرحلة ':'Stage ')+(active+1)+' / 6';
+    document.getElementById('pName').textContent=s.name;
+    document.getElementById('pDesc').textContent=s.desc;
+    document.getElementById('pOut').textContent=s.out;
+    document.getElementById('pQ').innerHTML=s.q.map(q=>'<li>'+q+'</li>').join('');
+    const panel=document.getElementById('panel');
+    panel.classList.remove('fade'); void panel.offsetWidth; panel.classList.add('fade');
+  }
+  function select(i){
+    active=i;
+    document.querySelectorAll('.node').forEach((n,idx)=>n.setAttribute('aria-selected', idx===i?'true':'false'));
+    updateFill(); renderPanel();
+  }
+  function toggleLang(){
+    const html=document.documentElement; const isAr=html.getAttribute('dir')==='rtl';
+    html.setAttribute('dir', isAr?'ltr':'rtl'); html.setAttribute('lang', isAr?'en':'ar');
+    buildStepper(); renderPanel(); window.scrollTo({top:0,behavior:'smooth'});
+  }
+  // keyboard navigation
+  document.addEventListener('keydown',(e)=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      const dir = document.documentElement.getAttribute('dir')==='rtl' ? -1 : 1;
+      const delta = e.key==='ArrowRight' ? dir : -dir;
+      select(Math.max(0,Math.min(5,active+delta)));
+    }
+  });
+
+  // scroll reveal
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  buildStepper(); renderPanel();
+</script>
+</body>
+</html>
