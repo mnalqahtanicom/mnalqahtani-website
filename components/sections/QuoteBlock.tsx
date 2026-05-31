@@ -7,7 +7,7 @@ export default function QuoteBlock() {
   return (
     <section className="bg-white py-16 sm:py-24 lg:py-28">
       <Container>
-        <figure className="mx-auto max-w-3xl text-center">
+        <figure className="reveal mx-auto max-w-3xl text-center">
           <span
             className="font-serif text-6xl leading-none text-gold opacity-50 rtl:font-serif-ar"
             aria-hidden

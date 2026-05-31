@@ -40,14 +40,14 @@ async function AboutHero() {
       <Container className="relative">
         <div className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1fr_0.8fr] lg:py-24">
           <div>
-            <span className="mb-5 inline-flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.22em] text-gold rtl:tracking-normal rtl:normal-case">
+            <span className="enter mb-5 inline-flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.22em] text-gold rtl:tracking-normal rtl:normal-case">
               <span className="inline-block h-px w-8 bg-gold" aria-hidden />
               {t('eyebrow')}
             </span>
-            <h1 className="mb-5 text-[clamp(2.125rem,5vw,3.5rem)] text-white">
+            <h1 className="enter d1 mb-5 text-[clamp(2.125rem,5vw,3.5rem)] text-white">
               {t('headline')}
             </h1>
-            <p className="max-w-[46ch] text-lg font-light text-ivory/80">
+            <p className="enter d2 max-w-[46ch] text-lg font-light text-ivory/80">
               {t('subline')}
             </p>
           </div>

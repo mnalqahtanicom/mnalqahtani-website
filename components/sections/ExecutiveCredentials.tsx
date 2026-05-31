@@ -22,7 +22,7 @@ export default function ExecutiveCredentials({
           dark={dark}
           className="mb-12"
         />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="reveal grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {groups.map((group) => (
             <div
               key={group.label}
