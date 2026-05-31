@@ -252,6 +252,13 @@ textarea.input { min-height:96px; resize:vertical; }
 .heat-head .heat-name { text-align:start; }
 .heat-name { display:flex; align-items:center; gap:8px; font-weight:700; font-size:13.5px; }
 .heat-cell { text-align:center; padding:12px 0; border-radius:10px; font-weight:800; font-size:14px; }
+/* CM dashboard sub-tabs */
+.cmtabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:22px; }
+.cmtab { display:inline-flex; align-items:center; gap:7px; padding:10px 16px; border-radius:var(--r-pill);
+  background:#fff; box-shadow:var(--sh-1); color:var(--ink-soft); font-weight:700; font-size:13.5px; transition:all var(--t-fast); }
+.cmtab:hover { color:var(--blue); transform:translateY(-2px); }
+.cmtab.on { background:linear-gradient(120deg,var(--blue),var(--teal)); color:#fff; box-shadow:0 8px 20px rgba(34,87,123,.28); }
+.cmtab.on .ic { color:#fff; }
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width:1024px){ .g4{grid-template-columns:1fr 1fr} .g3{grid-template-columns:1fr 1fr} .g-7-5{grid-template-columns:1fr} .g2{grid-template-columns:1fr} }

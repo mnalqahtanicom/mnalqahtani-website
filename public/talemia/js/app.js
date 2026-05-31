@@ -10,7 +10,7 @@
   const beh = id => TP.behaviors.find(b=>b.id===id)||{};
   const pri = id => TP.priorities.find(p=>p.id===id)||{};
 
-  const S = { role:'employee', route:'home', draft:{title:'',priorities:[],behaviors:[]} };
+  const S = { role:'employee', route:'home', cmTab:'overview', draft:{title:'',priorities:[],behaviors:[]} };
 
   /* ---------------- nav config ---------------- */
   const NAV = {
@@ -245,77 +245,170 @@
       <div class="rowflex" style="justify-content:space-between;margin-top:8px;font-size:13px;font-weight:700">
         <span style="color:var(--success)">${doneL}: ${done}</span><span style="color:var(--flag)">${pendL}: ${pending}</span></div>`; }
 
+  /* heat cell color by value */
+  const heatStyle = v=>{ const a=Math.max(.10,Math.min(1,v/100)); return `background:rgba(46,161,161,${a});color:${v>=58?'#fff':'#13303D'}`; };
+  function sparkline(arr,w,h){ w=w||120;h=h||34; const mx=Math.max(...arr),mn=Math.min(...arr);
+    const pts=arr.map((v,i)=>`${(i/(arr.length-1))*w},${h-((v-mn)/Math.max(1,mx-mn))*(h-6)-3}`).join(' ');
+    return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px;height:${h}px"><polyline points="${pts}" fill="none" stroke="url(#hg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs><linearGradient id="hg" x1="0" x2="1"><stop offset="0" stop-color="#2EA1A1"/><stop offset="1" stop-color="#90C685"/></linearGradient></defs></svg>`; }
+  function heatTable(rows,cols,nameLabel){ return `<div class="heat"><div class="heat-row heat-head" style="grid-template-columns:1.7fr repeat(${cols.length},1fr)">
+      <span class="heat-name">${nameLabel}</span>${cols.map(c=>`<span>${c.l}</span>`).join('')}</div>
+      ${rows.map(r=>`<div class="heat-row" style="grid-template-columns:1.7fr repeat(${cols.length},1fr)">
+        <span class="heat-name">${r.dot?`<span class="sdot" style="background:${r.dot}"></span>`:''} ${r.ar}${r.sub?`<span class="muted" style="font-size:11px"> · ${r.sub}</span>`:''}</span>
+        ${cols.map(c=>`<span class="heat-cell" style="${heatStyle(r[c.k])}">${r[c.k]}</span>`).join('')}</div>`).join('')}</div>`; }
+
+  /* ---- CM dashboard sub-tabs ---- */
+  const CM_TABS = [
+    ['overview','نظرة عامة','grid'],
+    ['participation','المشاركة','voice'],
+    ['managers','مساءلة المدراء','team'],
+    ['recognition','التقدير والتفاعل','heart'],
+    ['alignment','المواءمة الاستراتيجية','thread'],
+    ['behaviors','صبغتنا الجينية','spark'],
+    ['readiness','الجاهزية والخرائط','growth'],
+    ['followup','المتابعة الداعمة','compass'],
+  ];
+
   function cmdash(){
-    const c=TP.cm;
-    const ops=c.sectorOps;
-    const heat=(v)=>{ const a=Math.max(.12,Math.min(1,v/100)); return `background:rgba(46,161,161,${a});color:${v>=60?'#fff':'#13303D'}`; };
+    const c=TP.cm; const tab=S.cmTab||'overview';
+    const body = ({
+      overview:cmOverview, participation:cmParticipation, managers:cmManagers,
+      recognition:cmRecognition, alignment:cmAlignment, behaviors:cmBehaviors,
+      readiness:cmReadiness, followup:cmFollowup,
+    }[tab]||cmOverview)();
     return `
     <section class="hero reveal" style="background:radial-gradient(120% 140% at 88% -20%,rgba(46,161,161,.5),transparent 55%),linear-gradient(120deg,#0E2533,#16384F)">
       <span class="ring r1"></span><span class="ring r2"></span>
       <img class="hero-logo float" src="assets/talemia-logo-white.png" alt="التعليمية">
-      <div class="eyebrow" style="color:var(--green-2)">إدارة التغيير · المتابعة التشغيلية</div>
+      <div class="eyebrow" style="color:var(--green-2)">إدارة التغيير · الموارد البشرية · مكتب الاستراتيجية</div>
       <h1>لوحة قيادة التغيير</h1>
-      <p class="lead">متابعةٌ داعمة لمشاركة المنظومة وتبنّيها — لتمكين الفرق، لا لمقارنتها. كل مؤشّر يقترن بإجراء متابعةٍ لطيف.</p>
+      <p class="lead">متابعةٌ داعمة للتبنّي والمشاركة والجاهزية التنظيمية — لتمكين الفرق ودعمها، لا لمقارنتها أو محاسبتها.</p>
     </section>
+    <div class="cmtabs reveal d2">${CM_TABS.map(t=>`<button class="cmtab ${tab===t[0]?'on':''}" data-cmtab="${t[0]}">${I(t[2],'ic-sm')} ${t[1]}</button>`).join('')}</div>
+    <div class="reveal d2" style="margin-top:18px">${body}</div>
+    <div class="notice privacy reveal" style="margin-top:18px">${I('shield','ic-sm')} لوحة داعمة وتمكينية — لإدارة التغيير والموارد البشرية ومكتب الاستراتيجية. تجميعية (n ≥ ٥)، غير تنافسية، ولا تُستخدم للمحاسبة أو ترتيب الأفراد.</div>`;
+  }
 
-    <!-- KPI row -->
-    <div class="grid g4 reveal d2" style="margin-top:22px">
+  /* 1 · Overview */
+  function cmOverview(){ const c=TP.cm;
+    return `<div class="grid g4">
       ${cmStat('معدّل المشاركة', c.participationRate+'%','مشاركة المنظومة','team')}
       ${cmStat('معدّل التبنّي', c.adoptionRate+'%','نحو التجذّر','growth')}
       ${cmStat('تقدير هذا الشهر', c.recognitionThisMonth, c.recognitionTrend+' عن السابق','heart')}
       ${cmStat('اعتماد الأهداف', Math.round(c.goalsApproved/(c.goalsApproved+c.goalsAwaiting)*100)+'%','من الأهداف المرسلة','target')}
     </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="card"><div class="h">${I('growth','ic-lg')}<h3>اتجاه المشاركة</h3><span style="margin-inline-start:auto">${sparkline(c.participationTrend,140,40)}</span></div>
+        <p class="soft" style="font-size:13.5px">ارتفاع مطّرد في مشاركة المنظومة عبر الأشهر الستّة الماضية — مؤشّر جاهزيةٍ إيجابي.</p></div>
+      <div class="card"><div class="h">${I('heart','ic-lg')}<h3>اتجاه التقدير</h3><span style="margin-inline-start:auto">${sparkline(c.recTrend,140,40)}</span></div>
+        <p class="soft" style="font-size:13.5px">نمو ثقافة التقدير المرتبط بالسلوكيات — التعزيز الإيجابي يتجذّر.</p></div>
+    </div>`;
+  }
 
-    <!-- Participation & 1:1 split -->
-    <div class="grid g2 reveal d3" style="margin-top:20px">
-      <div class="card"><div class="h">${I('voice','ic-lg')}<h3>مشاركة التغذية الراجعة</h3></div>
-        ${splitBar(c.feedbackGiven,c.feedbackPending,'شاركوا','بانتظار المشاركة')}
-        <p class="soft" style="margin-top:10px;font-size:13px">${c.feedbackGiven} موظفاً شاركوا صوتهم؛ ${c.feedbackPending} بانتظار دعوةٍ ودّية للمشاركة.</p>
-      </div>
-      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>محادثات ١:١ (المدراء)</h3></div>
-        ${splitBar(c.oneOnOneDone,c.oneOnOnePending,'أكملوا','لم يُكملوا')}
-        <p class="soft" style="margin-top:10px;font-size:13px">${c.oneOnOneDone} من ${c.managersTotal} مديراً أكملوا محادثات التوافق؛ ${c.oneOnOnePending} بحاجة لتذكيرٍ داعم.</p>
-      </div>
+  /* 2 · Participation Monitoring */
+  function cmParticipation(){ const c=TP.cm;
+    return `<div class="grid g2">
+      <div class="card"><div class="h">${I('voice','ic-lg')}<h3>التغذية الراجعة</h3></div>
+        ${splitBar(c.feedbackGiven,c.feedbackPending,'قدّموا التغذية الراجعة','لم يقدّموا بعد')}
+        <p class="soft" style="margin-top:10px;font-size:13px">${c.feedbackGiven} شاركوا · ${c.feedbackPending} بانتظار دعوةٍ ودّية.</p></div>
+      <div class="card"><div class="h">${I('voice','ic-lg')}<h3>استبانة النبض</h3></div>
+        ${splitBar(c.pulseDone,c.pulsePending,'شاركوا في النبض','لم يشاركوا بعد')}
+        <p class="soft" style="margin-top:10px;font-size:13px">${c.pulseDone} استجابوا · ${c.pulsePending} بانتظار التذكير.</p></div>
     </div>
+    <div class="card" style="margin-top:20px"><div class="h">${I('grid','ic-lg')}<h3>المشاركة حسب القطاع</h3></div>
+      ${heatTable(c.sectorOps.map(s=>({ar:s.ar,dot:s.c,participation:s.participation,feedback:s.feedback})),
+        [{k:'participation',l:'المشاركة'},{k:'feedback',l:'التغذية الراجعة'}],'القطاع')}</div>`;
+  }
 
-    <!-- Goal approval funnel -->
-    <div class="card reveal d3" style="margin-top:20px"><div class="h">${I('target','ic-lg')}<h3>حالة اعتماد الأهداف</h3></div>
-      <div class="grid g3">
-        ${cmStat('معتمدة', c.goalsApproved,'مكتملة الربط والاعتماد','check','success')}
-        ${cmStat('بانتظار الاعتماد', c.goalsAwaiting,'لدى المدراء','chat','flag')}
-        ${cmStat('بحاجة لمراجعة', c.goalsFlagged,'ربط ناقص (غير محظور)','flag','flag')}
-      </div>
+  /* 3 · Manager Accountability (supportive) */
+  function cmManagers(){ const c=TP.cm;
+    return `<div class="grid g2">
+      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>إكمال محادثات ١:١</h3></div>
+        ${splitBar(c.oneOnOneDone,c.oneOnOnePending,'مدراء أكملوا','بحاجة لدعم')}
+        <p class="soft" style="margin-top:10px;font-size:13px">${c.oneOnOneDone} من ${c.managersTotal} مديراً أكملوا محادثات التوافق.</p></div>
+      <div class="card"><div class="h">${I('target','ic-lg')}<h3>اعتماد الأهداف</h3></div>
+        ${splitBar(c.goalsApproved,c.goalsAwaiting,'معتمدة','بانتظار الاعتماد')}
+        <p class="soft" style="margin-top:10px;font-size:13px">${c.goalsFlagged} هدفاً بحاجة لإكمال الربط (غير محظور).</p></div>
     </div>
+    <div class="card" style="margin-top:20px"><div class="h">${I('team','ic-lg')}<h3>متابعة المدراء — ١:١ واعتماد الأهداف والتقدير</h3>
+      <span class="tag mute" style="margin-inline-start:auto">للدعم لا للمحاسبة</span></div>
+      ${heatTable(c.managerOps.map(m=>({ar:m.ar,sub:m.sector,oneonone:Math.round(m.oneonone/m.team*100),goalsApproved:m.goalsApproved,recSent:m.recSent})),
+        [{k:'oneonone',l:'١:١ %'},{k:'goalsApproved',l:'اعتماد الأهداف %'},{k:'recSent',l:'تقدير قدّمه'}],'المدير')}</div>`;
+  }
 
-    <!-- Operational heatmap by sector -->
-    <div class="card reveal d4" style="margin-top:20px"><div class="h">${I('grid','ic-lg')}<h3>خريطة حرارية تشغيلية — حسب القطاع</h3>
+  /* 4 · Recognition & Engagement */
+  function cmRecognition(){ const c=TP.cm;
+    return `<div class="grid g4">
+      ${cmStat('تقدير مُرسَل', c.recSent,'هذا الشهر','heart')}
+      ${cmStat('تقدير مُستلَم', c.recReceived,'هذا الشهر','star')}
+      ${cmStat('اتجاه المشاركة', c.participationRate+'%','+'+(c.participationTrend.at(-1)-c.participationTrend.at(-2))+' نقطة','growth')}
+      ${cmStat('مؤشّر التفاعل', c.engagementTrend.at(-1)+' %ile','مسار التحسّن','spark')}
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="card"><div class="h">${I('heart','ic-lg')}<h3>نمو التقدير</h3></div><div class="chart">${c.recTrend.map(v=>`<div class="bar" style="height:${v/Math.max(...c.recTrend)*100}%" data-v="${v}"></div>`).join('')}</div></div>
+      <div class="card"><div class="h">${I('growth','ic-lg')}<h3>نمو المشاركة</h3></div><div class="chart">${c.participationTrend.map(v=>`<div class="bar" style="height:${v}%" data-v="${v}%"></div>`).join('')}</div></div>
+    </div>`;
+  }
+
+  /* 5 · Strategic Alignment */
+  function cmAlignment(){ const a=TP.alignment.priorities;
+    return `<div class="sec-head"><div><h2 style="font-size:20px">المواءمة الاستراتيجية — أولويات ٢٠٢٦</h2>
+      <div class="desc">إكمال الأهداف، والموظفون والإدارات المُسهِمون في كل أولوية.</div></div></div>
+      <div class="grid g3">${a.map(p=>`<div class="card flat">
+        <div class="h" style="margin-bottom:8px">${I('star')}<h3 style="font-size:15px">${p.ar}</h3></div>
+        <div class="fbar"><span class="name">الإكمال</span><div class="track"><div class="fill" style="width:${p.completion}%"></div></div><span class="pct">${p.completion}%</span></div>
+        <div class="rowflex" style="gap:18px;margin-top:12px">
+          <div><div class="num tnum" style="font-size:24px">${p.employees}</div><div class="lbl">موظف مُسهِم</div></div>
+          <div><div class="num tnum" style="font-size:24px">${p.depts}</div><div class="lbl">إدارة مُسهِمة</div></div>
+        </div></div>`).join('')}</div>`;
+  }
+
+  /* 6 · Genetic Code Analytics */
+  function cmBehaviors(){ const da=TP.behaviorAnalytics.demonstrated, rb=TP.behaviorAnalytics.recognitionBy;
+    const arr=TP.behaviors.map(b=>({b,d:da[b.id],r:rb[b.id]})).slice();
+    const sorted=[...arr].sort((x,y)=>y.d-x.d);
+    const most=sorted.slice(0,3), least=sorted.slice(-3).reverse();
+    return `<div class="grid g2">
+      <div class="card"><div class="h">${I('star','ic-lg')}<h3>الأكثر حضوراً</h3></div>
+        ${most.map(x=>`<div class="fbar"><span class="name">${x.b.ar}</span><div class="track"><div class="fill" style="width:${x.d}%"></div></div><span class="pct">${x.d}</span></div>`).join('')}</div>
+      <div class="card"><div class="h">${I('compass','ic-lg')}<h3>الأقل حضوراً — فرص تعزيز</h3></div>
+        ${least.map(x=>`<div class="fbar"><span class="name">${x.b.ar}</span><div class="track"><div class="fill" style="width:${x.d}%;background:linear-gradient(90deg,var(--sand),var(--peach))"></div></div><span class="pct">${x.d}</span></div>`).join('')}</div>
+    </div>
+    <div class="card" style="margin-top:20px"><div class="h">${I('spark','ic-lg')}<h3>حضور السلوكيات ١٢ (تقديرٌ ومواءمة)</h3></div>
+      <div class="chart">${arr.map(x=>`<div class="bar" style="height:${x.d}%" data-v="${x.d}" title="${x.b.ar}"></div>`).join('')}</div>
+      <div class="rowflex" style="gap:6px;margin-top:10px;flex-wrap:wrap">${arr.map(x=>`<span class="tag mute" style="font-size:11px">${x.b.ar}</span>`).join('')}</div></div>`;
+  }
+
+  /* 7 · Organizational Readiness + heatmaps */
+  function cmReadiness(){ const c=TP.cm;
+    const cols=[{k:'participation',l:'المشاركة'},{k:'adoption',l:'التبنّي'},{k:'readiness',l:'الجاهزية'},{k:'engagement',l:'التفاعل'}];
+    return `<div class="card"><div class="h">${I('grid','ic-lg')}<h3>الجاهزية التنظيمية — حسب القطاع</h3>
       <span class="tag mute" style="margin-inline-start:auto">تجميعي · n ≥ ٥</span></div>
-      <div class="heat">
-        <div class="heat-row heat-head"><span class="heat-name">القطاع</span>
-          <span>المشاركة</span><span>التغذية الراجعة</span><span>الأهداف</span><span>١:١</span><span>التبنّي</span></div>
-        ${ops.map(s=>`<div class="heat-row"><span class="heat-name"><span class="sdot" style="background:${s.c}"></span> ${s.ar}</span>
-          <span class="heat-cell" style="${heat(s.participation)}">${s.participation}</span>
-          <span class="heat-cell" style="${heat(s.feedback)}">${s.feedback}</span>
-          <span class="heat-cell" style="${heat(s.goals)}">${s.goals}</span>
-          <span class="heat-cell" style="${heat(s.oneonone)}">${s.oneonone}</span>
-          <span class="heat-cell" style="${heat(s.adoption)}">${s.adoption}</span></div>`).join('')}
-      </div>
-    </div>
+      ${heatTable(c.sectorOps.map(s=>({ar:s.ar,dot:s.c,...s})),cols,'القطاع')}</div>
+    <div class="card" style="margin-top:20px"><div class="h">${I('org','ic-lg')}<h3>خريطة حرارية — حسب الإدارة</h3></div>
+      ${heatTable(c.deptOps.map(d=>({ar:d.ar,sub:d.sector,participation:d.participation,adoption:d.adoption,goals:d.goals,oneonone:d.oneonone})),
+        [{k:'participation',l:'المشاركة'},{k:'adoption',l:'التبنّي'},{k:'goals',l:'الأهداف'},{k:'oneonone',l:'١:١'}],'الإدارة')}</div>`;
+  }
 
-    <!-- Supportive follow-up (HC & Change Mgmt only) -->
-    <div class="grid g2 reveal d5" style="margin-top:20px">
-      <div class="card"><div class="h">${I('compass','ic-lg')}<h3>متابعة داعمة — مشاركة التغذية الراجعة</h3></div>
+  /* 8 · Supportive Follow-Up */
+  function cmFollowup(){ const c=TP.cm;
+    const lowEng=c.sectorOps.filter(s=>s.engagement<55);
+    return `<div class="grid g2">
+      <div class="card"><div class="h">${I('voice','ic-lg')}<h3>قطاعات بحاجة لدعم المشاركة</h3></div>
         ${c.followUp.noFeedback.map(f=>`<div class="lrow"><div class="grow"><div class="title">${f.sector}</div>
           <div class="soft" style="font-size:13px">${f.pending} من ${f.total} بانتظار المشاركة</div></div>
-          <button class="btn ghost sm" data-toast="تم إرسال دعوة ودّية للمشاركة إلى ${f.sector}">${I('voice')} دعوة لطيفة</button></div>`).join('')}
-      </div>
-      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>متابعة داعمة — محادثات ١:١</h3></div>
+          <button class="btn ghost sm" data-toast="تم إرسال دعوة ودّية للمشاركة إلى ${f.sector}">${I('voice')} دعوة لطيفة</button></div>`).join('')}</div>
+      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>مدراء بحاجة لمتابعة داعمة</h3></div>
         ${c.followUp.pendingOneOnOne.map(m=>`<div class="lrow"><div class="grow"><div class="title">${m.name}</div>
           <div class="soft" style="font-size:13px">أكمل ${m.done} من ${m.team} محادثة</div></div>
-          <button class="btn ghost sm" data-toast="تم إرسال تذكير داعم إلى ${m.name}">${I('arrow')} تذكير داعم</button></div>`).join('')}
-      </div>
+          <button class="btn ghost sm" data-toast="تم إرسال تذكير داعم إلى ${m.name}">${I('arrow')} تذكير داعم</button></div>`).join('')}</div>
     </div>
-    <div class="notice privacy reveal d5" style="margin-top:18px">${I('shield','ic-sm')} قوائم المتابعة داعمة وتمكينية — لتقديم العون لا للمحاسبة. مرئيّة لإدارة التغيير والموارد البشرية فقط، ولا تُعرَض كترتيبٍ للأفراد.</div>`;
+    <div class="card" style="margin-top:20px"><div class="h">${I('team','ic-lg')}<h3>فرق بحاجة لاهتمامٍ بالتفاعل</h3>
+      <span class="tag mute" style="margin-inline-start:auto">للدعم لا للمحاسبة</span></div>
+      ${lowEng.length?lowEng.map(s=>`<div class="lrow"><span class="sdot" style="background:${s.c}"></span><div class="grow"><div class="title">${s.ar}</div>
+        <div class="soft" style="font-size:13px">مؤشّر التفاعل ${s.engagement}% · التبنّي ${s.adoption}%</div></div>
+        <button class="btn ghost sm" data-toast="تم اقتراح جلسة دعمٍ وإصغاء لقطاع ${s.ar}">${I('heart')} جلسة دعم</button></div>`).join('')
+        :'<p class="soft">لا توجد فرق دون المستوى حالياً — استمرّ بالدعم الإيجابي.</p>'}</div>`;
   }
 
   /* ============================================================
@@ -504,7 +597,8 @@
   function go(r){ if(r==='experience'){ openExperience(); return; } S.route=r; render(); }
 
   document.addEventListener('click', e=>{
-    const t=e.target.closest('[data-go],[data-x],[data-toast]'); if(!t) return;
+    const t=e.target.closest('[data-go],[data-x],[data-toast],[data-cmtab]'); if(!t) return;
+    if(t.dataset.cmtab!==undefined){ S.cmTab=t.dataset.cmtab; render(); return; }
     if(t.dataset.go!==undefined) return go(t.dataset.go);
     if(t.dataset.x==='open') return openExperience();
     if(t.dataset.x==='close') return closeExperience();
