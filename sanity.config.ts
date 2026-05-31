@@ -9,6 +9,7 @@ export default defineConfig({
   name: 'default',
   title: 'Mohammed Nasser Al-Qahtani — Studio',
   basePath: '/studio',
+  studioHost: 'mnalqahtani',
   projectId,
   dataset,
   plugins: [

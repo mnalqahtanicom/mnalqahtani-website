@@ -12,6 +12,10 @@ import Footer from '@/components/layout/Footer';
 import MaintenancePage from '@/components/MaintenancePage';
 import '../globals.css';
 
+// Revalidate every 60s so CMS changes (content, settings, maintenance mode)
+// appear on the live site without a redeploy.
+export const revalidate = 60;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }

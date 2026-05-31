@@ -53,11 +53,15 @@ function mapRaw(raw: Raw): Story {
 
 export async function getStories(locale: Locale): Promise<Story[]> {
   if (!sanityClient) return [];
-  const raw = await sanityClient.fetch<Raw[]>(
-    `*[_type == "transformationStory" && defined(slug.current)] | order(publishedAt desc) ${projection}`,
-    { locale },
-  );
-  return raw.map(mapRaw);
+  try {
+    const raw = await sanityClient.fetch<Raw[]>(
+      `*[_type == "transformationStory" && defined(slug.current)] | order(publishedAt desc) ${projection}`,
+      { locale },
+    );
+    return raw.map(mapRaw);
+  } catch {
+    return [];
+  }
 }
 
 export async function getFeaturedStories(
@@ -79,7 +83,11 @@ export async function getStoryBySlug(
 
 export async function getStorySlugs(): Promise<string[]> {
   if (!sanityClient) return [];
-  return sanityClient.fetch<string[]>(
-    `*[_type == "transformationStory" && defined(slug.current)].slug.current`,
-  );
+  try {
+    return await sanityClient.fetch<string[]>(
+      `*[_type == "transformationStory" && defined(slug.current)].slug.current`,
+    );
+  } catch {
+    return [];
+  }
 }
