@@ -15,7 +15,7 @@ export default function CtaBand() {
         <p className="mx-auto mb-8 max-w-[50ch] text-lg font-light text-ivory/80">
           {t('subtitle')}
         </p>
-        <Button href="/#cta" variant="gold">
+        <Button href="/contact" variant="gold">
           {t('button')}
         </Button>
       </Container>

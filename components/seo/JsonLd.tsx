@@ -1,11 +1,12 @@
-import { siteConfig } from '@/lib/site';
+import { activeSocialLinks, siteConfig } from '@/lib/site';
 
 export function PersonJsonLd({ locale }: { locale: string }) {
+  const sameAs = activeSocialLinks.map((s) => s.href);
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Mohammed Nasser Al-Qahtani',
-    jobTitle: 'Executive Strategy & Transformation Advisor',
+    jobTitle: 'Strategy, Performance & Transformation',
     url: `${siteConfig.url}/${locale}`,
     alumniOf: {
       '@type': 'CollegeOrUniversity',
@@ -20,7 +21,7 @@ export function PersonJsonLd({ locale }: { locale: string }) {
       'Governance',
       'Leadership',
     ],
-    sameAs: [siteConfig.linkedin],
+    ...(sameAs.length ? { sameAs } : {}),
   };
 
   return (

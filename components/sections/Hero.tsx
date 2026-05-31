@@ -22,7 +22,7 @@ export default function Hero() {
               {t('subline')}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button href="/#cta" variant="gold">
+              <Button href="/contact" variant="gold">
                 {t('ctaPrimary')}
               </Button>
               <Button href="/insights" variant="ghost">

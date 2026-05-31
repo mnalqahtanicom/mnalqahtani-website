@@ -7,10 +7,9 @@ import Container from '@/components/ui/Container';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const navItems = [
-  { key: 'about', href: '/about' },
-  { key: 'expertise', href: '/#expertise' },
   { key: 'insights', href: '/insights' },
-  { key: 'speaking', href: '/#cta' },
+  { key: 'framework', href: '/strategy-to-results' },
+  { key: 'about', href: '/about' },
 ] as const;
 
 export default function Header() {
@@ -50,7 +49,7 @@ export default function Header() {
               ))}
             </div>
             <Link
-              href="/#cta"
+              href="/contact"
               className="rounded-lg bg-navy px-[18px] py-[9px] text-[15px] font-semibold text-white transition-colors hover:bg-slate"
             >
               {t('contact')}

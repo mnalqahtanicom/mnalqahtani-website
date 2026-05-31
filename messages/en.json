@@ -1,13 +1,14 @@
 {
   "site": {
-    "name": "Mohammed Al-Qahtani",
-    "tagline": "Strategy · Performance · Transformation",
+    "name": "Mohammed Nasser Al-Qahtani",
+    "tagline": "Strategy • Performance • Transformation",
     "monogram": "MQ"
   },
   "nav": {
     "about": "About",
     "expertise": "Expertise",
     "insights": "Insights",
+    "framework": "Strategy to Results™",
     "speaking": "Speaking",
     "media": "Media",
     "contact": "Contact",
@@ -135,6 +136,54 @@
     { "title": "Execute", "body": "Drive delivery, govern progress, manage change." },
     { "title": "Sustain", "body": "Embed performance so results endure." }
   ],
+  "credentials": {
+    "tag": "Executive Credentials",
+    "title": "Credentials & expertise.",
+    "subtitle": "Two decades of practice, anchored by world-class executive education.",
+    "groups": [
+      { "label": "Experience", "items": ["21+ Years Professional Experience"] },
+      { "label": "Education", "items": ["M.Sc. in Management, Strategy & Leadership — Michigan State University"] },
+      { "label": "Executive Education — Harvard Business School", "items": ["Strategy Specialist", "Business Strategy", "Strategy Execution", "Sustainable Business Strategy"] },
+      { "label": "Change & Performance", "items": ["Prosci Certified Change Management Practitioner", "Certified KPI Professional — The KPI Institute", "Performance Management Professional — The KPI Institute"] },
+      { "label": "Leadership", "items": ["Leadership & Communication Development Program"] },
+      { "label": "Collaboration", "items": ["Worked closely with Bain & Company, PwC, and Deloitte"] }
+    ]
+  },
+  "strategyToResults": {
+    "tag": "Strategy to Results™ Framework",
+    "title": "From strategy to measurable results.",
+    "subtitle": "A signature framework that connects six stages into one continuous system — where most organizations lose momentum, this is where it is sustained.",
+    "metaTitle": "Strategy to Results™ Framework",
+    "metaDescription": "The signature framework connecting strategy, execution, change, adoption, performance, and results into one continuous system.",
+    "learnMore": "Explore the framework",
+    "intro": "Most strategies do not fail at the design stage — they fail in the space between intent and impact. The Strategy to Results™ Framework closes that gap by treating six stages as one connected system, not separate hand-offs.",
+    "stages": [
+      { "name": "Strategy", "body": "A clear, ownable direction the whole organization can act on." },
+      { "name": "Execution", "body": "Turning intent into disciplined, governed delivery." },
+      { "name": "Change", "body": "Leading people through the change the strategy demands." },
+      { "name": "Adoption", "body": "Embedding new ways of working so they hold." },
+      { "name": "Performance", "body": "Measuring what matters and improving continuously." },
+      { "name": "Results", "body": "Sustained, measurable impact that endures." }
+    ]
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Reach Mohammed Nasser Al-Qahtani for advisory, speaking, and collaboration.",
+    "tag": "Contact",
+    "title": "Let's connect.",
+    "subtitle": "For advisory engagements, speaking, or collaboration, reach out via the form or email.",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "send": "Send message",
+    "emailHeading": "Professional email",
+    "emailValue": "mohammed@mnalqahtani.com"
+  },
+  "maintenance": {
+    "title": "We're working on something exceptional.",
+    "line1": "The website is currently being updated.",
+    "line2": "Please check back soon."
+  },
   "insightsPage": {
     "metaTitle": "Insights",
     "metaDescription": "Articles on strategy, transformation, governance, performance, and leadership.",

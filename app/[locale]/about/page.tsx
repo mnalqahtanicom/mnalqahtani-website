@@ -4,9 +4,8 @@ import { useTranslations } from 'next-intl';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
-import Timeline from '@/components/sections/Timeline';
-import Principles from '@/components/sections/Principles';
 import Portrait from '@/components/ui/Portrait';
+import ExecutiveCredentials from '@/components/sections/ExecutiveCredentials';
 import { routing } from '@/i18n/routing';
 
 export function generateStaticParams() {
@@ -60,74 +59,12 @@ function AboutHero() {
 function Biography() {
   const t = useTranslations('about.bio');
   return (
-    <section className="py-16 sm:py-24 lg:py-28">
+    <section className="py-16 sm:py-24">
       <Container narrow>
         <SectionHeading tag={t('tag')} title={t('title')} className="mb-6" />
         <div className="space-y-5 text-lg text-slate">
-          <p>
-            <span className="text-navy">{t('p1')}</span>
-          </p>
-          <p>{t('p2')}</p>
+          <p className="text-navy">{t('p1')}</p>
           <p>{t('p3')}</p>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-function Philosophy() {
-  const t = useTranslations('about.philosophy');
-  return (
-    <section className="bg-navy py-16 text-ivory sm:py-24 lg:py-28">
-      <Container>
-        <span className="text-sm font-semibold uppercase tracking-[0.2em] text-gold rtl:tracking-normal rtl:normal-case">
-          {t('tag')}
-        </span>
-        <h2 className="mb-6 mt-3.5 text-3xl text-white sm:text-4xl">
-          {t('title')}
-        </h2>
-        <p className="max-w-4xl font-serif text-2xl leading-relaxed text-white sm:text-3xl rtl:font-serif-ar">
-          {t('quote')}
-        </p>
-      </Container>
-    </section>
-  );
-}
-
-function Credentials() {
-  const t = useTranslations('about.credentials');
-  const panels = [
-    {
-      kicker: t('educationKicker'),
-      title: t('educationTitle'),
-      body: t('educationBody'),
-      meta: t('educationMeta'),
-    },
-    {
-      kicker: t('experienceKicker'),
-      title: t('experienceTitle'),
-      body: t('experienceBody'),
-      meta: t('experienceMeta'),
-    },
-  ];
-  return (
-    <section className="py-16 sm:py-24 lg:py-28">
-      <Container>
-        <SectionHeading tag={t('tag')} title={t('title')} className="mb-10" />
-        <div className="grid gap-6 md:grid-cols-2">
-          {panels.map((p) => (
-            <div
-              key={p.title}
-              className="rounded-2xl border border-line bg-white p-8"
-            >
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-gold rtl:tracking-normal rtl:normal-case">
-                {p.kicker}
-              </span>
-              <h3 className="mb-1.5 mt-2.5 text-xl text-navy">{p.title}</h3>
-              <p className="text-[15px] text-muted">{p.body}</p>
-              <p className="mt-3.5 text-sm font-medium text-slate">{p.meta}</p>
-            </div>
-          ))}
         </div>
       </Container>
     </section>
@@ -136,22 +73,16 @@ function Credentials() {
 
 function AboutCta() {
   const t = useTranslations('home.cta');
-  const tAbout = useTranslations('about');
   return (
-    <section className="bg-gradient-to-br from-navy to-slate py-16 text-center text-ivory sm:py-24 lg:py-28">
+    <section className="bg-gradient-to-br from-navy to-slate py-16 text-center text-ivory sm:py-24">
       <Container>
         <h2 className="mb-4 text-3xl text-white sm:text-4xl">{t('title')}</h2>
         <p className="mx-auto mb-8 max-w-[50ch] text-lg font-light text-ivory/80">
           {t('subtitle')}
         </p>
-        <div className="flex flex-col items-center gap-4">
-          <Button href="/#cta" variant="gold">
-            {t('button')}
-          </Button>
-          <Button href="/#cta" variant="ghost">
-            {tAbout('downloadBio')}
-          </Button>
-        </div>
+        <Button href="/contact" variant="gold">
+          {t('button')}
+        </Button>
       </Container>
     </section>
   );
@@ -169,10 +100,7 @@ export default async function AboutPage({
     <>
       <AboutHero />
       <Biography />
-      <Philosophy />
-      <Credentials />
-      <Timeline />
-      <Principles />
+      <ExecutiveCredentials dark />
       <AboutCta />
     </>
   );
