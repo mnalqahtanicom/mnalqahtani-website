@@ -10,8 +10,15 @@ const nextConfig = {
     remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }],
   },
   async redirects() {
-    // Old insights routes now live under the Knowledge Hub
     return [
+      // Redirect www → apex (https://mnalqahtani.com)
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.mnalqahtani.com' }],
+        destination: 'https://mnalqahtani.com/:path*',
+        permanent: true,
+      },
+      // Old insights routes now live under the Knowledge Hub
       {
         source: '/:locale(ar|en)/insights',
         destination: '/:locale/knowledge',
