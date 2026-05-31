@@ -24,7 +24,7 @@
     manager:[['home','الرئيسية','home'],['team','فريقي','team'],['thread','المسار','thread'],['experience','التجارب','star']],
     executive:[['home','الرئيسية','home'],['organization','المنظمة','org'],['thread','المسار','thread'],['experience','التجارب','star']],
   };
-  const ROUTE_TITLES = { home:'الرئيسية', himmah:'مؤشّر الهِمّة', thread:'خط الرؤية الاستراتيجي', goals:'أهدافي ومؤشراتي',
+  const ROUTE_TITLES = { home:'الرئيسية', himmah:'رحلة الهِمّة', thread:'خط الرؤية الاستراتيجي', goals:'أهدافي ومؤشراتي',
     conversations:'محادثاتي', experience:'تجربتي', voice:'الصوت', profile:'ملفي المهني',
     team:'فريقي', organization:'المنظمة' };
 
@@ -32,18 +32,13 @@
   const losPct = ()=>{ const n=TP.goals.length, ok=TP.goals.filter(g=>g.priorities.length&&g.behaviors.length).length; return Math.round(ok/n*100); };
   const avColor = name=>{ const c=['#2C5F90','#1B3A5C','#2EA1A1','#5FA570','#90C685']; let s=0; for(const ch of name)s+=ch.charCodeAt(0); return c[s%c.length]; };
   let tT; function toast(m){ let t=$('#toast'); if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);} t.textContent=m; t.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),2600); }
-  /* Himmah: personal, developmental — blends 4 pillars (not comparative) */
-  const himmahScore = ()=>{ const h=TP.himmah; return Math.round((h.alignment+h.contribution+h.development+h.participation)/4); };
-  const himmahBand = s=>{ const b=COPY.himmah.bands; let r=b[0]; for(const x of b) if(s>=x.min) r=x; return r; };
-  function gauge(pct,size){ size=size||140; const r=(size/2)-12, c=2*Math.PI*r, off=c*(1-pct/100); return `
-    <svg viewBox="0 0 ${size} ${size}" style="width:${size}px;height:${size}px">
-      <defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2EA1A1"/><stop offset="1" stop-color="#90C685"/></linearGradient></defs>
-      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#eee9df" stroke-width="11"/>
-      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#hg)" stroke-width="11" stroke-linecap="round"
-        stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 ${size/2} ${size/2})" style="transition:stroke-dashoffset 1.2s var(--ease-out)"/>
-      <text x="50%" y="48%" text-anchor="middle" font-size="${size*0.26}" font-weight="900" fill="#13303D" font-family="Tajawal">${pct}</text>
-      <text x="50%" y="66%" text-anchor="middle" font-size="${size*0.1}" font-weight="700" fill="#7B8A91" font-family="Tajawal">الهِمّة</text>
-    </svg>`; }
+  /* Himmah: a personal DEVELOPMENT JOURNEY — qualitative stages, NO comparable score */
+  const stageOf = v=>{ const st=COPY.himmah.stages; let r=st[0]; for(const x of st) if(v>=x.min) r=x; return r; };
+  const overallStage = ()=>{ const h=TP.himmah; const avg=(h.alignment+h.contribution+h.development+h.participation)/4;
+    const o=COPY.himmah.overall; let r=o[0]; for(const x of o) if(avg>=x.min) r=x; return r; };
+  /* a 4-step "journey path" visual for a pillar (which stage it's reached) — no numbers */
+  function journeyDots(v){ const idx=COPY.himmah.stages.findIndex(s=>s===stageOf(v));
+    return `<div class="jdots">${COPY.himmah.stages.map((s,i)=>`<span class="jdot ${i<=idx?'on':''}" title="${s.ar}"></span>${i<3?'<span class="jline '+(i<idx?'on':'')+'"></span>':''}`).join('')}</div>`; }
 
   /* ============================================================
      HOME — inspiring, editorial, dual-mode balanced
@@ -71,19 +66,15 @@
       <!-- ALIGNMENT column -->
       <div class="stack">
         <div class="card lift" style="cursor:pointer" data-go="himmah">
-          <div class="h">${I('spark','ic-lg')}<h3>مؤشّر الهِمّة</h3><span class="tag info" style="margin-inline-start:auto">${himmahBand(himmahScore()).ar}</span></div>
-          <div class="rowflex" style="justify-content:space-between">
-            ${gauge(himmahScore(),130)}
-            <div style="flex:1;min-width:180px">
-              <p class="soft" style="margin-bottom:10px">${himmahBand(himmahScore()).msg}</p>
-              <div class="rowflex" style="gap:8px">
-                <span class="pill beh">المواءمة ${TP.himmah.alignment}</span>
-                <span class="pill beh">الإسهام ${TP.himmah.contribution}</span>
-                <span class="pill beh">التطوير ${TP.himmah.development}</span>
-                <span class="pill beh">المشاركة ${TP.himmah.participation}</span>
-              </div>
-            </div>
+          <div class="h">${I('spark','ic-lg')}<h3>رحلة الهِمّة</h3><span class="tag info" style="margin-inline-start:auto">${overallStage().ar}</span></div>
+          <p class="soft" style="margin-bottom:14px">${overallStage().msg}</p>
+          <div class="hpills">
+            ${Object.entries(COPY.himmah.pillars).map(([k,p])=>`<div class="hpill">
+              <span class="hpill-ic">${I(p.icon,'ic-sm')}</span>
+              <div class="grow"><div class="hpill-t">${p.ar}</div><div class="hpill-st">${stageOf(TP.himmah[k]).ar}</div></div>
+              ${journeyDots(TP.himmah[k])}</div>`).join('')}
           </div>
+          <div class="rowflex" style="margin-top:14px"><span class="btn ghost sm">${I('arrow')} اكتشف رحلتك</span></div>
         </div>
         <div class="card">
           <div class="h">${I('thread','ic-lg')}<h3>خط الرؤية — مسارك إلى ٢٠٢٦</h3></div>
@@ -166,33 +157,46 @@
      HIMMAH — personal, developmental (no comparison/ranking)
      ============================================================ */
   function himmah(){
-    const h=TP.himmah, s=himmahScore(), band=himmahBand(s), m=TP.myMetrics;
-    const P=COPY.himmah.pillars;
-    const pillar=(key,val)=>`<div class="card flat"><div class="h" style="margin-bottom:8px">${I('growth')}<h3 style="font-size:16px">${P[key].ar}</h3><b class="tnum" style="margin-inline-start:auto;font-size:22px;color:var(--blue)">${val}</b></div>
-      <div class="fbar"><div class="track"><div class="fill" style="width:${val}%"></div></div></div>
-      <p class="soft" style="font-size:13px;margin-top:4px">${P[key].d}</p></div>`;
-    const stat=(lbl,v,ic)=>`<div class="kpi" style="padding:18px"><div class="rowflex" style="gap:10px"><span style="color:var(--teal)">${I(ic)}</span><div><div class="num tnum" style="font-size:28px">${v}</div><div class="lbl">${lbl}</div></div></div></div>`;
+    const h=TP.himmah, m=TP.myMetrics, ov=overallStage(), P=COPY.himmah.pillars;
+    const pillarCard=(key)=>{ const p=P[key], v=h[key], st=stageOf(v); return `
+      <div class="card flat hp-card reveal">
+        <div class="h" style="margin-bottom:10px"><span class="hpill-ic lg">${I(p.icon)}</span>
+          <div><h3 style="font-size:17px">${p.ar}</h3><span class="tag mute">المرحلة: ${st.ar}</span></div></div>
+        <p class="soft" style="font-size:13.5px;margin-bottom:14px">${p.d}</p>
+        ${journeyPath(v)}
+        <div class="hp-insight">${I('compass','ic-sm')} <span>${p.insight[st.tone]}</span></div>
+      </div>`; };
+    const stat=(lbl,v,ic)=>`<div class="kpi" style="padding:18px"><div class="rowflex" style="gap:11px"><span style="color:var(--teal)">${I(ic)}</span><div><div class="num tnum" style="font-size:26px">${v}</div><div class="lbl">${lbl}</div></div></div></div>`;
     return `
     <div class="sec-head reveal"><div><h2 class="grad-warm">${COPY.himmah.title}</h2><div class="desc">${COPY.himmah.sub}</div></div></div>
-    <div class="card pad-lg reveal d2" style="background:radial-gradient(120% 130% at 88% -20%,rgba(108,190,153,.18),transparent 55%)">
-      <div class="rowflex" style="justify-content:space-between;align-items:center">
-        <div class="rowflex" style="gap:24px">
-          ${gauge(s,170)}
-          <div><span class="tag info">${band.ar}</span>
-            <h2 style="margin:10px 0 6px;max-width:24ch">${band.msg}</h2>
-            <p class="soft">هذا مؤشّرك الشخصي — يقيس نموّك ومواءمتك وأثرك، لا مقارنتك بأحد.</p></div>
-        </div>
-      </div>
+
+    <div class="card pad-lg reveal d2" style="background:radial-gradient(120% 130% at 88% -20%,rgba(108,190,153,.20),transparent 55%)">
+      <span class="tag info">${ov.ar}</span>
+      <h2 style="margin:12px 0 8px;max-width:34ch">${ov.msg}</h2>
+      <p class="soft">رحلة الهِمّة ليست رقماً ولا ترتيباً — هي مسارُك أنت في أربع ركائز، تنمو بخطواتك.</p>
+      <div class="journey-legend">${COPY.himmah.stages.map((s,i)=>`<span class="jl"><span class="jdot on s${i}"></span>${s.ar}</span>`).join('<span class="jl-arr">→</span>')}</div>
     </div>
-    <div class="sec-head reveal d3" style="margin-top:24px"><div><h2 style="font-size:22px">ركائز هِمّتك الأربع</h2></div></div>
-    <div class="grid g4 reveal d3">${pillar('alignment',h.alignment)}${pillar('contribution',h.contribution)}${pillar('development',h.development)}${pillar('participation',h.participation)}</div>
-    <div class="sec-head reveal d4" style="margin-top:24px"><div><h2 style="font-size:22px">إسهامك هذا العام</h2><div class="desc">صورة شخصية لمشاركتك — للنمو لا للمقارنة.</div></div></div>
+
+    <div class="sec-head reveal d3" style="margin-top:24px"><div><h2 style="font-size:22px">ركائز رحلتك الأربع</h2>
+      <div class="desc">لكل ركيزة مرحلتها وإضاءةٌ تطويرية تدعم خطوتك القادمة.</div></div></div>
+    <div class="grid g4 reveal d3">${['alignment','contribution','development','participation'].map(pillarCard).join('')}</div>
+
+    <div class="sec-head reveal d4" style="margin-top:24px"><div><h2 style="font-size:22px">إسهامك ومشاركتك</h2>
+      <div class="desc">${COPY.himmah.growthLabel}</div></div></div>
     <div class="grid g4 reveal d4">
-      ${stat('تقدير قدّمته',m.recSent,'heart')}${stat('تقدير استلمته',m.recReceived,'star')}
-      ${stat('مشاركات صوت',m.fbSent,'voice')}${stat('جلسات معرفة',m.knowledge+m.coffee,'team')}
+      ${stat('تقدير قدّمته لزملائك',m.recSent,'heart')}
+      ${stat('مرّات شاركت صوتك',m.fbShared,'voice')}
+      ${stat('جلسات معرفة وتواصل',m.knowledge+m.coffee,'team')}
+      ${stat('محادثات تطوير مع مديرك',m.conversations,'chat')}
     </div>
-    <div class="notice info reveal d5" style="margin-top:18px">${I('shield','ic-sm')} مؤشّر الهِمّة شخصيّ وتطويري — يظهر لك ولمديرك للدعم فقط، ولا يُقارَن بالزملاء ولا يرتبط بأي تقييم أو مكافأة.</div>`;
+
+    <div class="notice info reveal d5" style="margin-top:18px">${I('shield','ic-sm')} ${COPY.himmah.note}</div>`;
   }
+  /* full horizontal journey path with stage labels (no numbers) */
+  function journeyPath(v){ const idx=COPY.himmah.stages.findIndex(s=>s===stageOf(v));
+    return `<div class="jpath">${COPY.himmah.stages.map((s,i)=>`
+      <div class="jstep ${i<idx?'done':i===idx?'cur':''}"><span class="jnode">${i<=idx?I('check','ic-sm'):''}</span><span class="jlabel">${s.ar}</span></div>
+      ${i<3?`<span class="jbar ${i<idx?'on':''}"></span>`:''}`).join('')}</div>`; }
 
   /* ============================================================
      MANAGER / EXECUTIVE home (light, for context)

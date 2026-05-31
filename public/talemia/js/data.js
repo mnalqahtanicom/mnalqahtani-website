@@ -63,11 +63,12 @@ window.TP = {
   org: { engagement:15, enps:-19, los:71, behaviorPrev:[62,55,71,58,49,53,68,47,44,57,60,51],
     adoption:[['وعي',18],['فهم',24],['تجربة',29],['تبنّي',21],['متجذّر',8]] },
 
-  /* personal interaction metrics (employee view — not comparative) */
+  /* personal interaction snapshot (employee view — growth, not comparison).
+     NOTE: recognition RECEIVED is intentionally NOT a Himmah input (avoids popularity effects). */
   myMetrics: {
-    recSent:7, recReceived:5, fbSent:4, fbReceived:3,
-    coffee:2, knowledge:1, goalsDone:1, goalsTotal:3, meetings:6,
+    recSent:7, fbShared:4, coffee:2, knowledge:1, goalsDone:1, goalsTotal:3, conversations:2,
   },
-  /* Himmah pillars (0-100) — personal, developmental */
+  /* Himmah journey — per-pillar progress used ONLY to derive a qualitative stage.
+     The raw values are internal; the employee sees STAGES + coaching, not a comparable score. */
   himmah: { alignment:67, contribution:72, development:58, participation:81 },
 };
