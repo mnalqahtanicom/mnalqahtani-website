@@ -17,8 +17,8 @@
     "next": "15.3.9",
     "next-intl": "4.13.0",
     "next-sanity": "13.0.7",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "sanity": "5.28.0",
     "styled-components": "^6.4.2"
   },
