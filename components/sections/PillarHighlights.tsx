@@ -3,7 +3,13 @@ import { Link } from '@/i18n/navigation';
 import Container from '@/components/ui/Container';
 import SectionHeading from '@/components/ui/SectionHeading';
 import KnowledgeCard from '@/components/knowledge/KnowledgeCard';
-import { getFeatured, type Locale, type Pillar } from '@/lib/knowledge';
+import {
+  getByPillar,
+  getFeatured,
+  type Locale,
+  type Pillar,
+} from '@/lib/knowledge';
+import { getSettings } from '@/lib/settings';
 import { cn } from '@/lib/utils';
 
 export default async function PillarHighlights({
@@ -19,7 +25,24 @@ export default async function PillarHighlights({
 }) {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations(namespace);
-  const items = await getFeatured(locale, pillar, 3);
+  const settings = await getSettings(locale);
+
+  const slugs =
+    pillar === 'knowledge'
+      ? settings.featuredKnowledgeSlugs
+      : settings.featuredFrameworksSlugs;
+
+  let items;
+  if (slugs.length) {
+    const all = await getByPillar(locale, pillar);
+    const map = new Map(all.map((i) => [i.slug, i]));
+    items = slugs
+      .map((s) => map.get(s))
+      .filter((i): i is NonNullable<typeof i> => Boolean(i))
+      .slice(0, 3);
+  } else {
+    items = await getFeatured(locale, pillar, 3);
+  }
 
   if (!items.length) return null;
 

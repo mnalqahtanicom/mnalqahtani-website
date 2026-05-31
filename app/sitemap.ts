@@ -2,21 +2,28 @@ import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
 import { siteConfig } from '@/lib/site';
 import { getAllKnowledgeRefs } from '@/lib/knowledge';
+import { getStorySlugs } from '@/lib/stories';
 
 const staticPaths = [
   '',
   '/strategy-to-results',
   '/knowledge',
   '/frameworks',
+  '/stories',
+  '/perspectives',
   '/about',
   '/contact',
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const refs = await getAllKnowledgeRefs();
+  const [refs, storySlugs] = await Promise.all([
+    getAllKnowledgeRefs(),
+    getStorySlugs(),
+  ]);
   const paths = [
     ...staticPaths,
     ...refs.map((r) => `/${r.pillar}/${r.slug}`),
+    ...storySlugs.map((slug) => `/stories/${slug}`),
   ];
 
   return paths.flatMap((path) =>

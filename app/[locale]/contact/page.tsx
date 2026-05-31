@@ -3,7 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Container from '@/components/ui/Container';
 import ContactForm from '@/components/contact/ContactForm';
 import { routing } from '@/i18n/routing';
-import { activeSocialLinks, siteConfig } from '@/lib/site';
+import { getSettings } from '@/lib/settings';
+import type { Locale } from '@/lib/knowledge/types';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -38,6 +39,7 @@ export default async function ContactPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'contact' });
+  const settings = await getSettings(locale as Locale);
 
   return (
     <>
@@ -59,6 +61,7 @@ export default async function ContactPage({
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
             <ContactForm
+              recipient={settings.contactEmail}
               labels={{
                 nameLabel: t('nameLabel'),
                 emailLabel: t('emailLabel'),
@@ -71,14 +74,14 @@ export default async function ContactPage({
                 {t('emailHeading')}
               </h2>
               <a
-                href={`mailto:${siteConfig.email}`}
+                href={`mailto:${settings.contactEmail}`}
                 className="mt-2 block text-lg text-navy transition-colors hover:text-gold"
               >
-                {siteConfig.email}
+                {settings.contactEmail}
               </a>
-              {activeSocialLinks.length ? (
+              {settings.social.length ? (
                 <div className="mt-6 flex flex-wrap gap-4">
-                  {activeSocialLinks.map((s) => (
+                  {settings.social.map((s) => (
                     <a
                       key={s.label}
                       href={s.href}

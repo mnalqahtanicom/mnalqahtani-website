@@ -72,6 +72,29 @@ That's it — no code, no redeploy.
 
 ---
 
+## Managing the rest of the site (Site Settings)
+
+In the Studio, **Site Settings** is a single page that controls the whole site —
+no code needed:
+
+- **Homepage:** your professional **portrait**, and optional hero text overrides
+- **Featured:** choose which Knowledge and Frameworks items appear on the homepage
+- **Maintenance Mode:** toggle the branded "we're updating" page on/off (with your
+  own message)
+- **Contact & Social:** your contact email, and LinkedIn / X links with show/hide
+  toggles (they stay hidden until you switch them on)
+- **SEO Defaults:** default title and meta description
+- **Sections:** show/hide Transformation Stories and Leadership Perspectives on the
+  homepage
+
+You also get two more content types:
+
+- **Transformation Stories** — Challenge → Solution → Impact → Lessons Learned
+- **Leadership Perspectives** — name, position, organization, photo, testimonial
+
+Until you add them, those sections stay hidden and their pages show a short
+"coming soon" note — no placeholder/fake content is ever shown.
+
 ## Notes
 
 - **Bilingual:** every text field has English + Arabic. Fill both for the best

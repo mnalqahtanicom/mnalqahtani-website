@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Portrait from '@/components/ui/Portrait';
 import ExecutiveCredentials from '@/components/sections/ExecutiveCredentials';
+import { getSettings } from '@/lib/settings';
+import type { Locale } from '@/lib/knowledge/types';
 import { routing } from '@/i18n/routing';
 
 export function generateStaticParams() {
@@ -29,8 +31,10 @@ export async function generateMetadata({
   };
 }
 
-function AboutHero() {
-  const t = useTranslations('about.hero');
+async function AboutHero() {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations('about.hero');
+  const settings = await getSettings(locale);
   return (
     <section className="motif relative overflow-hidden bg-navy text-ivory">
       <Container className="relative">
@@ -48,7 +52,7 @@ function AboutHero() {
             </p>
           </div>
           <div className="mx-auto w-full max-w-[300px]">
-            <Portrait alt={t('portraitAlt')} />
+            <Portrait src={settings.portraitUrl} alt={t('portraitAlt')} />
           </div>
         </div>
       </Container>

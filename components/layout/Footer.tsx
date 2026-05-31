@@ -1,20 +1,25 @@
-import { useTranslations } from 'next-intl';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import Container from '@/components/ui/Container';
-import { activeSocialLinks } from '@/lib/site';
+import { getSettings } from '@/lib/settings';
+import type { Locale } from '@/lib/knowledge/types';
 
 const footerLinks = [
   { key: 'knowledge', href: '/knowledge' },
   { key: 'frameworks', href: '/frameworks' },
   { key: 'framework', href: '/strategy-to-results' },
+  { key: 'stories', href: '/stories' },
+  { key: 'perspectives', href: '/perspectives' },
   { key: 'about', href: '/about' },
   { key: 'contact', href: '/contact' },
 ] as const;
 
-export default function Footer() {
-  const t = useTranslations('nav');
-  const tFooter = useTranslations('footer');
-  const tSite = useTranslations('site');
+export default async function Footer() {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations('nav');
+  const tFooter = await getTranslations('footer');
+  const tSite = await getTranslations('site');
+  const settings = await getSettings(locale);
   const year = new Date().getFullYear();
 
   return (
@@ -37,7 +42,7 @@ export default function Footer() {
                 {t(item.key)}
               </Link>
             ))}
-            {activeSocialLinks.map((s) => (
+            {settings.social.map((s) => (
               <a
                 key={s.label}
                 href={s.href}

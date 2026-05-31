@@ -9,6 +9,8 @@
     "knowledge": "Knowledge Hub",
     "frameworks": "Frameworks & Tools",
     "framework": "Strategy to Results™",
+    "stories": "Transformation Stories",
+    "perspectives": "Leadership Perspectives",
     "contact": "Contact",
     "switchTo": "عربي"
   },
@@ -58,6 +60,15 @@
       "tag": "Frameworks & Tools",
       "title": "Practical tools you can use.",
       "viewAll": "Browse Frameworks & Tools"
+    },
+    "stories": {
+      "tag": "Transformation Stories",
+      "title": "Real experience, honestly told.",
+      "viewAll": "Read the stories"
+    },
+    "perspectives": {
+      "tag": "Leadership Perspectives",
+      "title": "Perspectives from leaders I've worked with."
     },
     "quote": {
       "text": "A strategy only matters if the organization can actually carry it out. Most of what I write about lives in that gap — between intent and results.",
@@ -186,6 +197,25 @@
     "title": "We're working on something exceptional.",
     "line1": "The website is currently being updated.",
     "line2": "Please check back soon."
+  },
+  "storiesPage": {
+    "metaTitle": "Transformation Stories",
+    "metaDescription": "Real transformation experiences — challenge, solution, impact, and lessons learned.",
+    "title": "Transformation Stories",
+    "subtitle": "Real transformation experiences — challenge, solution, impact, and the lessons learned along the way.",
+    "comingSoon": "Transformation stories are being prepared. Please check back soon.",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "impact": "Impact",
+    "lessons": "Lessons Learned",
+    "back": "All stories"
+  },
+  "perspectivesPage": {
+    "metaTitle": "Leadership Perspectives",
+    "metaDescription": "Perspectives and reflections from leaders I have worked with.",
+    "title": "Leadership Perspectives",
+    "subtitle": "Perspectives and reflections from leaders I have worked with.",
+    "comingSoon": "Leadership perspectives are being prepared. Please check back soon."
   },
   "knowledgeFormats": {
     "article": "Article",
