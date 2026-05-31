@@ -18,27 +18,61 @@
       ['conversations','محادثاتي','chat'],['experience','تجربتي','star'],['voice','الصوت','voice'],['profile','ملفي','user']],
     manager:[['home','الرئيسية','home'],['team','فريقي','team'],['thread','خط الرؤية','thread'],['experience','التجارب','star']],
     executive:[['home','الرئيسية','home'],['organization','المنظمة','org'],['thread','خط الرؤية','thread'],['experience','التجارب','star']],
+    change:[['cmdash','لوحة التغيير','console'],['organization','المنظمة','org'],['thread','خط الرؤية','thread']],
   };
   const TABS = {
     employee:[['home','الرئيسية','home'],['himmah','هِمّتي','spark'],['thread','المسار','thread'],['voice','الصوت','voice'],['profile','ملفي','user']],
     manager:[['home','الرئيسية','home'],['team','فريقي','team'],['thread','المسار','thread'],['experience','التجارب','star']],
     executive:[['home','الرئيسية','home'],['organization','المنظمة','org'],['thread','المسار','thread'],['experience','التجارب','star']],
+    change:[['cmdash','اللوحة','console'],['organization','المنظمة','org'],['thread','المسار','thread']],
   };
   const ROUTE_TITLES = { home:'الرئيسية', himmah:'رحلة الهِمّة', thread:'خط الرؤية الاستراتيجي', goals:'أهدافي ومؤشراتي',
     conversations:'محادثاتي', experience:'تجربتي', voice:'الصوت', profile:'ملفي المهني',
-    team:'فريقي', organization:'المنظمة' };
+    team:'فريقي', organization:'المنظمة', cmdash:'لوحة إدارة التغيير' };
 
   /* ---------------- helpers ---------------- */
   const losPct = ()=>{ const n=TP.goals.length, ok=TP.goals.filter(g=>g.priorities.length&&g.behaviors.length).length; return Math.round(ok/n*100); };
   const avColor = name=>{ const c=['#2C5F90','#1B3A5C','#2EA1A1','#5FA570','#90C685']; let s=0; for(const ch of name)s+=ch.charCodeAt(0); return c[s%c.length]; };
   let tT; function toast(m){ let t=$('#toast'); if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);} t.textContent=m; t.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),2600); }
-  /* Himmah: a personal DEVELOPMENT JOURNEY — qualitative stages, NO comparable score */
-  const stageOf = v=>{ const st=COPY.himmah.stages; let r=st[0]; for(const x of st) if(v>=x.min) r=x; return r; };
-  const overallStage = ()=>{ const h=TP.himmah; const avg=(h.alignment+h.contribution+h.development+h.participation)/4;
-    const o=COPY.himmah.overall; let r=o[0]; for(const x of o) if(avg>=x.min) r=x; return r; };
-  /* a 4-step "journey path" visual for a pillar (which stage it's reached) — no numbers */
-  function journeyDots(v){ const idx=COPY.himmah.stages.findIndex(s=>s===stageOf(v));
-    return `<div class="jdots">${COPY.himmah.stages.map((s,i)=>`<span class="jdot ${i<=idx?'on':''}" title="${s.ar}"></span>${i<3?'<span class="jline '+(i<idx?'on':'')+'"></span>':''}`).join('')}</div>`; }
+  /* Himmah: a personal DEVELOPMENT JOURNEY — RULE-BASED stages, NO numbers anywhere.
+     Each pillar maps activity FACTS -> one of: seed | grow | bloom | inspire. */
+  const STAGE_ORDER = ['seed','grow','bloom','inspire'];
+  const stageMeta = tone => COPY.himmah.stages.find(s=>s.tone===tone) || COPY.himmah.stages[0];
+  function pillarStage(key){
+    const f = TP.himmahFacts;
+    switch(key){
+      case 'alignment': {
+        const allPriority = f.activeGoals>0 && f.goalsLinkedToPriority>=f.activeGoals;
+        const allBehavior = f.activeGoals>0 && f.goalsLinkedToBehavior>=f.activeGoals;
+        const some = f.goalsLinkedToPriority>0 || f.goalsLinkedToBehavior>0;
+        if(allPriority && allBehavior && f.clarityConfirmed) return 'inspire'; // sustained + confirmed
+        if(allPriority && allBehavior) return 'bloom';   // rule: all active goals linked to a priority AND a behavior
+        if(some) return 'grow';
+        return 'seed';
+      }
+      case 'participation': {
+        const n = (f.pulseDone?1:0)+(f.voiceShared?1:0)+(f.oneOnOneAttended?1:0);
+        return STAGE_ORDER[Math.min(n,3)]; // 0..3 facts -> seed/grow/bloom/inspire
+      }
+      case 'development': {
+        const n = (f.skillsUpdated?1:0)+((f.devActionsDone>0)?1:0)+(f.learningParticipated?1:0);
+        return STAGE_ORDER[Math.min(n,3)];
+      }
+      case 'contribution': {
+        const n = (f.contributedToGoals?1:0)+((f.meaningfulRecognitionSent>0)?1:0)+(f.knowledgeShared?1:0)+(f.supportedOthers?1:0);
+        // 4 ways of contributing -> map to 4 stages
+        return STAGE_ORDER[Math.max(0,Math.min(n,4)-1)];
+      }
+      default: return 'seed';
+    }
+  }
+  const PILLAR_KEYS = ['alignment','contribution','development','participation'];
+  /* overall = the typical (lowest) stage across pillars — encourages balanced growth, no number */
+  function overallStage(){ const idxs=PILLAR_KEYS.map(k=>STAGE_ORDER.indexOf(pillarStage(k)));
+    return COPY.himmah.overall[ STAGE_ORDER[Math.min(...idxs)] ]; }
+  /* mini journey dots for the home card (stage reached) */
+  function journeyDots(key){ const idx=STAGE_ORDER.indexOf(pillarStage(key));
+    return `<div class="jdots">${STAGE_ORDER.map((t,i)=>`<span class="jdot ${i<=idx?'on':''}" title="${stageMeta(t).ar}"></span>${i<3?'<span class="jline '+(i<idx?'on':'')+'"></span>':''}`).join('')}</div>`; }
 
   /* ============================================================
      HOME — inspiring, editorial, dual-mode balanced
@@ -69,10 +103,10 @@
           <div class="h">${I('spark','ic-lg')}<h3>رحلة الهِمّة</h3><span class="tag info" style="margin-inline-start:auto">${overallStage().ar}</span></div>
           <p class="soft" style="margin-bottom:14px">${overallStage().msg}</p>
           <div class="hpills">
-            ${Object.entries(COPY.himmah.pillars).map(([k,p])=>`<div class="hpill">
+            ${PILLAR_KEYS.map(k=>{ const p=COPY.himmah.pillars[k]; return `<div class="hpill">
               <span class="hpill-ic">${I(p.icon,'ic-sm')}</span>
-              <div class="grow"><div class="hpill-t">${p.ar}</div><div class="hpill-st">${stageOf(TP.himmah[k]).ar}</div></div>
-              ${journeyDots(TP.himmah[k])}</div>`).join('')}
+              <div class="grow"><div class="hpill-t">${p.ar}</div><div class="hpill-st">${stageMeta(pillarStage(k)).ar}</div></div>
+              ${journeyDots(k)}</div>`; }).join('')}
           </div>
           <div class="rowflex" style="margin-top:14px"><span class="btn ghost sm">${I('arrow')} اكتشف رحلتك</span></div>
         </div>
@@ -157,14 +191,15 @@
      HIMMAH — personal, developmental (no comparison/ranking)
      ============================================================ */
   function himmah(){
-    const h=TP.himmah, m=TP.myMetrics, ov=overallStage(), P=COPY.himmah.pillars;
-    const pillarCard=(key)=>{ const p=P[key], v=h[key], st=stageOf(v); return `
+    const m=TP.myMetrics, ov=overallStage(), P=COPY.himmah.pillars;
+    const pillarCard=(key)=>{ const p=P[key], tone=pillarStage(key), st=stageMeta(tone); return `
       <div class="card flat hp-card reveal">
         <div class="h" style="margin-bottom:10px"><span class="hpill-ic lg">${I(p.icon)}</span>
           <div><h3 style="font-size:17px">${p.ar}</h3><span class="tag mute">المرحلة: ${st.ar}</span></div></div>
         <p class="soft" style="font-size:13.5px;margin-bottom:14px">${p.d}</p>
-        ${journeyPath(v)}
-        <div class="hp-insight">${I('compass','ic-sm')} <span>${p.insight[st.tone]}</span></div>
+        ${journeyPath(tone)}
+        <div class="hp-insight">${I('compass','ic-sm')} <span>${p.insight[tone]}</span></div>
+        <div class="hp-next">${I('arrow','ic-sm')} <div><span class="hp-next-k">خطوتك القادمة</span><span>${p.next[tone]}</span></div></div>
       </div>`; };
     const stat=(lbl,v,ic)=>`<div class="kpi" style="padding:18px"><div class="rowflex" style="gap:11px"><span style="color:var(--teal)">${I(ic)}</span><div><div class="num tnum" style="font-size:26px">${v}</div><div class="lbl">${lbl}</div></div></div></div>`;
     return `
@@ -174,7 +209,7 @@
       <span class="tag info">${ov.ar}</span>
       <h2 style="margin:12px 0 8px;max-width:34ch">${ov.msg}</h2>
       <p class="soft">رحلة الهِمّة ليست رقماً ولا ترتيباً — هي مسارُك أنت في أربع ركائز، تنمو بخطواتك.</p>
-      <div class="journey-legend">${COPY.himmah.stages.map((s,i)=>`<span class="jl"><span class="jdot on s${i}"></span>${s.ar}</span>`).join('<span class="jl-arr">→</span>')}</div>
+      <div class="journey-legend">${COPY.himmah.stages.map((s,i)=>`<span class="jl"><span class="jdot on s${i}"></span>${s.ar}</span>`).join('<span class="jl-arr">←</span>')}</div>
     </div>
 
     <div class="sec-head reveal d3" style="margin-top:24px"><div><h2 style="font-size:22px">ركائز رحلتك الأربع</h2>
@@ -193,10 +228,95 @@
     <div class="notice info reveal d5" style="margin-top:18px">${I('shield','ic-sm')} ${COPY.himmah.note}</div>`;
   }
   /* full horizontal journey path with stage labels (no numbers) */
-  function journeyPath(v){ const idx=COPY.himmah.stages.findIndex(s=>s===stageOf(v));
+  function journeyPath(tone){ const idx=STAGE_ORDER.indexOf(tone);
     return `<div class="jpath">${COPY.himmah.stages.map((s,i)=>`
       <div class="jstep ${i<idx?'done':i===idx?'cur':''}"><span class="jnode">${i<=idx?I('check','ic-sm'):''}</span><span class="jlabel">${s.ar}</span></div>
       ${i<3?`<span class="jbar ${i<idx?'on':''}"></span>`:''}`).join('')}</div>`; }
+
+  /* ============================================================
+     CHANGE MANAGEMENT DASHBOARD (Operations layer — HC & Change Mgmt)
+     Aggregate + SUPPORTIVE follow-up. No employee rankings.
+     ============================================================ */
+  function cmStat(lbl,val,sub,ic,tone){ return `<div class="kpi lift"><div class="glow"></div>
+    <div class="rowflex" style="gap:11px;align-items:flex-start"><span style="color:var(--${tone||'teal'})">${I(ic)}</span>
+      <div><div class="num tnum">${val}</div><div class="lbl">${lbl}</div>${sub?`<div class="delta up">${sub}</div>`:''}</div></div></div>`; }
+  function splitBar(done,pending,doneL,pendL){ const t=done+pending,p=Math.round(done/t*100);
+    return `<div class="splitbar"><div class="sb-fill" style="width:${p}%"></div></div>
+      <div class="rowflex" style="justify-content:space-between;margin-top:8px;font-size:13px;font-weight:700">
+        <span style="color:var(--success)">${doneL}: ${done}</span><span style="color:var(--flag)">${pendL}: ${pending}</span></div>`; }
+
+  function cmdash(){
+    const c=TP.cm;
+    const ops=c.sectorOps;
+    const heat=(v)=>{ const a=Math.max(.12,Math.min(1,v/100)); return `background:rgba(46,161,161,${a});color:${v>=60?'#fff':'#13303D'}`; };
+    return `
+    <section class="hero reveal" style="background:radial-gradient(120% 140% at 88% -20%,rgba(46,161,161,.5),transparent 55%),linear-gradient(120deg,#0E2533,#16384F)">
+      <span class="ring r1"></span><span class="ring r2"></span>
+      <img class="hero-logo float" src="assets/talemia-logo-white.png" alt="التعليمية">
+      <div class="eyebrow" style="color:var(--green-2)">إدارة التغيير · المتابعة التشغيلية</div>
+      <h1>لوحة قيادة التغيير</h1>
+      <p class="lead">متابعةٌ داعمة لمشاركة المنظومة وتبنّيها — لتمكين الفرق، لا لمقارنتها. كل مؤشّر يقترن بإجراء متابعةٍ لطيف.</p>
+    </section>
+
+    <!-- KPI row -->
+    <div class="grid g4 reveal d2" style="margin-top:22px">
+      ${cmStat('معدّل المشاركة', c.participationRate+'%','مشاركة المنظومة','team')}
+      ${cmStat('معدّل التبنّي', c.adoptionRate+'%','نحو التجذّر','growth')}
+      ${cmStat('تقدير هذا الشهر', c.recognitionThisMonth, c.recognitionTrend+' عن السابق','heart')}
+      ${cmStat('اعتماد الأهداف', Math.round(c.goalsApproved/(c.goalsApproved+c.goalsAwaiting)*100)+'%','من الأهداف المرسلة','target')}
+    </div>
+
+    <!-- Participation & 1:1 split -->
+    <div class="grid g2 reveal d3" style="margin-top:20px">
+      <div class="card"><div class="h">${I('voice','ic-lg')}<h3>مشاركة التغذية الراجعة</h3></div>
+        ${splitBar(c.feedbackGiven,c.feedbackPending,'شاركوا','بانتظار المشاركة')}
+        <p class="soft" style="margin-top:10px;font-size:13px">${c.feedbackGiven} موظفاً شاركوا صوتهم؛ ${c.feedbackPending} بانتظار دعوةٍ ودّية للمشاركة.</p>
+      </div>
+      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>محادثات ١:١ (المدراء)</h3></div>
+        ${splitBar(c.oneOnOneDone,c.oneOnOnePending,'أكملوا','لم يُكملوا')}
+        <p class="soft" style="margin-top:10px;font-size:13px">${c.oneOnOneDone} من ${c.managersTotal} مديراً أكملوا محادثات التوافق؛ ${c.oneOnOnePending} بحاجة لتذكيرٍ داعم.</p>
+      </div>
+    </div>
+
+    <!-- Goal approval funnel -->
+    <div class="card reveal d3" style="margin-top:20px"><div class="h">${I('target','ic-lg')}<h3>حالة اعتماد الأهداف</h3></div>
+      <div class="grid g3">
+        ${cmStat('معتمدة', c.goalsApproved,'مكتملة الربط والاعتماد','check','success')}
+        ${cmStat('بانتظار الاعتماد', c.goalsAwaiting,'لدى المدراء','chat','flag')}
+        ${cmStat('بحاجة لمراجعة', c.goalsFlagged,'ربط ناقص (غير محظور)','flag','flag')}
+      </div>
+    </div>
+
+    <!-- Operational heatmap by sector -->
+    <div class="card reveal d4" style="margin-top:20px"><div class="h">${I('grid','ic-lg')}<h3>خريطة حرارية تشغيلية — حسب القطاع</h3>
+      <span class="tag mute" style="margin-inline-start:auto">تجميعي · n ≥ ٥</span></div>
+      <div class="heat">
+        <div class="heat-row heat-head"><span class="heat-name">القطاع</span>
+          <span>المشاركة</span><span>التغذية الراجعة</span><span>الأهداف</span><span>١:١</span><span>التبنّي</span></div>
+        ${ops.map(s=>`<div class="heat-row"><span class="heat-name"><span class="sdot" style="background:${s.c}"></span> ${s.ar}</span>
+          <span class="heat-cell" style="${heat(s.participation)}">${s.participation}</span>
+          <span class="heat-cell" style="${heat(s.feedback)}">${s.feedback}</span>
+          <span class="heat-cell" style="${heat(s.goals)}">${s.goals}</span>
+          <span class="heat-cell" style="${heat(s.oneonone)}">${s.oneonone}</span>
+          <span class="heat-cell" style="${heat(s.adoption)}">${s.adoption}</span></div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Supportive follow-up (HC & Change Mgmt only) -->
+    <div class="grid g2 reveal d5" style="margin-top:20px">
+      <div class="card"><div class="h">${I('compass','ic-lg')}<h3>متابعة داعمة — مشاركة التغذية الراجعة</h3></div>
+        ${c.followUp.noFeedback.map(f=>`<div class="lrow"><div class="grow"><div class="title">${f.sector}</div>
+          <div class="soft" style="font-size:13px">${f.pending} من ${f.total} بانتظار المشاركة</div></div>
+          <button class="btn ghost sm" data-toast="تم إرسال دعوة ودّية للمشاركة إلى ${f.sector}">${I('voice')} دعوة لطيفة</button></div>`).join('')}
+      </div>
+      <div class="card"><div class="h">${I('chat','ic-lg')}<h3>متابعة داعمة — محادثات ١:١</h3></div>
+        ${c.followUp.pendingOneOnOne.map(m=>`<div class="lrow"><div class="grow"><div class="title">${m.name}</div>
+          <div class="soft" style="font-size:13px">أكمل ${m.done} من ${m.team} محادثة</div></div>
+          <button class="btn ghost sm" data-toast="تم إرسال تذكير داعم إلى ${m.name}">${I('arrow')} تذكير داعم</button></div>`).join('')}
+      </div>
+    </div>
+    <div class="notice privacy reveal d5" style="margin-top:18px">${I('shield','ic-sm')} قوائم المتابعة داعمة وتمكينية — لتقديم العون لا للمحاسبة. مرئيّة لإدارة التغيير والموارد البشرية فقط، ولا تُعرَض كترتيبٍ للأفراد.</div>`;
+  }
 
   /* ============================================================
      MANAGER / EXECUTIVE home (light, for context)
@@ -341,7 +461,7 @@
   /* ============================================================
      SHELL + ROUTER
      ============================================================ */
-  const VIEW = { home, himmah, thread, goals,
+  const VIEW = { home, himmah, thread, goals, cmdash,
     conversations:()=>placeholder('محادثاتي'), experience:()=>{ openExperience(); return home(); },
     voice:()=>placeholder('الصوت'), profile:()=>placeholder('ملفي المهني'),
     team:()=>placeholder('فريقي'), organization:execHome };
@@ -365,6 +485,7 @@
               <option value="employee" ${S.role==='employee'?'selected':''}>موظف</option>
               <option value="manager" ${S.role==='manager'?'selected':''}>مدير</option>
               <option value="executive" ${S.role==='executive'?'selected':''}>قيادة</option>
+              <option value="change" ${S.role==='change'?'selected':''}>إدارة التغيير</option>
             </select></div>
         </aside>
         <div class="main">
@@ -377,7 +498,7 @@
         </div>
       </div>
       <nav class="tabbar">${tabs.map(t=>`<a class="${S.route===t[0]?'active':''}" data-go="${t[0]}">${I(t[2])}<span>${t[1]}</span></a>`).join('')}</nav>`;
-    const sel=$('#roleSel'); if(sel) sel.onchange=e=>{ S.role=e.target.value; S.route='home'; render(); };
+    const sel=$('#roleSel'); if(sel) sel.onchange=e=>{ S.role=e.target.value; S.route=(S.role==='change'?'cmdash':'home'); render(); };
     window.scrollTo(0,0);
   }
   function go(r){ if(r==='experience'){ openExperience(); return; } S.route=r; render(); }

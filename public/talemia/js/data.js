@@ -63,12 +63,55 @@ window.TP = {
   org: { engagement:15, enps:-19, los:71, behaviorPrev:[62,55,71,58,49,53,68,47,44,57,60,51],
     adoption:[['وعي',18],['فهم',24],['تجربة',29],['تبنّي',21],['متجذّر',8]] },
 
+  /* ---------- Change Management operational data (HC + Change Mgmt only) ---------- */
+  cm: {
+    headcount: 204,
+    feedbackGiven: 147, feedbackPending: 57,          // who gave feedback vs not
+    managersTotal: 45, oneOnOneDone: 31, oneOnOnePending: 14,
+    goalsApproved: 138, goalsAwaiting: 41, goalsFlagged: 25,
+    participationRate: 72, recognitionThisMonth: 213, recognitionTrend:'+18%',
+    adoptionRate: 58,
+    // supportive follow-up lists (NOT punitive, NOT rankings) — by sector aggregate + sample individuals for HC follow-up
+    followUp: {
+      noFeedback: [   // sectors with pending feedback participation
+        {sector:'التطوير المهني', pending:14, total:32},
+        {sector:'التربية الخاصة', pending:12, total:28},
+        {sector:'العمليات التعليمية', pending:9, total:30},
+      ],
+      pendingOneOnOne: [ // managers who haven't completed 1:1s (for supportive nudge)
+        {name:'م. قسم الجودة', team:8, done:3},
+        {name:'م. التطوير المهني', team:6, done:2},
+        {name:'م. التربية الخاصة', team:7, done:4},
+      ],
+    },
+    // sector operational rollup
+    sectorOps:[
+      {ar:'المحتوى والمناهج', c:'#2C5F90', participation:74, feedback:78, goals:82, oneonone:80, adoption:62},
+      {ar:'التربية الخاصة', c:'#2C5F90', participation:61, feedback:57, goals:64, oneonone:57, adoption:48},
+      {ar:'العمليات التعليمية', c:'#2C5F90', participation:70, feedback:71, goals:70, oneonone:66, adoption:55},
+      {ar:'التطوير المهني', c:'#2C5F90', participation:58, feedback:49, goals:61, oneonone:50, adoption:44},
+      {ar:'حلول رأس المال البشري', c:'#2C5F90', participation:79, feedback:80, goals:75, oneonone:78, adoption:62},
+      {ar:'الاستراتيجية وتطوير الأعمال', c:'#1B3A5C', participation:84, feedback:82, goals:81, oneonone:83, adoption:66},
+      {ar:'الموارد البشرية', c:'#E0A07E', participation:76, feedback:74, goals:68, oneonone:72, adoption:60},
+      {ar:'الحوكمة والمخاطر', c:'#1B3A5C', participation:69, feedback:66, goals:66, oneonone:64, adoption:57},
+    ],
+  },
+
   /* personal interaction snapshot (employee view — growth, not comparison).
      NOTE: recognition RECEIVED is intentionally NOT a Himmah input (avoids popularity effects). */
   myMetrics: {
     recSent:7, fbShared:4, coffee:2, knowledge:1, goalsDone:1, goalsTotal:3, conversations:2,
   },
-  /* Himmah journey — per-pillar progress used ONLY to derive a qualitative stage.
-     The raw values are internal; the employee sees STAGES + coaching, not a comparable score. */
-  himmah: { alignment:67, contribution:72, development:58, participation:81 },
+  /* Himmah activity FACTS — rule-based stages are derived from these booleans/counts.
+     No hidden numeric score is computed or shown; rules map facts -> qualitative stage. */
+  himmahFacts: {
+    // alignment
+    activeGoals: 3, goalsLinkedToPriority: 3, goalsLinkedToBehavior: 2, clarityConfirmed: true,
+    // participation
+    pulseDone: true, voiceShared: true, oneOnOneAttended: true,
+    // development
+    skillsUpdated: true, devActionsDone: 1, learningParticipated: false,
+    // contribution
+    contributedToGoals: true, meaningfulRecognitionSent: 7, knowledgeShared: true, supportedOthers: true,
+  },
 };
