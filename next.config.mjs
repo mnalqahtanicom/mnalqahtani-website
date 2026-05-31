@@ -12,6 +12,17 @@ const nextConfig = {
   async redirects() {
     // Old insights routes now live under the Knowledge Hub
     return [
+      // Convenience: bare prototype path -> its index.html
+      {
+        source: '/talemia-platform',
+        destination: '/talemia-platform/index.html',
+        permanent: false,
+      },
+      {
+        source: '/talemia-platform/',
+        destination: '/talemia-platform/index.html',
+        permanent: false,
+      },
       {
         source: '/:locale(ar|en)/insights',
         destination: '/:locale/knowledge',
