@@ -7,7 +7,8 @@ import Container from '@/components/ui/Container';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const navItems = [
-  { key: 'insights', href: '/insights' },
+  { key: 'knowledge', href: '/knowledge' },
+  { key: 'frameworks', href: '/frameworks' },
   { key: 'framework', href: '/strategy-to-results' },
   { key: 'about', href: '/about' },
 ] as const;

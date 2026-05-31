@@ -35,17 +35,25 @@ You only do this once.
 ## Publishing an article (the everyday workflow)
 
 1. Open **https://your-project.sanity.studio** and log in.
-2. Click **Article → Create new**.
+2. Click **Knowledge / Resource → Create new**.
 3. Fill in:
    - **Title** — English and Arabic tabs
+   - **Type** — choose one: Article, Lesson Learned, Professional Insight, Book
+     Summary, Course Summary, Best Practice (Knowledge Hub) — or Framework,
+     Template, Tool, Checklist, Model, Downloadable Resource (Frameworks & Tools).
+     The item automatically appears in the right section.
    - **Slug** — click "Generate" (creates the web address)
    - **Excerpt** — a one-line summary (English + Arabic)
    - **Category** — pick from the list (or create one under *Category*)
    - **Tags** — type and press enter
    - **Cover image** — drag-and-drop; it's optimized automatically
-   - **Body** — write the article (English + Arabic tabs)
-   - **Featured** — toggle ON to show it on the homepage
-4. Click **Publish**. It appears on the live site within seconds.
+   - **Downloadable file** — optional; attach a template, framework, checklist,
+     or tool for visitors to download
+   - **Body** — write the content (English + Arabic tabs)
+   - **Meta & SEO tab** — **Featured** (show on homepage), **Published at**, and
+     optional **SEO** title/description overrides
+4. Click **Publish**. It appears on the live site within seconds. Save without
+   publishing to keep it as a **draft**; use **Unpublish** to take it down.
 
 That's it — no code, no redeploy.
 
