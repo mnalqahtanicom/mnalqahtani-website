@@ -62,4 +62,12 @@ window.TP = {
   ],
   org: { engagement:15, enps:-19, los:71, behaviorPrev:[62,55,71,58,49,53,68,47,44,57,60,51],
     adoption:[['وعي',18],['فهم',24],['تجربة',29],['تبنّي',21],['متجذّر',8]] },
+
+  /* personal interaction metrics (employee view — not comparative) */
+  myMetrics: {
+    recSent:7, recReceived:5, fbSent:4, fbReceived:3,
+    coffee:2, knowledge:1, goalsDone:1, goalsTotal:3, meetings:6,
+  },
+  /* Himmah pillars (0-100) — personal, developmental */
+  himmah: { alignment:67, contribution:72, development:58, participation:81 },
 };

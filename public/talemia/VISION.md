@@ -69,15 +69,27 @@ Designed for **action**: each metric pairs with a "nudge / follow-up" affordance
 
 ---
 
-## 4. Executive Analytics *(Intelligence layer — leaderboards & rankings)*
+## 4. Executive Analytics *(Intelligence layer — AGGREGATE ONLY, NO employee leaderboards)*
 
-People rankings (recognition-positive framing; **opt-in & privacy-bounded**; never punitive):
-- Most **engaged** · most **active** · most **collaborative** (التعاون/التكامل) · most **recognized** · most **feedback-active** employees · most **active managers**.
+> **Governance (locked):** the platform does **NOT** rank employees and does **NOT** show
+> competitive public leaderboards of individuals. No "most engaged employee" lists.
+> The goal is participation and belonging, never employee competition.
 
-Sector rankings:
-- Most **engaged** sector · most **active** sector · highest **recognition** sector · highest **feedback participation** sector · highest **goal-completion** sector.
+**Aggregate insights only**, at organizational / sector / department / manager level:
+- Most **engaged** sector · most **active** sector · highest **recognition** sector ·
+  highest **feedback-participation** sector · highest **goal-completion** sector.
+- Department- and manager-level rollups of the same metrics.
+- Organizational engagement, participation, recognition, feedback, and adoption trends.
 
-Framing rule: rankings celebrate and surface role models; they are **not** performance ratings and never feed compensation (governance preserved).
+**Personal view for the employee (not comparative):**
+- A personal **Himmah Score (مؤشر الهِمّة)** — a growth/contribution indicator blending the
+  employee's *alignment* (Golden-Thread completeness), *contribution* (goals/recognition given),
+  *development* (growth activity), and *participation* (feedback/voice). It is **personal and
+  developmental** — shown only to the employee (and their manager for support), never ranked
+  against peers, never public, never tied to compensation.
+
+Framing rule: insights celebrate collective momentum and guide support — they are **not**
+performance ratings and never feed compensation.
 
 ---
 
@@ -132,6 +144,7 @@ Lets leadership see culture forming in real terms — and spot under-reinforced 
 
 - **No new business modules** beyond the approved 15; items 3–8 are an **analytics & operations deepening** of existing modules (M8 Insights, M7 Change, M4 Recognition, M5 Voice, M1 Golden Thread).
 - **Governance preserved:** aggregate-only for executives, **n≥5** anonymity floor, voice confidentiality = user choice, recognition non-compensatory, flag-for-review for goals, manager-authored experiences via templates.
+- **No employee competition:** no public ranking of individuals; aggregate (org/sector/dept/manager) insights for leadership; **operational follow-up lists** (who hasn't completed required activities) are visible **only to HC & Change Management** for supportive follow-up — never to executives as rankings, never punitive. Employees see a **personal, developmental Himmah Score** focused on growth/contribution/alignment, not comparison.
 - **Redesign quality bar** (warm Culture Amp × structured Workday, Arabic-first, official branding) applies to every new view.
 
 ---

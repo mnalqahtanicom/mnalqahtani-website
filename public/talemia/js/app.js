@@ -14,17 +14,17 @@
 
   /* ---------------- nav config ---------------- */
   const NAV = {
-    employee:[['home','الرئيسية','home'],['thread','خط الرؤية','thread'],['goals','أهدافي','target'],
-      ['conversations','محادثاتي','chat'],['experience','تجربتي','spark'],['voice','الصوت','voice'],['profile','ملفي','user']],
-    manager:[['home','الرئيسية','home'],['team','فريقي','team'],['thread','خط الرؤية','thread'],['experience','التجارب','spark']],
-    executive:[['home','الرئيسية','home'],['organization','المنظمة','org'],['thread','خط الرؤية','thread'],['experience','التجارب','spark']],
+    employee:[['home','الرئيسية','home'],['himmah','هِمّتي','spark'],['thread','خط الرؤية','thread'],['goals','أهدافي','target'],
+      ['conversations','محادثاتي','chat'],['experience','تجربتي','star'],['voice','الصوت','voice'],['profile','ملفي','user']],
+    manager:[['home','الرئيسية','home'],['team','فريقي','team'],['thread','خط الرؤية','thread'],['experience','التجارب','star']],
+    executive:[['home','الرئيسية','home'],['organization','المنظمة','org'],['thread','خط الرؤية','thread'],['experience','التجارب','star']],
   };
   const TABS = {
-    employee:[['home','الرئيسية','home'],['thread','المسار','thread'],['experience','تجربتي','spark'],['voice','الصوت','voice'],['profile','ملفي','user']],
-    manager:[['home','الرئيسية','home'],['team','فريقي','team'],['thread','المسار','thread'],['experience','التجارب','spark']],
-    executive:[['home','الرئيسية','home'],['organization','المنظمة','org'],['thread','المسار','thread'],['experience','التجارب','spark']],
+    employee:[['home','الرئيسية','home'],['himmah','هِمّتي','spark'],['thread','المسار','thread'],['voice','الصوت','voice'],['profile','ملفي','user']],
+    manager:[['home','الرئيسية','home'],['team','فريقي','team'],['thread','المسار','thread'],['experience','التجارب','star']],
+    executive:[['home','الرئيسية','home'],['organization','المنظمة','org'],['thread','المسار','thread'],['experience','التجارب','star']],
   };
-  const ROUTE_TITLES = { home:'الرئيسية', thread:'خط الرؤية الاستراتيجي', goals:'أهدافي ومؤشراتي',
+  const ROUTE_TITLES = { home:'الرئيسية', himmah:'مؤشّر الهِمّة', thread:'خط الرؤية الاستراتيجي', goals:'أهدافي ومؤشراتي',
     conversations:'محادثاتي', experience:'تجربتي', voice:'الصوت', profile:'ملفي المهني',
     team:'فريقي', organization:'المنظمة' };
 
@@ -32,6 +32,18 @@
   const losPct = ()=>{ const n=TP.goals.length, ok=TP.goals.filter(g=>g.priorities.length&&g.behaviors.length).length; return Math.round(ok/n*100); };
   const avColor = name=>{ const c=['#2C5F90','#1B3A5C','#2EA1A1','#5FA570','#90C685']; let s=0; for(const ch of name)s+=ch.charCodeAt(0); return c[s%c.length]; };
   let tT; function toast(m){ let t=$('#toast'); if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);} t.textContent=m; t.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),2600); }
+  /* Himmah: personal, developmental — blends 4 pillars (not comparative) */
+  const himmahScore = ()=>{ const h=TP.himmah; return Math.round((h.alignment+h.contribution+h.development+h.participation)/4); };
+  const himmahBand = s=>{ const b=COPY.himmah.bands; let r=b[0]; for(const x of b) if(s>=x.min) r=x; return r; };
+  function gauge(pct,size){ size=size||140; const r=(size/2)-12, c=2*Math.PI*r, off=c*(1-pct/100); return `
+    <svg viewBox="0 0 ${size} ${size}" style="width:${size}px;height:${size}px">
+      <defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2EA1A1"/><stop offset="1" stop-color="#90C685"/></linearGradient></defs>
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#eee9df" stroke-width="11"/>
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#hg)" stroke-width="11" stroke-linecap="round"
+        stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 ${size/2} ${size/2})" style="transition:stroke-dashoffset 1.2s var(--ease-out)"/>
+      <text x="50%" y="48%" text-anchor="middle" font-size="${size*0.26}" font-weight="900" fill="#13303D" font-family="Tajawal">${pct}</text>
+      <text x="50%" y="66%" text-anchor="middle" font-size="${size*0.1}" font-weight="700" fill="#7B8A91" font-family="Tajawal">الهِمّة</text>
+    </svg>`; }
 
   /* ============================================================
      HOME — inspiring, editorial, dual-mode balanced
@@ -58,6 +70,21 @@
     <div class="grid g-7-5 reveal d2" style="margin-top:22px">
       <!-- ALIGNMENT column -->
       <div class="stack">
+        <div class="card lift" style="cursor:pointer" data-go="himmah">
+          <div class="h">${I('spark','ic-lg')}<h3>مؤشّر الهِمّة</h3><span class="tag info" style="margin-inline-start:auto">${himmahBand(himmahScore()).ar}</span></div>
+          <div class="rowflex" style="justify-content:space-between">
+            ${gauge(himmahScore(),130)}
+            <div style="flex:1;min-width:180px">
+              <p class="soft" style="margin-bottom:10px">${himmahBand(himmahScore()).msg}</p>
+              <div class="rowflex" style="gap:8px">
+                <span class="pill beh">المواءمة ${TP.himmah.alignment}</span>
+                <span class="pill beh">الإسهام ${TP.himmah.contribution}</span>
+                <span class="pill beh">التطوير ${TP.himmah.development}</span>
+                <span class="pill beh">المشاركة ${TP.himmah.participation}</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="card">
           <div class="h">${I('thread','ic-lg')}<h3>خط الرؤية — مسارك إلى ٢٠٢٦</h3></div>
           <div class="rowflex" style="justify-content:space-between">
@@ -133,6 +160,38 @@
       </div>
       <div class="notice info" style="margin-top:10px">${I('check','ic-sm')} هذا الهدف مرتبط بالكامل — أولوية واضحة وسلوك واضح. كل عملك يصبّ في رؤية التعليمية.</div>
     </div>`;
+  }
+
+  /* ============================================================
+     HIMMAH — personal, developmental (no comparison/ranking)
+     ============================================================ */
+  function himmah(){
+    const h=TP.himmah, s=himmahScore(), band=himmahBand(s), m=TP.myMetrics;
+    const P=COPY.himmah.pillars;
+    const pillar=(key,val)=>`<div class="card flat"><div class="h" style="margin-bottom:8px">${I('growth')}<h3 style="font-size:16px">${P[key].ar}</h3><b class="tnum" style="margin-inline-start:auto;font-size:22px;color:var(--blue)">${val}</b></div>
+      <div class="fbar"><div class="track"><div class="fill" style="width:${val}%"></div></div></div>
+      <p class="soft" style="font-size:13px;margin-top:4px">${P[key].d}</p></div>`;
+    const stat=(lbl,v,ic)=>`<div class="kpi" style="padding:18px"><div class="rowflex" style="gap:10px"><span style="color:var(--teal)">${I(ic)}</span><div><div class="num tnum" style="font-size:28px">${v}</div><div class="lbl">${lbl}</div></div></div></div>`;
+    return `
+    <div class="sec-head reveal"><div><h2 class="grad-warm">${COPY.himmah.title}</h2><div class="desc">${COPY.himmah.sub}</div></div></div>
+    <div class="card pad-lg reveal d2" style="background:radial-gradient(120% 130% at 88% -20%,rgba(108,190,153,.18),transparent 55%)">
+      <div class="rowflex" style="justify-content:space-between;align-items:center">
+        <div class="rowflex" style="gap:24px">
+          ${gauge(s,170)}
+          <div><span class="tag info">${band.ar}</span>
+            <h2 style="margin:10px 0 6px;max-width:24ch">${band.msg}</h2>
+            <p class="soft">هذا مؤشّرك الشخصي — يقيس نموّك ومواءمتك وأثرك، لا مقارنتك بأحد.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec-head reveal d3" style="margin-top:24px"><div><h2 style="font-size:22px">ركائز هِمّتك الأربع</h2></div></div>
+    <div class="grid g4 reveal d3">${pillar('alignment',h.alignment)}${pillar('contribution',h.contribution)}${pillar('development',h.development)}${pillar('participation',h.participation)}</div>
+    <div class="sec-head reveal d4" style="margin-top:24px"><div><h2 style="font-size:22px">إسهامك هذا العام</h2><div class="desc">صورة شخصية لمشاركتك — للنمو لا للمقارنة.</div></div></div>
+    <div class="grid g4 reveal d4">
+      ${stat('تقدير قدّمته',m.recSent,'heart')}${stat('تقدير استلمته',m.recReceived,'star')}
+      ${stat('مشاركات صوت',m.fbSent,'voice')}${stat('جلسات معرفة',m.knowledge+m.coffee,'team')}
+    </div>
+    <div class="notice info reveal d5" style="margin-top:18px">${I('shield','ic-sm')} مؤشّر الهِمّة شخصيّ وتطويري — يظهر لك ولمديرك للدعم فقط، ولا يُقارَن بالزملاء ولا يرتبط بأي تقييم أو مكافأة.</div>`;
   }
 
   /* ============================================================
@@ -278,7 +337,7 @@
   /* ============================================================
      SHELL + ROUTER
      ============================================================ */
-  const VIEW = { home, thread, goals,
+  const VIEW = { home, himmah, thread, goals,
     conversations:()=>placeholder('محادثاتي'), experience:()=>{ openExperience(); return home(); },
     voice:()=>placeholder('الصوت'), profile:()=>placeholder('ملفي المهني'),
     team:()=>placeholder('فريقي'), organization:execHome };
