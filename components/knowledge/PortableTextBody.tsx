@@ -20,14 +20,10 @@ const components: PortableTextComponents = {
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="mb-5 list-disc space-y-2 ps-6 text-lg text-slate">
-        {children}
-      </ul>
+      <ul className="mb-5 list-disc space-y-2 ps-6 text-lg text-slate">{children}</ul>
     ),
     number: ({ children }) => (
-      <ol className="mb-5 list-decimal space-y-2 ps-6 text-lg text-slate">
-        {children}
-      </ol>
+      <ol className="mb-5 list-decimal space-y-2 ps-6 text-lg text-slate">{children}</ol>
     ),
   },
   marks: {

@@ -6,11 +6,9 @@
   },
   "nav": {
     "about": "About",
-    "expertise": "Expertise",
-    "insights": "Insights",
+    "knowledge": "Knowledge Hub",
+    "frameworks": "Frameworks & Tools",
     "framework": "Strategy to Results™",
-    "speaking": "Speaking",
-    "media": "Media",
     "contact": "Contact",
     "switchTo": "عربي"
   },
@@ -55,6 +53,11 @@
         { "topic": "Governance", "title": "Governance that accelerates, not slows", "excerpt": "Designing oversight that enables bold decisions." },
         { "topic": "Leadership", "title": "The leader's role in making change stick", "excerpt": "Culture is the operating system of execution." }
       ]
+    },
+    "frameworks": {
+      "tag": "Frameworks & Tools",
+      "title": "Practical tools you can use.",
+      "viewAll": "Browse Frameworks & Tools"
     },
     "quote": {
       "text": "A strategy only matters if the organization can actually carry it out. Most of what I write about lives in that gap — between intent and results.",
@@ -183,6 +186,43 @@
     "title": "We're working on something exceptional.",
     "line1": "The website is currently being updated.",
     "line2": "Please check back soon."
+  },
+  "knowledgeFormats": {
+    "article": "Article",
+    "lesson-learned": "Lesson Learned",
+    "insight": "Professional Insight",
+    "book-summary": "Book Summary",
+    "course-summary": "Course Summary",
+    "best-practice": "Best Practice",
+    "framework": "Framework",
+    "template": "Template",
+    "tool": "Tool",
+    "checklist": "Checklist",
+    "model": "Model",
+    "resource": "Resource"
+  },
+  "library": {
+    "searchPlaceholder": "Search…",
+    "allFormats": "All",
+    "allCategories": "All categories",
+    "noResults": "Nothing matches your search yet.",
+    "featured": "Featured",
+    "download": "Download",
+    "back": "All resources",
+    "relatedTitle": "Related",
+    "tagsLabel": "Tags"
+  },
+  "knowledgePage": {
+    "metaTitle": "Knowledge Hub",
+    "metaDescription": "Practical knowledge from real-world experience — articles, lessons learned, insights, and book and course summaries.",
+    "title": "Knowledge Hub",
+    "subtitle": "Practical knowledge from real-world experience — articles, lessons learned, insights, and summaries."
+  },
+  "frameworksPage": {
+    "metaTitle": "Frameworks & Tools",
+    "metaDescription": "Practical frameworks, templates, checklists, models, and tools you can download, use, and adapt.",
+    "title": "Frameworks & Tools",
+    "subtitle": "Practical frameworks, templates, checklists, and tools you can use and adapt."
   },
   "insightsPage": {
     "metaTitle": "Insights",

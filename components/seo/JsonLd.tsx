@@ -35,14 +35,14 @@ export function PersonJsonLd({ locale }: { locale: string }) {
 
 export function ArticleJsonLd({
   locale,
-  slug,
+  path,
   title,
   description,
   datePublished,
   image,
 }: {
   locale: string;
-  slug: string;
+  path: string;
   title: string;
   description: string;
   datePublished: string;
@@ -56,7 +56,7 @@ export function ArticleJsonLd({
     datePublished,
     inLanguage: locale,
     image: image ? [image] : undefined,
-    mainEntityOfPage: `${siteConfig.url}/${locale}/insights/${slug}`,
+    mainEntityOfPage: `${siteConfig.url}/${locale}${path}`,
     author: { '@type': 'Person', name: 'Mohammed Nasser Al-Qahtani' },
     publisher: { '@type': 'Person', name: 'Mohammed Nasser Al-Qahtani' },
   };

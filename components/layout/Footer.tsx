@@ -4,7 +4,8 @@ import Container from '@/components/ui/Container';
 import { activeSocialLinks } from '@/lib/site';
 
 const footerLinks = [
-  { key: 'insights', href: '/insights' },
+  { key: 'knowledge', href: '/knowledge' },
+  { key: 'frameworks', href: '/frameworks' },
   { key: 'framework', href: '/strategy-to-results' },
   { key: 'about', href: '/about' },
   { key: 'contact', href: '/contact' },

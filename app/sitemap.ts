@@ -1,20 +1,23 @@
 import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
 import { siteConfig } from '@/lib/site';
-import { getAllInsightSlugs } from '@/lib/insights';
+import { getAllKnowledgeRefs } from '@/lib/knowledge';
 
-// Static routes that exist today (expanded as pages ship in later phases)
 const staticPaths = [
   '',
   '/strategy-to-results',
-  '/insights',
+  '/knowledge',
+  '/frameworks',
   '/about',
   '/contact',
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const slugs = await getAllInsightSlugs();
-  const paths = [...staticPaths, ...slugs.map((slug) => `/insights/${slug}`)];
+  const refs = await getAllKnowledgeRefs();
+  const paths = [
+    ...staticPaths,
+    ...refs.map((r) => `/${r.pillar}/${r.slug}`),
+  ];
 
   return paths.flatMap((path) =>
     routing.locales.map((locale) => ({
