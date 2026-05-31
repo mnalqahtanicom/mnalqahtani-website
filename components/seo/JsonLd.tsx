@@ -1,7 +1,12 @@
-import { activeSocialLinks, siteConfig } from '@/lib/site';
+import { siteConfig } from '@/lib/site';
 
-export function PersonJsonLd({ locale }: { locale: string }) {
-  const sameAs = activeSocialLinks.map((s) => s.href);
+export function PersonJsonLd({
+  locale,
+  sameAs = [],
+}: {
+  locale: string;
+  sameAs?: string[];
+}) {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Person',

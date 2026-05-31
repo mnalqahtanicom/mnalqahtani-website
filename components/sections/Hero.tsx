@@ -1,10 +1,18 @@
-import { useTranslations } from 'next-intl';
+import { getLocale, getTranslations } from 'next-intl/server';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import Portrait from '@/components/ui/Portrait';
+import { getSettings } from '@/lib/settings';
+import type { Locale } from '@/lib/knowledge/types';
 
-export default function Hero() {
-  const t = useTranslations('home.hero');
+export default async function Hero() {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations('home.hero');
+  const settings = await getSettings(locale);
+
+  const eyebrow = settings.hero.eyebrow || t('eyebrow');
+  const headline = settings.hero.headline || t('headline');
+  const subline = settings.hero.subline || t('subline');
 
   return (
     <section className="motif relative overflow-hidden bg-navy text-ivory">
@@ -13,16 +21,16 @@ export default function Hero() {
           <div>
             <span className="mb-5 inline-flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.22em] text-gold rtl:tracking-normal rtl:normal-case">
               <span className="inline-block h-px w-8 bg-gold" aria-hidden />
-              {t('eyebrow')}
+              {eyebrow}
             </span>
             <h1 className="mb-5 text-[clamp(2.5rem,6vw,4.25rem)] text-white">
-              {t('headline')}
+              {headline}
             </h1>
-            <p className="mb-8 max-w-[40ch] text-lg font-light text-ivory/80 sm:text-xl">
-              {t('subline')}
+            <p className="mb-8 max-w-[44ch] text-lg font-light text-ivory/80 sm:text-xl">
+              {subline}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button href="/insights" variant="gold">
+              <Button href="/knowledge" variant="gold">
                 {t('ctaPrimary')}
               </Button>
               <Button href="/strategy-to-results" variant="ghost">
@@ -31,8 +39,8 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-[340px]">
-            <Portrait alt={t('portraitAlt')} />
+          <div className="mx-auto w-full max-w-[360px]">
+            <Portrait src={settings.portraitUrl} alt={t('portraitAlt')} />
           </div>
         </div>
       </Container>

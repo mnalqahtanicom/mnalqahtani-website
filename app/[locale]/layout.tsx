@@ -4,7 +4,9 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { fontVariables } from '@/lib/fonts';
-import { maintenanceMode, siteConfig } from '@/lib/site';
+import { siteConfig } from '@/lib/site';
+import { getSettings } from '@/lib/settings';
+import type { Locale } from '@/lib/knowledge/types';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MaintenancePage from '@/components/MaintenancePage';
@@ -21,14 +23,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home.meta' });
+  const settings = await getSettings(locale as Locale);
 
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
-      default: t('title'),
+      default: settings.seo.title ?? t('title'),
       template: `%s — ${siteConfig.name}`,
     },
-    description: t('description'),
+    description: settings.seo.description ?? t('description'),
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -62,13 +65,18 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
+  const settings = await getSettings(locale as Locale);
 
   return (
     <html lang={locale} dir={dir} className={fontVariables}>
       <body>
         <NextIntlClientProvider>
-          {maintenanceMode ? (
-            <MaintenancePage />
+          {settings.maintenance.enabled ? (
+            <MaintenancePage
+              title={settings.maintenance.title}
+              line1={settings.maintenance.line1}
+              line2={settings.maintenance.line2}
+            />
           ) : (
             <div className="flex min-h-screen flex-col">
               <Header />

@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { siteConfig } from '@/lib/site';
 
 export default function ContactForm({
+  recipient,
   labels,
 }: {
+  recipient: string;
   labels: {
     nameLabel: string;
     emailLabel: string;
@@ -23,7 +24,7 @@ export default function ContactForm({
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\n${message}`,
     );
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
   }
 
   const field =
